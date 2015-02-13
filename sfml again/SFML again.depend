@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1423682335 source:c:\code stuff\sfml again\main.cpp
+	<iostream>
+	<SFML/Graphics.hpp>
+
+1423858922 source:c:\code stuff\second-semester-project\sfml again\main.cpp
+	<iostream>
+	<SFML/Graphics.hpp>
+
