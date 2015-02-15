@@ -74,9 +74,9 @@ int main()
         }
         position=sf::Mouse::getPosition(window);
         window.clear();
-        Button1.buttonSelection(Button1.coordinates, position);
+        Button1.coordinates=Button1.buttonSelection(Button1.coordinates, position);
         Button1.button.setPosition(Button1.coordinates.x,Button1.coordinates.y);
-        Button2.buttonSelection(Button2.coordinates, position);
+        Button2.coordinates=Button2.buttonSelection(Button2.coordinates, position);
         Button2.button.setPosition(Button2.coordinates.x,Button2.coordinates.y+110);
         window.draw(menu);
         window.draw(Button1.button);
