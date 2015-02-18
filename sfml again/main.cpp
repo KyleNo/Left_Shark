@@ -9,38 +9,38 @@ public:
     sf::Texture buttonLoadingTexture;
     sf::Vector2i coordinates;
     sf::Sprite button;
-    void setButton();
-    sf::Vector2i buttonSelection(sf::Vector2i coordinates, sf::Vector2i position);
+    void setButton(int x, int y);
+    sf::Vector2i buttonSelection( sf::Vector2i position);
 };
 
-void buttonTemplate::setButton()
+void buttonTemplate::setButton(int x, int y)
 {
     if (!buttonLoadingTexture.loadFromFile("button420.png"))
     {
 
     }
     button.setTexture(buttonLoadingTexture);
-    coordinates.x=200;
-    coordinates.y=300;
+    coordinates.x=x;
+    coordinates.y=y;
 }
 
-sf::Vector2i buttonTemplate::buttonSelection(sf::Vector2i coordinates, sf::Vector2i position)
+sf::Vector2i buttonTemplate::buttonSelection( sf::Vector2i position)
 {
-    cout << coordinates.x << " " << coordinates.y << endl;
-    if (position.x >coordinates.x and position.x < coordinates.x+200 and position.y > coordinates.y and position.y<coordinates.y+100)
+    //cout << coordinates.x << " " << coordinates.y << endl;
+    if (position.x >=coordinates.x and position.x <= coordinates.x+200 and position.y >=coordinates.y and position.y<=coordinates.y+100)
+    {
+        if (coordinates.x<250)
         {
-            if (coordinates.x<250)
-            {
-                coordinates.x++;
-            }
+            coordinates.x++;
         }
-        else
+    }
+    else
+    {
+        if (coordinates.x>200)
         {
-            if (coordinates.x>200)
-            {
-               coordinates.x--;
-            }
+           coordinates.x--;
         }
+    }
         return coordinates;
 }
 
@@ -51,8 +51,8 @@ int main()
     sf::Texture menuLoadingTexture;
     buttonTemplate Button1;
     buttonTemplate Button2;
-    Button1.setButton();
-    Button2.setButton();
+    Button1.setButton(200,300);
+    Button2.setButton(200,410);
 
     if (!menuLoadingTexture.loadFromFile("menu420.png"))
     {
@@ -74,10 +74,10 @@ int main()
         }
         position=sf::Mouse::getPosition(window);
         window.clear();
-        Button1.coordinates=Button1.buttonSelection(Button1.coordinates, position);
+        Button1.coordinates=Button1.buttonSelection( position);
         Button1.button.setPosition(Button1.coordinates.x,Button1.coordinates.y);
-        Button2.coordinates=Button2.buttonSelection(Button2.coordinates, position);
-        Button2.button.setPosition(Button2.coordinates.x,Button2.coordinates.y+110);
+        Button2.coordinates=Button2.buttonSelection(position);
+        Button2.button.setPosition(Button2.coordinates.x,Button2.coordinates.y);
         window.draw(menu);
         window.draw(Button1.button);
         window.draw(Button2.button);
