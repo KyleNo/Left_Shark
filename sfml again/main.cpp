@@ -2,15 +2,16 @@
 #include <SFML/Graphics.hpp>
 
 using namespace std;
-
+using namespace sf;
 class buttonTemplate
 {
 public:
-    sf::Texture buttonLoadingTexture;
-    sf::Vector2i coordinates;
-    sf::Sprite button;
+    Texture buttonLoadingTexture;
+    Vector2i coordinates;
+    Sprite button;
     void setButton(int x, int y);
-    sf::Vector2i buttonSelection(sf::Vector2i coordinates, sf::Vector2i position);
+    Vector2i buttonSelection(sf::Vector2i coordinates, Vector2i position);
+    bool hover=false;
 };
 
 void buttonTemplate::setButton(int x, int y)
@@ -24,30 +25,32 @@ void buttonTemplate::setButton(int x, int y)
     coordinates.y=y;
 }
 
-sf::Vector2i buttonTemplate::buttonSelection(sf::Vector2i coordinates, sf::Vector2i position)
+Vector2i buttonTemplate::buttonSelection(Vector2i coordinates, Vector2i position)
 {
     if (position.x >coordinates.x and position.x < coordinates.x+200 and position.y > coordinates.y and position.y<coordinates.y+100)
+    {
+        if (coordinates.x<250)
         {
-            if (coordinates.x<250)
-            {
-                coordinates.x++;
-            }
+            coordinates.x++;
         }
-        else
+        hover=true;
+    }
+    else
+    {
+        if (coordinates.x>200)
         {
-            if (coordinates.x>200)
-            {
-               coordinates.x--;
-            }
+            coordinates.x--;
         }
-        return coordinates;
+        hover=false;
+    }
+    return coordinates;
 }
 
 int main()
 {
-    sf::Vector2i position;
-    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML Saves!");
-    sf::Texture menuLoadingTexture;
+    Vector2i position;
+    RenderWindow window(sf::VideoMode(800, 600), "SFML Saves!");
+    Texture menuLoadingTexture;
     buttonTemplate Button1;
     buttonTemplate Button2;
     Button1.setButton(200,300);
@@ -59,24 +62,40 @@ int main()
     }
 
 
-    sf::Sprite menu;
+    Sprite menu;
 
     menu.setTexture(menuLoadingTexture);
 
     while (window.isOpen())
     {
-        sf::Event event;
+        Event event;
         while(window.pollEvent(event))
         {
-            if (event.type == sf::Event::Closed)
+            if (event.type == Event::Closed)
                 window.close();
+            if (event.type == Event::MouseButtonPressed)
+            {
+                if (event.mouseButton.button == Mouse::Left and (Button1.hover==true or Button2.hover==true))
+                {
+                    if(Button1.hover==true)
+                    {
+                        cout << "Button 1 pressed.\n";
+                    }
+                    else
+                    {
+                        cout << "Button 2 pressed.\n";
+                    }
+                }
+            }
         }
-        position=sf::Mouse::getPosition(window);
+
+        position=Mouse::getPosition(window);
         window.clear();
         Button1.coordinates=Button1.buttonSelection(Button1.coordinates, position);
         Button1.button.setPosition(Button1.coordinates.x,Button1.coordinates.y);
         Button2.coordinates=Button2.buttonSelection(Button2.coordinates, position);
         Button2.button.setPosition(Button2.coordinates.x,Button2.coordinates.y);
+
         window.draw(menu);
         window.draw(Button1.button);
         window.draw(Button2.button);
