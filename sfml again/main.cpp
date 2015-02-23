@@ -10,8 +10,10 @@ public:
     Vector2i coordinates;
     Sprite button;
     void setButton(int x, int y);
-    Vector2i buttonSelection(sf::Vector2i coordinates, Vector2i position);
+    Vector2i buttonSelection(Vector2i coordinates, Vector2i position);
+    double buttonscale(double addon);
     bool hover=false;
+    double addon=1;
 };
 
 void buttonTemplate::setButton(int x, int y)
@@ -44,6 +46,15 @@ Vector2i buttonTemplate::buttonSelection(Vector2i coordinates, Vector2i position
         hover=false;
     }
     return coordinates;
+}
+
+double buttonTemplate::buttonscale(double addon)
+{
+    if(addon>1)
+    {
+        addon=addon-.002;
+    }
+    return addon;
 }
 
 int main()
@@ -79,11 +90,14 @@ int main()
                 {
                     if(Button1.hover==true)
                     {
-                        cout << "Button 1 pressed.\n";
+                        //cout << "Button 1 pressed.\n";
+
+                        Button1.addon=1.2;
                     }
                     else
                     {
-                        cout << "Button 2 pressed.\n";
+                        //cout << "Button 2 pressed.\n";
+                        Button2.addon=1.2;
                     }
                 }
             }
@@ -95,6 +109,10 @@ int main()
         Button1.button.setPosition(Button1.coordinates.x,Button1.coordinates.y);
         Button2.coordinates=Button2.buttonSelection(Button2.coordinates, position);
         Button2.button.setPosition(Button2.coordinates.x,Button2.coordinates.y);
+        Button1.button.setScale(Button1.addon,Button1.addon);
+        Button2.button.setScale(Button2.addon,Button2.addon);
+        Button1.addon=Button1.buttonscale(Button1.addon);
+        Button2.addon=Button2.buttonscale(Button2.addon);
 
         window.draw(menu);
         window.draw(Button1.button);
