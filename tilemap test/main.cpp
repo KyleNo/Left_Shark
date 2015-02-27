@@ -27,8 +27,8 @@ int main()
 //    assert(document["height"].IsInt());
 //    shittyshit.height=document["height"];
 //    shittyshit.width=document["width"];
-shittyshit.height=100;
-shittyshit.width=100;
+    shittyshit.height=100;
+    shittyshit.width=100;
     for (rapidjson::SizeType i=0;i<sizeof(a);i++)
     {
         shittyshit.data.push_back(a[i].GetInt());
