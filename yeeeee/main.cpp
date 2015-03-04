@@ -20,7 +20,7 @@ void declareTiles(){
     tileSelectorValid.tileTexture.loadFromFile(tileSelectorValid.tileFileLocation);
 
     tileSelectorInvalid.tileID = 5;
-    tileSelectorInvalid.tileFileLocation = "invalidTile.png";
+    tileSelectorInvalid.tileFileLocation = "REDSELECT.png";
     tileSelectorInvalid.tileTexture.loadFromFile(tileSelectorInvalid.tileFileLocation);
 }
 void tile::drawToGrid(int orderX, int orderY){
