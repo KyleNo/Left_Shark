@@ -90,30 +90,6 @@ int main(){
     window.setView(view1);
     window.setFramerateLimit(60);
 
-<<<<<<< HEAD
-    grassTile.tileID = 1;
-    grassTile.tileFileLocation = "Grass.png";
-    grassTile.tileTexture.loadFromFile(grassTile.tileFileLocation);
-
-    sandTile.tileID = 2;
-    sandTile.tileFileLocation = "Sand.png";
-    sandTile.tileTexture.loadFromFile(sandTile.tileFileLocation);
-
-    waterTile.tileID = 3;
-    waterTile.tileFileLocation = "Water.png";
-    waterTile.tileTexture.loadFromFile(waterTile.tileFileLocation);
-
-    sf::Texture selector;
-    if (!selector.loadFromFile("SELECT.png", sf::IntRect(32*4,32*4,32,32)))
-    {
-        // error...
-    }
-    sf::Sprite select;
-    select.setTexture(selector);
-
-
-=======
->>>>>>> origin/Source-engine
  tilemap testmap;
     testmap.mapSize = 400;
     testmap.generateTileCollection();
