@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1425078773 source:c:\users\jordan\desktop\computer science\yeeeee\main.cpp
+1425494307 source:c:\users\jordan\desktop\computer science\yeeeee\main.cpp
 	"main.h"
 
-1424726739 c:\users\jordan\desktop\computer science\yeeeee\main.h
+1425494450 c:\users\jordan\desktop\computer science\yeeeee\main.h
 	<SFML/Graphics.hpp>
 	"rapidjson-master\include\rapidjson\document.h"
 	"rapidjson-master\include\rapidjson\writer.h"
@@ -115,6 +115,7 @@
 	<utility>
 	"internal/stack.h"
 
+<<<<<<< HEAD
 1424726839 c:\users\jordan\desktop\computer science\yeeeee\tile.h
 	"string.h"
 	"main.h"
@@ -236,6 +237,9 @@
 	"internal/stack.h"
 
 1425493471 c:\users\kyle\documents\github\left_shark\yeeeee\tile.h
+=======
+1425491929 c:\users\jordan\desktop\computer science\yeeeee\tile.h
+>>>>>>> origin/Source-engine
 	"string.h"
 	"main.h"
 

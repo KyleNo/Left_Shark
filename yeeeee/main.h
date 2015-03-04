@@ -46,7 +46,7 @@ class hero{
 public:
     heroClass job;
     vector<int>stats;
-    vector<ability> jobAbilities;
+    vector<ability>jobAbilities;
 
 
 };
