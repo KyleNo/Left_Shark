@@ -1,7 +1,7 @@
-#include "json.h"
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include "resources/tmxparser.h"
 
 using namespace std;
 
@@ -15,5 +15,6 @@ public:
 
 int main()
 {
-
+    tmxparser::TmxMap yee;
+    tmxparser::TmxReturn error = tmxparser::parseFromFile() )
 }
