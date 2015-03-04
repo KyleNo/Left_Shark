@@ -70,13 +70,13 @@ int main(){
     waterTile.tileFileLocation = "Water.png";
     waterTile.tileTexture.loadFromFile(waterTile.tileFileLocation);
 
-//    sf::Texture selector;
-//    if (!selector.loadFromFile("SELECT.png", sf::IntRect(32*4,32*4,32,32)))
-//    {
-//        // error...
-//    }
-//    sf::Sprite select;
-//    select.setTexture(selector);
+    sf::Texture selector;
+    if (!selector.loadFromFile("SELECT.png", sf::IntRect(32*4,32*4,32,32)))
+    {
+        // error...
+    }
+    sf::Sprite select;
+    select.setTexture(selector);
 
 
  tilemap testmap;
