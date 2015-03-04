@@ -16,7 +16,7 @@ void declareTiles(){
     waterTile.tileTexture.loadFromFile(waterTile.tileFileLocation);
 
     tileSelectorValid.tileID = 4;
-    tileSelectorValid.tileFileLocation = "validTile.png";
+    tileSelectorValid.tileFileLocation = "SELECT.png";
     tileSelectorValid.tileTexture.loadFromFile(tileSelectorValid.tileFileLocation);
 
     tileSelectorInvalid.tileID = 5;
