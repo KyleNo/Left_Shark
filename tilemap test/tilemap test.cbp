@@ -33,6 +33,12 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="main.cpp" />
+		<Unit filename="resources/TMXParser.h" />
+		<Unit filename="resources/base64.cpp" />
+		<Unit filename="resources/base64.h" />
+		<Unit filename="resources/tinyxml2.cpp" />
+		<Unit filename="resources/tinyxml2.h" />
+		<Unit filename="resources/tmxparser.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
