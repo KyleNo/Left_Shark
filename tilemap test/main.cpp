@@ -5,28 +5,20 @@
 
 using namespace std;
 
-class loadedmap
-{
-public:
-    int height;
-    int width;
-    vector<int>data;
-};
+
 
 int main()
 {
-    loadedmap progress;
     tmxparser::TmxMap yee;
     tmxparser::TmxReturn error;
     error = tmxparser::parseFromFile("coolmap.tmx", &yee, "tilesets/");
 
     if (!error)
     {
-        progress.height=yee.height;
-        progress.width=yee.width;
-        for(auto it=yee.tilesetCollection.begin();it!=yee.tilesetCollection.end();++it)
+        for (int i =0;i<512;i++)
         {
-            progress.data.push_back(yee.tilesetCollection[it]);
+        cout << yee.layerCollection[0].tiles[i].gid << endl;
         }
     }
 }
+
