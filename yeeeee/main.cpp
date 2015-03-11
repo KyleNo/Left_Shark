@@ -1,15 +1,16 @@
 #include "main.h"
 #include "resources/TMXParser.h"
-sf::RenderWindow window(sf::VideoMode(640,640), "Cool");
+sf::RenderWindow window(sf::VideoMode(640,640), "Cool"); //renders window
 
 
 
 void declareTiles(){
-    string tilesetlocation="tilesets/tileset.bmp";
-    grassTile.tileID = 1;
-    grassTile.passable = true;
-    grassTile.tileFileLocation = "grass.png";
-    grassTile.tileTexture.loadFromFile(grassTile.tileFileLocation);
+    string tilesetlocation="tilesets/tileset.bmp"; //sets tileset
+    //tiles:
+    grassTile.tileID = 1; //gives grass tiles numeric value for drawing
+    grassTile.passable = true; //determines whether or not a tile can be traveled on
+    grassTile.tileFileLocation = "grass.png"; //selects image for tile
+    grassTile.tileTexture.loadFromFile(grassTile.tileFileLocation); //loads tile from tile set
 
     sandTile.tileID = 2;
     sandTile.passable = true;
@@ -20,7 +21,7 @@ void declareTiles(){
     waterTile.passable = false;
     waterTile.tileFileLocation = "Water.png";
     waterTile.tileTexture.loadFromFile(waterTile.tileFileLocation);
-
+    //tile validity:
     tileSelectorValid.tileID = 4;
     tileSelectorValid.tileFileLocation = "SELECT.png";
     tileSelectorValid.tileTexture.loadFromFile(tileSelectorValid.tileFileLocation);
@@ -29,26 +30,27 @@ void declareTiles(){
     tileSelectorInvalid.tileFileLocation = "REDSELECT.png";
     tileSelectorInvalid.tileTexture.loadFromFile(tileSelectorInvalid.tileFileLocation);
 }
-void tile::drawToGrid(int orderX, int orderY){
+void tile::drawToGrid(int orderX, int orderY){  //orderX is for the x coordinate; orderY for y co. each tile is 1 value.
     tile::tileSprite.setTexture(tile::tileTexture);
-    tile::tileSprite.setPosition(orderX*32,orderY*32);
-    tile::position[0] = orderX;
-    tile::position[1] = orderY;
-    window.draw(tile::tileSprite);
+    tile::tileSprite.setPosition(orderX*32,orderY*32);//multiply coordinates by size of tiles
+    tile::position[0] = orderX; //position 0 is arbitrarily selected for x coordintes in quantities of 32
+    tile::position[1] = orderY; //position 1 for y
+    window.draw(tile::tileSprite); //draws tile
 }
-void tilemap::generateTileCollection(){
-    tmxparser::TmxMap yee;
-    tmxparser::TmxReturn error;
-    error = tmxparser::parseFromFile("tilemaps/coolmap.tmx", &yee, "tilesets/");
-    int mapSize = yee.height*yee.width;
-    int tilemapGrid[mapSize];
-    if (!error)
+//drawToGrid() is used in drawTileMap()
+void tilemap::generateTileCollection(){ //finds tile collection using tmx
+    tmxparser::TmxMap yee; //declares tmx map
+    tmxparser::TmxReturn error; //error test
+    error = tmxparser::parseFromFile("tilemaps/coolmap.tmx", &yee, "tilesets/"); //parses file
+    int mapSize = yee.height*yee.width; //finds map size
+    int tilemapGrid[mapSize]; //array for tile map numeric values
+    if (!error) //negative error test
     {
-        height=yee.height;
-        width=yee.width;
+        height=yee.height; //sets map height
+        width=yee.width; //sets map width
         for (int i =0;i<mapSize;i++)
         {
-        tilemapGrid[i]=yee.layerCollection[0].tiles[i].gid;
+            tilemapGrid[i]=yee.layerCollection[0].tiles[i].gid;
         }
     }
     tilemap::tileCollection.resize(mapSize);
@@ -117,6 +119,7 @@ int main(){
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
+
                 window.close();
         }
         if (event.type == sf::Event::MouseButtonPressed){
@@ -133,7 +136,7 @@ int main(){
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
                 buttonPressed = true;
                 framerateCounter++;
-                if(buttonPressed == true && framerateCounter == 1 || framerateCounter >= 90){
+                if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 90)){
                     viewCounterX+=32;
                     view1.setCenter(viewCounterX,viewCounterY);
                     window.setView(view1);
@@ -141,7 +144,7 @@ int main(){
             else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
                 buttonPressed = true;
                 framerateCounter++;
-                if(buttonPressed == true && framerateCounter == 1 || framerateCounter >= 90){
+                if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 90)){
                     viewCounterX-=32;
                     view1.setCenter(viewCounterX,viewCounterY);
                     window.setView(view1);
@@ -150,7 +153,7 @@ int main(){
             else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
                 buttonPressed = true;
                 framerateCounter++;
-                if(buttonPressed == true && framerateCounter == 1 || framerateCounter >= 90){
+                if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 90)){
                         viewCounterY-=32;
                         view1.setCenter(viewCounterX,viewCounterY);
                         window.setView(view1);
@@ -158,7 +161,7 @@ int main(){
             else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
                 buttonPressed = true;
                 framerateCounter++;
-                if(buttonPressed == true && framerateCounter == 1 || framerateCounter >= 90){
+                if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 90)){
                     viewCounterY+=32;
                     view1.setCenter(viewCounterX,viewCounterY);
                     window.setView(view1);
