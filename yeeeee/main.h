@@ -1,11 +1,7 @@
 #ifndef MAIN_H_INCLUDED
 #define MAIN_H_INCLUDED
 #include <SFML/Graphics.hpp>
-#include "rapidjson-master\include\rapidjson\document.h"
-#include "rapidjson-master\include\rapidjson\writer.h"
-#include "rapidjson-master\include\rapidjson\stringBuffer.h"
 using namespace std;
-using namespace rapidjson;
 #include <vector>
 #include "windows.h"
 #include "tile.h"
@@ -17,13 +13,11 @@ using namespace rapidjson;
 class tilemap
 {
     public:
+        int height,width;
         vector<tile>tileCollection;
         int mapSize;
-        Document jsonDoc;
         void drawTilemap();
         void generateTileCollection();
-    protected:
-    private:
 };
 class ability{
 public:
