@@ -10,7 +10,7 @@ class tile
         string tileFileLocation;
         sf::Texture tileTexture;
         sf::Sprite tileSprite;
-        int position[2];
+        sf::Vector2i position;
         bool passable;
         bool isOccupied;
         short damagePerTurn;

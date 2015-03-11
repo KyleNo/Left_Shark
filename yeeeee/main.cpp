@@ -33,8 +33,8 @@ void declareTiles(){
 void tile::drawToGrid(int orderX, int orderY){  //orderX is for the x coordinate; orderY for y co. each tile is 1 value.
     tile::tileSprite.setTexture(tile::tileTexture);
     tile::tileSprite.setPosition(orderX*32,orderY*32);//multiply coordinates by size of tiles
-    tile::position[0] = orderX; //position 0 is arbitrarily selected for x coordintes in quantities of 32
-    tile::position[1] = orderY; //position 1 for y
+    tile::position.x = orderX; //position 0 is arbitrarily selected for x coordintes in quantities of 32
+    tile::position.y = orderY; //position 1 for y
     window.draw(tile::tileSprite); //draws tile
 }
 //drawToGrid() is used in drawTileMap()
@@ -84,10 +84,10 @@ void tilemap::drawTilemap(){
 }
 void tile::isValidMovement(){
     if(tile::isOccupied == false && tile::passable == true){
-        tileSelectorValid.drawToGrid(tile::position[0], tile::position[1]);
+        tileSelectorValid.drawToGrid(tile::position.x, tile::position.y);
     }
     else{
-        tileSelectorInvalid.drawToGrid(tile::position[0], tile::position[1]);
+        tileSelectorInvalid.drawToGrid(tile::position.x, tile::position.y);
     }
 }
 int main(){
