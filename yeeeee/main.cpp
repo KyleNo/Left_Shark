@@ -1,27 +1,27 @@
 #include "main.h"
 #include "resources/TMXParser.h"
-sf::RenderWindow window(sf::VideoMode(640,640), "Cool"); //renders window
-
+sf::RenderWindow window(sf::VideoMode(640,640), "Cool");
 
 
 void declareTiles(){
-    string tilesetlocation="tilesets/tileset.bmp"; //sets tileset
-    //tiles:
-    grassTile.tileID = 1; //gives grass tiles numeric value for drawing
-    grassTile.passable = true; //determines whether or not a tile can be traveled on
-    grassTile.tileFileLocation = "grass.png"; //selects image for tile
-    grassTile.tileTexture.loadFromFile(grassTile.tileFileLocation); //loads tile from tile set
+    grassTile.tileID = 1;
+    grassTile.passable = true;
+    grassTile.tileTexture.loadFromFile("tilesets/tileset.bmp");
+    grassTile.tileSprite.setTexture(grassTile.tileTexture);
+    grassTile.tileSprite.setTextureRect(sf::IntRect(32,0,32,32));
 
     sandTile.tileID = 2;
     sandTile.passable = true;
-    sandTile.tileFileLocation = "Sand.png";
-    sandTile.tileTexture.loadFromFile(sandTile.tileFileLocation);
+    sandTile.tileTexture.loadFromFile("tilesets/tileset.bmp");
+    sandTile.tileSprite.setTexture(sandTile.tileTexture);
+    sandTile.tileSprite.setTextureRect(sf::IntRect(0,0,32,32));
 
     waterTile.tileID = 3;
     waterTile.passable = false;
-    waterTile.tileFileLocation = "Water.png";
-    waterTile.tileTexture.loadFromFile(waterTile.tileFileLocation);
-    //tile validity:
+    waterTile.tileTexture.loadFromFile("tilesets/tileset.bmp");
+    waterTile.tileSprite.setTexture(waterTile.tileTexture);
+    waterTile.tileSprite.setTextureRect(sf::IntRect(64,0,32,32));
+
     tileSelectorValid.tileID = 4;
     tileSelectorValid.tileFileLocation = "SELECT.png";
     tileSelectorValid.tileTexture.loadFromFile(tileSelectorValid.tileFileLocation);
@@ -38,7 +38,7 @@ void tile::drawToGrid(int orderX, int orderY){  //orderX is for the x coordinate
     window.draw(tile::tileSprite); //draws tile
 }
 //drawToGrid() is used in drawTileMap()
-void tilemap::generateTileCollection(){ //finds tile collection using tmx
+int tilemap::generateTileCollection(){ //finds tile collection using tmx
     tmxparser::TmxMap yee; //declares tmx map
     tmxparser::TmxReturn error; //error test
     error = tmxparser::parseFromFile("tilemaps/coolmap.tmx", &yee, "tilesets/"); //parses file
@@ -57,11 +57,11 @@ void tilemap::generateTileCollection(){ //finds tile collection using tmx
     int counter = 0;
     for(int bb = 0; bb < mapSize; bb++){
         if(tilemapGrid[counter] == 1){
-           tilemap::tileCollection[bb] = grassTile;
+           tilemap::tileCollection[bb] = sandTile;
             counter++;
         }
         else if(tilemapGrid[counter] == 2){
-            tilemap::tileCollection[bb] = sandTile;
+            tilemap::tileCollection[bb] = grassTile;
             counter++;
         }
         else if(tilemapGrid[counter] == 3){
@@ -72,8 +72,9 @@ void tilemap::generateTileCollection(){ //finds tile collection using tmx
             counter++;
         }
     }
+    return tilemapGrid[counter];
 }
-void tilemap::drawTilemap(){
+void tilemap::drawTilemap(int tileBeingUsed){
     int counter = 0;
     for(int aa = 0; aa < height; aa++){
         for(int ab = 0; ab < width; ab++){
@@ -91,6 +92,7 @@ void tile::isValidMovement(){
     }
 }
 int main(){
+    int tileBeingUsed;
     sf::Font font;
     font.loadFromFile("neoteric.ttf");
     sf::Text screenText;
@@ -109,7 +111,7 @@ int main(){
 
  tilemap testmap;
     testmap.mapSize = 400;
-    testmap.generateTileCollection();
+    tileBeingUsed=testmap.generateTileCollection();
     bool buttonPressed = false;
     bool checkingValidity = false;
     sf::Vector2f mousePos;
@@ -119,7 +121,6 @@ int main(){
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
-
                 window.close();
         }
         if (event.type == sf::Event::MouseButtonPressed){
@@ -176,7 +177,7 @@ int main(){
                 checkingValidity = false;
             }
         window.clear();
-        testmap.drawTilemap();
+        testmap.drawTilemap(tileBeingUsed);
         if(checkingValidity){
             for(int aa = 0; aa < testmap.tileCollection.size(); aa++){
                 testmap.tileCollection[aa].isValidMovement();

@@ -6,6 +6,7 @@
 class tile
 {
     public:
+
         int tileID;
         string tileFileLocation;
         sf::Texture tileTexture;
@@ -16,10 +17,11 @@ class tile
         short damagePerTurn;
         short speedBonus;
         short rangeBonus;
-        void drawToGrid(int orderX, int orderY);
-        void isValidMovement();
+        void drawToGrid(int orderX, int orderY, int drawtogrid);
+        void isValidMovement(int tilebeingused);
     protected:
     private:
+        int tileLocationArray[3][4]={{0,32,32,32},{0,0,32,32},{0,64,32,32}};
 };
     tile grassTile;
     tile sandTile;

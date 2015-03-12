@@ -16,8 +16,8 @@ class tilemap
         int height,width;
         vector<tile>tileCollection;
         int mapSize;
-        void drawTilemap();
-        void generateTileCollection();
+        void drawTilemap(int tileBeingUsed);
+        int generateTileCollection();
 };
 class ability{
 public:
