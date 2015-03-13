@@ -96,6 +96,9 @@ void tile::isValidMovement(){
         tileSelectorInvalid.drawToGrid(tile::position.x, tile::position.y);
     }
 }
+void selectTile(sf::Vector2i screenPos){
+    tileSelectorInvalid.drawToGrid(screenPos.x/32 + .5, screenPos.y/32 + .5);
+}
 int main(){
     int tileBeingUsed;
     sf::Font font;
@@ -119,6 +122,7 @@ int main(){
     tileBeingUsed=testmap.generateTileCollection();
     bool buttonPressed = false;
     bool checkingValidity = false;
+    bool mousePressed = false;
     sf::Vector2i mousePos;
     while (window.isOpen()){
         screenText.setOrigin(-viewCounterX + 310, -viewCounterY + 310);
@@ -128,12 +132,7 @@ int main(){
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-        if (event.type == sf::Event::MouseButtonPressed){
-            if (event.mouseButton.button == sf::Mouse::Left){
-                screenText.setString("Mouse pressed");
-            }
-        }
-        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::V)){//tile validity
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::V)){//tile validity
             screenText.setString("Tile Validity Shown");
             checkingValidity = true;
         }
@@ -181,22 +180,30 @@ int main(){
                 buttonPressed = false;
                 checkingValidity = false;
             }
+        //Mouse tile stuff
         sf::Vector2i screenPos;
         mousePos = sf::Mouse::getPosition(window);
         screenPos.x = window.mapPixelToCoords(mousePos).x;
         screenPos.y = window.mapPixelToCoords(mousePos).y;
         tileCursor.position.x = screenPos.x/32+.5;
         tileCursor.position.y = screenPos.y/32+.5;
-        window.clear();
+        if (event.type == sf::Event::MouseButtonPressed){
+            if (event.mouseButton.button == sf::Mouse::Left){
+                screenText.setString("Mouse pressed");
+                mousePressed = true;
+            }
+        }else mousePressed = false;
+        //Mouse tile stuff
+        if(mousePressed) selectTile(screenPos);
         testmap.drawTilemap(tileBeingUsed);
         if(checkingValidity){
             for(int aa = 0; aa < testmap.tileCollection.size(); aa++){
                 testmap.tileCollection[aa].isValidMovement();
-            }
-        }
+            }}
         tileCursor.drawToGrid(tileCursor.position.x, tileCursor.position.y);
         window.draw(screenText);
         window.display();
+        window.clear();
     }
     return 0;
 }
