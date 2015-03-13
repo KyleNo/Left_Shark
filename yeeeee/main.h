@@ -16,8 +16,8 @@ class tilemap
         int height,width;
         vector<tile>tileCollection;
         int mapSize;
-        void drawTilemap(int tileBeingUsed);
-        int generateTileCollection();
+        void drawTilemap(sf::View view);
+        int generateTileCollection(sf::View view);
 };
 class ability{
 public:
