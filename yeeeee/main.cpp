@@ -41,7 +41,7 @@ void tile::drawToGrid(int orderX, int orderY){  //orderX is for the x coordinate
 int tilemap::generateTileCollection(){ //finds tile collection using tmx
     tmxparser::TmxMap yee; //declares tmx map
     tmxparser::TmxReturn error; //error test
-    error = tmxparser::parseFromFile("tilemaps/coolmap.tmx", &yee, "tilesets/"); //parses file
+    error = tmxparser::parseFromFile("tilemaps/island.tmx", &yee, "tilesets/"); //parses file
     int mapSize = yee.height*yee.width; //finds map size
     int tilemapGrid[mapSize]; //array for tile map numeric values
     if (!error) //negative error test
@@ -137,7 +137,7 @@ int main(){
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
                 buttonPressed = true;
                 framerateCounter++;
-                if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 90)){
+                if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 30)){
                     viewCounterX+=32;
                     view1.setCenter(viewCounterX,viewCounterY);
                     window.setView(view1);
@@ -145,7 +145,7 @@ int main(){
             else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
                 buttonPressed = true;
                 framerateCounter++;
-                if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 90)){
+                if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 30)){
                     viewCounterX-=32;
                     view1.setCenter(viewCounterX,viewCounterY);
                     window.setView(view1);
@@ -154,7 +154,7 @@ int main(){
             else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
                 buttonPressed = true;
                 framerateCounter++;
-                if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 90)){
+                if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 30)){
                         viewCounterY-=32;
                         view1.setCenter(viewCounterX,viewCounterY);
                         window.setView(view1);
@@ -162,7 +162,7 @@ int main(){
             else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
                 buttonPressed = true;
                 framerateCounter++;
-                if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 90)){
+                if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 30)){
                     viewCounterY+=32;
                     view1.setCenter(viewCounterX,viewCounterY);
                     window.setView(view1);
