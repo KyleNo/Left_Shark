@@ -28,6 +28,7 @@ class tile
     tile waterTile;
     tile tileSelectorValid;
     tile tileSelectorInvalid;
+    tile tileCursor;
 
 
 #endif // TILE_H

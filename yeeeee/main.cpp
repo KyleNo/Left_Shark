@@ -29,6 +29,11 @@ void declareTiles(){
     tileSelectorInvalid.tileID = 5;
     tileSelectorInvalid.tileFileLocation = "REDSELECT.png";
     tileSelectorInvalid.tileTexture.loadFromFile(tileSelectorInvalid.tileFileLocation);
+
+    tileCursor.tileID = 6;
+    tileCursor.tileFileLocation = "WHITESELECT.png";
+    tileCursor.tileTexture.loadFromFile(tileCursor.tileFileLocation);
+    tileCursor.tileSprite.setTexture(tileCursor.tileTexture);
 }
 void tile::drawToGrid(int orderX, int orderY){  //orderX is for the x coordinate; orderY for y co. each tile is 1 value.
     tile::tileSprite.setTexture(tile::tileTexture);
@@ -114,7 +119,7 @@ int main(){
     tileBeingUsed=testmap.generateTileCollection();
     bool buttonPressed = false;
     bool checkingValidity = false;
-    sf::Vector2f mousePos;
+    sf::Vector2i mousePos;
     while (window.isOpen()){
         screenText.setOrigin(-viewCounterX + 310, -viewCounterY + 310);
         sf::Event event;
@@ -176,6 +181,12 @@ int main(){
                 buttonPressed = false;
                 checkingValidity = false;
             }
+        sf::Vector2i screenPos;
+        mousePos = sf::Mouse::getPosition(window);
+        screenPos.x = window.mapPixelToCoords(mousePos).x;
+        screenPos.y = window.mapPixelToCoords(mousePos).y;
+        tileCursor.position.x = screenPos.x/32+.5;
+        tileCursor.position.y = screenPos.y/32+.5;
         window.clear();
         testmap.drawTilemap(tileBeingUsed);
         if(checkingValidity){
@@ -183,6 +194,7 @@ int main(){
                 testmap.tileCollection[aa].isValidMovement();
             }
         }
+        tileCursor.drawToGrid(tileCursor.position.x, tileCursor.position.y);
         window.draw(screenText);
         window.display();
     }
