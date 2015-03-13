@@ -1,10 +1,9 @@
 #include "main.h"
 #include "resources/TMXParser.h"
-sf::RenderWindow window(sf::VideoMode(640,640), "Cool");
+sf::RenderWindow window(sf::VideoMode(800,600), "Cool");
 
 
 void declareTiles(){
-
     int texturex=0,texturey=0;
 
     for (int i=0;i<6;i++)  //This loop sets up the tileset
@@ -28,7 +27,6 @@ void declareTiles(){
             texturex=0;
         }
     }
-
     tileSelectorValid.tileID = 4;
     tileSelectorValid.tileFileLocation = "SELECT.png";
     tileSelectorValid.tileTexture.loadFromFile(tileSelectorValid.tileFileLocation);
@@ -38,8 +36,7 @@ void declareTiles(){
     tileSelectorInvalid.tileTexture.loadFromFile(tileSelectorInvalid.tileFileLocation);
 }
 void tile::drawToGrid(int orderX, int orderY, sf::View view){  //orderX is for the x coordinate; orderY for y co. each tile is 1 value.
-     sf::FloatRect rect(sf::Vector2f(view.getCenter().x - (view.getSize().x)/2, view.getCenter().y - (view.getSize().y)/2) , view.getSize());
-    tile::tileSprite.setTexture(tile::tileTexture);
+    sf::FloatRect rect(sf::Vector2f(view.getCenter().x - (view.getSize().x)/2, view.getCenter().y - (view.getSize().y)/2) , view.getSize());
     tile::tileSprite.setPosition(orderX*32,orderY*32);//multiply coordinates by size of tiles
     tile::position.x = orderX; //position 0 is arbitrarily selected for x coordintes in quantities of 32
     tile::position.y = orderY; //position 1 for y
@@ -52,7 +49,7 @@ void tile::drawToGrid(int orderX, int orderY, sf::View view){  //orderX is for t
 int tilemap::generateTileCollection(sf::View view){ //finds tile collection using tmx
     tmxparser::TmxMap yee; //declares tmx map
     tmxparser::TmxReturn error; //Will be used to check if there's an error in parsing
-    error = tmxparser::parseFromFile("tilemaps/island.tmx", &yee, "tilesets/"); //parses file
+    error = tmxparser::parseFromFile("tilemaps/coolmap.tmx", &yee, "tilesets/"); //parses file
     int mapSize = yee.height*yee.width; //finds map size
     int tilemapGrid[mapSize]; //array for tile map numeric values
     if (!error) //negative error test
@@ -116,8 +113,8 @@ int main(){
     int viewCounterX = 0;
     int viewCounterY = 0;
     int framerateCounter = 0;
-    sf::View view1(sf::Vector2f(0, 0), sf::Vector2f(640, 640));
-    view1.setCenter(0,0);
+    sf::View view1(sf::Vector2f(400, 300), sf::Vector2f(800, 600));
+    view1.setCenter(400,300);
     window.setView(view1);
     window.setFramerateLimit(60);
 

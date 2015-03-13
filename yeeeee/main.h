@@ -8,6 +8,7 @@ using namespace std;
 #include "string.h"
 #include <iostream>
 #include <math.h>
+#include <stdlib.h>
 
 
 class tilemap
