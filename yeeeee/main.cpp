@@ -1,6 +1,6 @@
 #include "main.h"
 #include "resources/TMXParser.h"
-sf::RenderWindow window(sf::VideoMode(640,640), "Cool");
+sf::RenderWindow window(sf::VideoMode(800,600), "Cool");
 
 
 void declareTiles(){
@@ -112,7 +112,7 @@ int main(){
     int viewCounterX = 0;
     int viewCounterY = 0;
     int framerateCounter = 0;
-    sf::View view1(sf::Vector2f(0, 0), sf::Vector2f(640, 640));
+    sf::View view1(sf::Vector2f(0, 0), sf::Vector2f(800, 600));
     view1.setCenter(0,0);
     window.setView(view1);
     window.setFramerateLimit(60);
@@ -131,6 +131,12 @@ int main(){
         {
             if (event.type == sf::Event::Closed)
                 window.close();
+            if (event.type == sf::Event::Resized)
+                    {
+                // update the view to the new size of the window
+                sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
+                window.setView(sf::View(visibleArea));
+            }
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::V)){//tile validity
             screenText.setString("Tile Validity Shown");
@@ -142,16 +148,14 @@ int main(){
                 buttonPressed = true;
                 framerateCounter++;
                 if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 30)){
-                    viewCounterX+=32;
-                    view1.setCenter(viewCounterX,viewCounterY);
+                    view1.move(32,0);
                     window.setView(view1);
                 }}
             else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
                 buttonPressed = true;
                 framerateCounter++;
                 if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 30)){
-                    viewCounterX-=32;
-                    view1.setCenter(viewCounterX,viewCounterY);
+                    view1.move(-32,0);
                     window.setView(view1);
 
                 }}
@@ -159,16 +163,14 @@ int main(){
                 buttonPressed = true;
                 framerateCounter++;
                 if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 30)){
-                        viewCounterY-=32;
-                        view1.setCenter(viewCounterX,viewCounterY);
+                        view1.move(0,-32);
                         window.setView(view1);
                 }}
             else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
                 buttonPressed = true;
                 framerateCounter++;
                 if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 30)){
-                    viewCounterY+=32;
-                    view1.setCenter(viewCounterX,viewCounterY);
+                    view1.move(0,32);
                     window.setView(view1);
                 }}
             else {
