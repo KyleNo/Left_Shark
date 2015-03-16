@@ -49,7 +49,7 @@ void tile::drawToGrid(int orderX, int orderY, sf::View view){  //orderX is for t
 int tilemap::generateTileCollection(sf::View view){ //finds tile collection using tmx
     tmxparser::TmxMap yee; //declares tmx map
     tmxparser::TmxReturn error; //Will be used to check if there's an error in parsing
-    error = tmxparser::parseFromFile("tilemaps/coolmap.tmx", &yee, "tilesets/"); //parses file
+    error = tmxparser::parseFromFile("tilemaps/island.tmx", &yee, "tilesets/"); //parses file
     int mapSize = yee.height*yee.width; //finds map size
     int tilemapGrid[mapSize]; //array for tile map numeric values
     if (!error) //negative error test
