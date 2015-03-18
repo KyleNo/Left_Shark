@@ -23,6 +23,7 @@ class tile
     private:
         int tileLocationArray[3][4]={{0,32,32,32},{0,0,32,32},{0,64,32,32}};
 };
+    tile tiles[6];
     tile grassTile;
     tile sandTile;
     tile waterTile;

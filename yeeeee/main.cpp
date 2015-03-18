@@ -4,23 +4,45 @@ sf::RenderWindow window(sf::VideoMode(800,600), "Cool");
 
 
 void declareTiles(){
-    grassTile.tileID = 1;
-    grassTile.passable = true;
-    grassTile.tileTexture.loadFromFile("tilesets/tileset.bmp");
-    grassTile.tileSprite.setTexture(grassTile.tileTexture);
-    grassTile.tileSprite.setTextureRect(sf::IntRect(32,0,32,32));
-
-    sandTile.tileID = 2;
-    sandTile.passable = true;
-    sandTile.tileTexture.loadFromFile("tilesets/tileset.bmp");
-    sandTile.tileSprite.setTexture(sandTile.tileTexture);
-    sandTile.tileSprite.setTextureRect(sf::IntRect(0,0,32,32));
-
-    waterTile.tileID = 3;
-    waterTile.passable = false;
-    waterTile.tileTexture.loadFromFile("tilesets/tileset.bmp");
-    waterTile.tileSprite.setTexture(waterTile.tileTexture);
-    waterTile.tileSprite.setTextureRect(sf::IntRect(64,0,32,32));
+    int tilex=0,tiley=0;
+    for (int i=0;i<6;i++)
+    {
+        tiles[i].tileID=i+1;
+        tiles[i].tileTexture.loadFromFile("tilesets/tileset.bmp");
+        tiles[i].tileSprite.setTexture(tiles[i].tileTexture);
+        tiles[i].tileSprite.setTextureRect(sf::IntRect(tilex,tiley,32,32));
+        if (tiles[i].tileID==3)
+        {
+            tiles[i].passable=false;
+        }
+        else
+        {
+            tiles[i].passable=true;
+        }
+        tilex+=32;
+        if (tilex==96)
+        {
+            tilex=0;
+            tiley+=32;
+        }
+    }
+//    grassTile.tileID = 1;
+//    grassTile.passable = true;
+//    grassTile.tileTexture.loadFromFile("tilesets/tileset.bmp");
+//    grassTile.tileSprite.setTexture(grassTile.tileTexture);
+//    grassTile.tileSprite.setTextureRect(sf::IntRect(32,0,32,32));
+//
+//    sandTile.tileID = 2;
+//    sandTile.passable = true;
+//    sandTile.tileTexture.loadFromFile("tilesets/tileset.bmp");
+//    sandTile.tileSprite.setTexture(sandTile.tileTexture);
+//    sandTile.tileSprite.setTextureRect(sf::IntRect(0,0,32,32));
+//
+//    waterTile.tileID = 3;
+//    waterTile.passable = false;
+//    waterTile.tileTexture.loadFromFile("tilesets/tileset.bmp");
+//    waterTile.tileSprite.setTexture(waterTile.tileTexture);
+//    waterTile.tileSprite.setTextureRect(sf::IntRect(64,0,32,32));
 
     tileSelectorValid.tileID = 4;
     tileSelectorValid.tileFileLocation = "SELECT.png";
@@ -62,15 +84,15 @@ int tilemap::generateTileCollection(){ //finds tile collection using tmx
     int counter = 0;
     for(int bb = 0; bb < mapSize; bb++){
         if(tilemapGrid[counter] == 1){
-           tilemap::tileCollection[bb] = sandTile;
+           tilemap::tileCollection[bb] = tiles[1];
             counter++;
         }
         else if(tilemapGrid[counter] == 2){
-            tilemap::tileCollection[bb] = grassTile;
+            tilemap::tileCollection[bb] = tiles[0];
             counter++;
         }
         else if(tilemapGrid[counter] == 3){
-            tilemap::tileCollection[bb] = waterTile;
+            tilemap::tileCollection[bb] = tiles[2];
             counter++;
         }
         else if(tilemapGrid[counter] == 0){
