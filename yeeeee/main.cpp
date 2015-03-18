@@ -5,10 +5,10 @@ sf::RenderWindow window(sf::VideoMode(800,600), "Cool");
 
 void declareTiles(){
     int tilex=0,tiley=0;
-    for (int i=0;i<6;i++)
+    for (int i=0;i<9;i++)
     {
         tiles[i].tileID=i+1;
-        tiles[i].tileTexture.loadFromFile("tilesets/tileset.bmp");
+        tiles[i].tileTexture.loadFromFile("tilesets/tileset.png");
         tiles[i].tileSprite.setTexture(tiles[i].tileTexture);
         tiles[i].tileSprite.setTextureRect(sf::IntRect(tilex,tiley,32,32));
         if (tiles[i].tileID==3)
@@ -43,32 +43,36 @@ void declareTiles(){
 //    waterTile.tileTexture.loadFromFile("tilesets/tileset.bmp");
 //    waterTile.tileSprite.setTexture(waterTile.tileTexture);
 //    waterTile.tileSprite.setTextureRect(sf::IntRect(64,0,32,32));
-
-    tileSelectorValid.tileID = 4;
-    tileSelectorValid.tileFileLocation = "SELECT.png";
-    tileSelectorValid.tileTexture.loadFromFile(tileSelectorValid.tileFileLocation);
-
-    tileSelectorInvalid.tileID = 5;
-    tileSelectorInvalid.tileFileLocation = "REDSELECT.png";
-    tileSelectorInvalid.tileTexture.loadFromFile(tileSelectorInvalid.tileFileLocation);
-
-    tileCursor.tileID = 6;
-    tileCursor.tileFileLocation = "WHITESELECT.png";
-    tileCursor.tileTexture.loadFromFile(tileCursor.tileFileLocation);
-    tileCursor.tileSprite.setTexture(tileCursor.tileTexture);
+//
+//    tileSelectorValid.tileID = 4;
+//    tileSelectorValid.tileFileLocation = "SELECT.png";
+//    tileSelectorValid.tileTexture.loadFromFile(tileSelectorValid.tileFileLocation);
+//
+//    tileSelectorInvalid.tileID = 5;
+//    tileSelectorInvalid.tileFileLocation = "REDSELECT.png";
+//    tileSelectorInvalid.tileTexture.loadFromFile(tileSelectorInvalid.tileFileLocation);
+//
+//    tileCursor.tileID = 6;
+//    tileCursor.tileFileLocation = "WHITESELECT.png";
+//    tileCursor.tileTexture.loadFromFile(tileCursor.tileFileLocation);
+//    tileCursor.tileSprite.setTexture(tileCursor.tileTexture);
 }
-void tile::drawToGrid(int orderX, int orderY){  //orderX is for the x coordinate; orderY for y co. each tile is 1 value.
-    tile::tileSprite.setTexture(tile::tileTexture);
+void tile::drawToGrid(int orderX, int orderY,sf::View view){  //orderX is for the x coordinate; orderY for y co. each tile is 1 value.
+    view=window.getView();
+    sf::FloatRect rect(sf::Vector2f(view.getCenter().x - (view.getSize().x)/2, view.getCenter().y - (view.getSize().y)/2) , view.getSize());
     tile::tileSprite.setPosition(orderX*32,orderY*32);//multiply coordinates by size of tiles
     tile::position.x = orderX; //position 0 is arbitrarily selected for x coordintes in quantities of 32
     tile::position.y = orderY; //position 1 for y
-    window.draw(tile::tileSprite); //draws tile
+    if (rect.intersects(tile::tileSprite.getGlobalBounds()))
+    {
+        window.draw(tile::tileSprite);
+    }
 }
 //drawToGrid() is used in drawTileMap()
 int tilemap::generateTileCollection(){ //finds tile collection using tmx
     tmxparser::TmxMap yee; //declares tmx map
     tmxparser::TmxReturn error; //error test
-    error = tmxparser::parseFromFile("tilemaps/island.tmx", &yee, "tilesets/"); //parses file
+    error = tmxparser::parseFromFile("tilemaps/coolmap.tmx", &yee, "tilesets/"); //parses file
     int mapSize = yee.height*yee.width; //finds map size
     int tilemapGrid[mapSize]; //array for tile map numeric values
     if (!error) //negative error test
@@ -82,21 +86,14 @@ int tilemap::generateTileCollection(){ //finds tile collection using tmx
     }
     tilemap::tileCollection.resize(mapSize);
     int counter = 0;
-    for(int bb = 0; bb < mapSize; bb++){
-        if(tilemapGrid[counter] == 1){
-           tilemap::tileCollection[bb] = tiles[1];
-            counter++;
-        }
-        else if(tilemapGrid[counter] == 2){
-            tilemap::tileCollection[bb] = tiles[0];
-            counter++;
-        }
-        else if(tilemapGrid[counter] == 3){
-            tilemap::tileCollection[bb] = tiles[2];
-            counter++;
-        }
-        else if(tilemapGrid[counter] == 0){
-            counter++;
+    for (int bb=0;bb<6;bb++)
+    {
+        for (int bc=0;bc<mapSize;bc++)
+        {
+            if (tilemapGrid[bc]==bb)
+            {
+                tilemap::tileCollection[bc]=tiles[bb-1];
+            }
         }
     }
     return tilemapGrid[counter];
@@ -105,21 +102,21 @@ void tilemap::drawTilemap(int tileBeingUsed){
     int counter = 0;
     for(int aa = 0; aa < height; aa++){
         for(int ab = 0; ab < width; ab++){
-            tilemap::tileCollection[counter].drawToGrid(ab,aa);
+            tilemap::tileCollection[counter].drawToGrid(ab,aa,window.getView());
             counter++;
         }
     }
 }
 void tile::isValidMovement(){
-    if(tile::isOccupied == false && tile::passable == true){
-        tileSelectorValid.drawToGrid(tile::position.x, tile::position.y);
+    if(tile::isOccupied == false || tile::passable == true){
+        tiles[6].drawToGrid(tile::position.x, tile::position.y,window.getView());
     }
     else{
-        tileSelectorInvalid.drawToGrid(tile::position.x, tile::position.y);
+        tiles[7].drawToGrid(tile::position.x, tile::position.y,window.getView());
     }
 }
 void selectTile(sf::Vector2i screenPos){
-    tileSelectorInvalid.drawToGrid(screenPos.x/32 + .5, screenPos.y/32 + .5);
+    tileSelectorInvalid.drawToGrid(screenPos.x/32 + .5, screenPos.y/32 + .5,window.getView());
 }
 int main(){
     int tileBeingUsed;
@@ -224,7 +221,7 @@ int main(){
             for(int aa = 0; aa < testmap.tileCollection.size(); aa++){
                 testmap.tileCollection[aa].isValidMovement();
             }}
-        tileCursor.drawToGrid(tileCursor.position.x, tileCursor.position.y);
+        tiles[6].drawToGrid(tiles[6].position.x, tiles[6].position.y,window.getView());
         window.draw(screenText);
         window.display();
         window.clear();

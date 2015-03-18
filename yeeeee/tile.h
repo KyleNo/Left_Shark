@@ -17,13 +17,13 @@ class tile
         short damagePerTurn;
         short speedBonus;
         short rangeBonus;
-        void drawToGrid(int orderX, int orderY);
+        void drawToGrid(int orderX, int orderY,sf::View view);
         void isValidMovement();
     protected:
     private:
         int tileLocationArray[3][4]={{0,32,32,32},{0,0,32,32},{0,64,32,32}};
 };
-    tile tiles[6];
+    tile tiles[9];
     tile grassTile;
     tile sandTile;
     tile waterTile;
