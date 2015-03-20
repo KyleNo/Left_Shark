@@ -1,7 +1,6 @@
 #include "main.h"
 #include "resources/TMXParser.h"
-#include "menu.h"
-sf::RenderWindow window(sf::VideoMode(800,600), "Cool");
+sf::RenderWindow window(sf::VideoMode(640,640), "Cool");
 
 
 void declareTiles(){
@@ -104,7 +103,7 @@ void tile::isValidMovement(sf::View view){
     }
 }
 int main(){
-    startMenu(window);
+
     int tileBeingUsed;
     sf::Font font;
     font.loadFromFile("neoteric.ttf");
@@ -122,13 +121,12 @@ int main(){
     window.setView(view1);
     window.setFramerateLimit(60);
 
-    tilemap testmap;
+ tilemap testmap;
     testmap.mapSize = 400;
     tileBeingUsed=testmap.generateTileCollection(view1);
     bool buttonPressed = false;
     bool checkingValidity = false;
     sf::Vector2f mousePos;
-
     while (window.isOpen()){
         screenText.setOrigin(-viewCounterX + 310, -viewCounterY + 310);
         sf::Event event;
