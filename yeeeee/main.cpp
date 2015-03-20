@@ -1,6 +1,6 @@
 #include "main.h"
 #include "resources/TMXParser.h"
-sf::RenderWindow window(sf::VideoMode(800,640), "Cool");
+sf::RenderWindow window(sf::VideoMode(800,600), "Cool");
 
 
 void declareTiles(){
@@ -26,6 +26,36 @@ void declareTiles(){
             tiley+=32;
         }
     }
+//    grassTile.tileID = 1;
+//    grassTile.passable = true;
+//    grassTile.tileTexture.loadFromFile("tilesets/tileset.bmp");
+//    grassTile.tileSprite.setTexture(grassTile.tileTexture);
+//    grassTile.tileSprite.setTextureRect(sf::IntRect(32,0,32,32));
+//
+//    sandTile.tileID = 2;
+//    sandTile.passable = true;
+//    sandTile.tileTexture.loadFromFile("tilesets/tileset.bmp");
+//    sandTile.tileSprite.setTexture(sandTile.tileTexture);
+//    sandTile.tileSprite.setTextureRect(sf::IntRect(0,0,32,32));
+//
+//    waterTile.tileID = 3;
+//    waterTile.passable = false;
+//    waterTile.tileTexture.loadFromFile("tilesets/tileset.bmp");
+//    waterTile.tileSprite.setTexture(waterTile.tileTexture);
+//    waterTile.tileSprite.setTextureRect(sf::IntRect(64,0,32,32));
+//
+//    tileSelectorValid.tileID = 4;
+//    tileSelectorValid.tileFileLocation = "SELECT.png";
+//    tileSelectorValid.tileTexture.loadFromFile(tileSelectorValid.tileFileLocation);
+//
+//    tileSelectorInvalid.tileID = 5;
+//    tileSelectorInvalid.tileFileLocation = "REDSELECT.png";
+//    tileSelectorInvalid.tileTexture.loadFromFile(tileSelectorInvalid.tileFileLocation);
+//
+//    tileCursor.tileID = 6;
+//    tileCursor.tileFileLocation = "WHITESELECT.png";
+//    tileCursor.tileTexture.loadFromFile(tileCursor.tileFileLocation);
+//    tileCursor.tileSprite.setTexture(tileCursor.tileTexture);
 }
 void tile::drawToGrid(int orderX, int orderY,sf::View view){  //orderX is for the x coordinate; orderY for y co. each tile is 1 value.
     view=window.getView();
@@ -102,7 +132,7 @@ int main(){
     int viewCounterX = 0;
     int viewCounterY = 0;
     int framerateCounter = 0;
-    sf::View view1(sf::Vector2f(0, 0), sf::Vector2f(800, 640));
+    sf::View view1(sf::Vector2f(0, 0), sf::Vector2f(800, 600));
     view1.setCenter(0,0);
     window.setView(view1);
     window.setFramerateLimit(60);
