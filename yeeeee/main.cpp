@@ -26,6 +26,7 @@ void declareTiles(){
             tiley+=32;
         }
     }
+
 }
 void tile::drawToGrid(int orderX, int orderY,sf::View view){  //orderX is for the x coordinate; orderY for y co. each tile is 1 value.
     view=window.getView();
@@ -97,13 +98,12 @@ int main(){
     screenText.setFont(font);
     screenText.setCharacterSize(12);
     screenText.setColor(sf::Color::Red);
-    screenText.setOrigin(-400,-300);
     declareTiles();
-    int viewCounterX = 0;
-    int viewCounterY = 0;
+    int viewCounterX = -64;
+    int viewCounterY = -0;
     int framerateCounter = 0;
     sf::View view1(sf::Vector2f(0, 0), sf::Vector2f(800, 640));
-    view1.setCenter(0,0);
+    view1.setCenter(16,0);
     window.setView(view1);
     window.setFramerateLimit(60);
 
@@ -139,6 +139,7 @@ int main(){
                 framerateCounter++;
                 if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 30)){
                     view1.move(32,0);
+                    viewCounterX+=32;
                     window.setView(view1);
                 }}
             else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
@@ -146,6 +147,7 @@ int main(){
                 framerateCounter++;
                 if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 30)){
                     view1.move(-32,0);
+                    viewCounterX-=32;
                     window.setView(view1);
 
                 }}
@@ -154,6 +156,7 @@ int main(){
                 framerateCounter++;
                 if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 30)){
                         view1.move(0,-32);
+                        viewCounterY-=32;
                         window.setView(view1);
                 }}
             else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
@@ -161,6 +164,7 @@ int main(){
                 framerateCounter++;
                 if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 30)){
                     view1.move(0,32);
+                    viewCounterY+=32;
                     window.setView(view1);
                 }}
             else {
