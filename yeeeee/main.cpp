@@ -108,11 +108,11 @@ void tilemap::drawTilemap(int tileBeingUsed){
     }
 }
 void tile::isValidMovement(){
-    if(tile::isOccupied == false || tile::passable == true){
-        tiles[6].drawToGrid(tile::position.x, tile::position.y,window.getView());
+    if(tile::isOccupied == false && tile::passable == true){
+        tiles[7].drawToGrid(tile::position.x, tile::position.y,window.getView());
     }
     else{
-        tiles[7].drawToGrid(tile::position.x, tile::position.y,window.getView());
+        tiles[6].drawToGrid(tile::position.x, tile::position.y,window.getView());
     }
 }
 void selectTile(sf::Vector2i screenPos){
@@ -127,6 +127,7 @@ int main(){
     screenText.setFont(font);
     screenText.setCharacterSize(12);
     screenText.setColor(sf::Color::Red);
+    screenText.setOrigin(-400,-300);
     declareTiles();
     int viewCounterX = 0;
     int viewCounterY = 0;
@@ -206,8 +207,8 @@ int main(){
         mousePos = sf::Mouse::getPosition(window);
         screenPos.x = window.mapPixelToCoords(mousePos).x;
         screenPos.y = window.mapPixelToCoords(mousePos).y;
-        tileCursor.position.x = screenPos.x/32+.5;
-        tileCursor.position.y = screenPos.y/32+.5;
+        tiles[8].position.x = screenPos.x/32+.5;
+        tiles[8].position.y = screenPos.y/32+.5;
         if (event.type == sf::Event::MouseButtonPressed){
             if (event.mouseButton.button == sf::Mouse::Left){
                 screenText.setString("Mouse pressed");
@@ -215,13 +216,13 @@ int main(){
             }
         }else mousePressed = false;
         //Mouse tile stuff
-        if(mousePressed) selectTile(screenPos);
         testmap.drawTilemap(tileBeingUsed);
         if(checkingValidity){
             for(int aa = 0; aa < testmap.tileCollection.size(); aa++){
                 testmap.tileCollection[aa].isValidMovement();
             }}
-        tiles[6].drawToGrid(tiles[6].position.x, tiles[6].position.y,window.getView());
+        if(mousePressed) selectTile(screenPos);
+        tiles[8].drawToGrid(tiles[8].position.x, tiles[8].position.y,window.getView());
         window.draw(screenText);
         window.display();
         window.clear();
