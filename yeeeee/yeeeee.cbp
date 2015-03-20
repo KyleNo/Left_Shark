@@ -36,6 +36,7 @@
 		<Unit filename="main.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="menu.h" />
 		<Unit filename="resources/TMXParser.h" />
 		<Unit filename="resources/base64.cpp" />
 		<Unit filename="resources/base64.h" />
