@@ -36,7 +36,7 @@ Vector2i buttonTemplate::buttonSelection(Vector2i coordinates, Vector2i position
     {
         if (coordinates.x<250)
         {
-            coordinates.x++;
+            coordinates.x+=3;
         }
         hover=true;
     }
@@ -44,7 +44,7 @@ Vector2i buttonTemplate::buttonSelection(Vector2i coordinates, Vector2i position
     {
         if (coordinates.x>200)
         {
-            coordinates.x--;
+            coordinates.x-=3;
         }
         hover=false;
     }
@@ -90,7 +90,7 @@ void startMenu(RenderWindow& window)
                 {
                     if(Button1.hover==true)
                     {
-                        tileDraw(window);
+                        tileDraw(window,NULL);
                         //cout << "Button 1 pressed.\n";
                         //Button1.addon=1.2;
                     }
@@ -105,6 +105,7 @@ void startMenu(RenderWindow& window)
 
         position=Mouse::getPosition(window);
         window.clear();
+
         Button1.coordinates=Button1.buttonSelection(Button1.coordinates, position);
         Button1.button.setPosition(Button1.coordinates.x,Button1.coordinates.y);
         Button2.coordinates=Button2.buttonSelection(Button2.coordinates, position);
@@ -119,13 +120,5 @@ void startMenu(RenderWindow& window)
         window.draw(Button2.button);
         window.display();
     }
-
-
-
-
-
-
-
-
 }
 
