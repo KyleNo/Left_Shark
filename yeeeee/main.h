@@ -63,28 +63,35 @@ public:
 
 };
 
-void hero::rangecheck(vector<int> passabletilex, vector<int> passabletiley,)
+void hero::rangecheck(vector<int> passabletilex, vector<int> passabletiley)
 {
-    int counter=0;
-    while (true)
+    bool xaxis=false,yaxis=false;
+    sf::Vector2i positioncheck,positionalter;
+    int range=5;
+    positioncheck=Position;
+    for (int a=-5;a<=range;a++)
     {
-        for (int i=0;i<range;i++)
+        for (int j=-5;j<=5;j++)
         {
-            if(passabletilex[Position.x-i]==0 and passabletiley[Position.y-i]==0)
+            for (int i=0;i<range-abs(j);i++)
             {
-                traversibletilesx.push_back(Position.x-i);
-                traversibletilesy.push_back(Position.y-i);
-                counter++;
+                if (passabletilex[-i]==0 and passabletiley[j]==0)
+                {
+                    traversibletilesx.push_back(passabletilex[-i]);
+                    traversibletilesy.push_back(passabletiley[j]);
+                }
+                if (passabletilex[i]==0 and passabletiley[j]==0)
+                {
+                    traversibletilesx.push_back(passabletilex[i]);
+                    traversibletilesy.push_back(passabletiley[j]);
+                }
+                    cout << endl << passabletilex[i] << endl;
+                    cout << passabletiley[i];
             }
         }
-        break;
     }
-    sf::Sprite perhaps[counter];
-    for (int i=0;i<counter;i++)
+    //for (int i=0;i<traversibletilesx.size();i++)
     {
-        perhaps.setTexture(tiles[6].tileTexture);
-        perhaps.setPosition(traversibletilesx[i]*32,traversibletilesy[i]*32);
-        window.draw(perhaps[i]);
     }
 }
 
@@ -140,7 +147,7 @@ int tilemap::generateTileCollection(){ //finds tile collection using tmx
         {
 
             tilemapGrid[i]=yee.layerCollection[0].tiles[i].gid;
-            if (tilemapGrid[i]==3)
+            if (tilemapGrid[i]==2)
             {
                 tilemap::passableTileX.push_back(1);
                 tilemap::passableTileY.push_back(1);
@@ -170,7 +177,6 @@ int tilemap::generateTileCollection(){ //finds tile collection using tmx
                 gridcounter.x=0;
                 gridcounter.y++;
             }
-            cout << gridcounter.x;
         }
         vector<int> sortingvector;
         for (int i=0;i<passableTileX.size();i++)
@@ -335,17 +341,15 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         tiles[8].position.x = screenPos.x/32+.5;
         tiles[8].position.y = screenPos.y/32+.5;
         if (event.type == sf::Event::MouseButtonPressed){
-            if (event.mouseButton.button == sf::Mouse::Left){
-                for (int i=0;i<testmap.numberOfCharactersPossible;i++)
+            for (int i=0;i<testmap.numberOfCharactersPossible;i++)
+            {
+                if (event.mouseButton.button == sf::Mouse::Left)
                 {
-                    if (mousePos.x==heroes[i].Position.x and mousePos.y==heroes[i].Position.y)
-                    {
-                        heroes[i].rangecheck(testmap.passableTileX,testmap.passableTileY);
-                    }
+                    screenText.setString("Mouse pressed");
+                    mousePressed = true;
                 }
-                screenText.setString("Mouse pressed");
-                mousePressed = true;
             }
+
         }else mousePressed = false;
         //Mouse tile stuff
         testmap.drawTilemap(tileBeingUsed, window);
@@ -354,6 +358,24 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                 testmap.tileCollection[aa].isValidMovement(window);
             }}
         if(mousePressed) selectTile(screenPos, window);
+        if (mousePressed==true)
+        {
+            cout << "about to try\n";
+            for (int i=0;i<testmap.numberOfCharactersPossible;i++)
+            {
+                int playerPositionx=(heroes[2].sprite.getPosition().x), playerPositiony=(heroes[2].sprite.getPosition().y);
+                int mousePositionx=(mousePos.x/32)*32, mousePositiony=(mousePos.y/32)*32;
+                cout << "X: " <<  playerPositionx << ":" << mousePositionx << endl;
+                cout << "Y: " <<  playerPositiony << ":" << mousePositiony << endl;
+                if (mousePositionx==playerPositionx and mousePositiony==playerPositiony)
+                {
+
+                    cout <<"trying\n";
+                    heroes[i].rangecheck(testmap.passableTileX,testmap.passableTileY);
+                    //cout << heroes[i].traversibletilesx[i] << " " << heroes[i].traversibletilesy[i] << endl;
+                }
+            }
+        }
         for (int i=0;i<testmap.numberOfCharactersPossible;i++)
         {
             heroes[i].placehero(window, testmap.characterPositionsX[i]*32,testmap.characterPositionsY[i]*32);
