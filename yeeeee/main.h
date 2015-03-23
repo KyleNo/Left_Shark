@@ -86,7 +86,7 @@ void hero::rangecheck(vector<int> passabletilex, vector<int> passabletiley)
                     traversibletilesy.push_back(passabletiley[j]);
                 }
                     cout << endl << passabletilex[i] << endl;
-                    cout << passabletiley[i];
+                    cout << passabletiley[i] << endl;
             }
         }
     }
@@ -239,6 +239,7 @@ void hero::placehero(sf::RenderWindow& window, int characterx, int charactery)
 
 void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
 {
+    window.setSize(sf::Vector2u(800,640));
     int tileBeingUsed;
     sf::Font font;
     font.loadFromFile("neoteric.ttf");
@@ -252,7 +253,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
     int viewCounterY = -0;
     int framerateCounter = 0;
     sf::View view1(sf::Vector2f(0, 0), sf::Vector2f(800, 640));
-    view1.setCenter(16,0);
+    view1.setCenter(0,0);
     window.setView(view1);
     window.setFramerateLimit(60);
     tilemap testmap;
@@ -260,6 +261,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
     tileBeingUsed=testmap.generateTileCollection();
 
     //this is where we designate the heroes.
+    //we should split this into a different header file.
     hero heroes[testmap.numberOfCharactersPossible];
     for (int i=0;i<testmap.numberOfCharactersPossible;i++)
     {
@@ -271,8 +273,9 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
     bool mousePressed = false;
     sf::Vector2i mousePos;
     cout << testmap.numberOfCharactersPossible;
+    view1.move(400,320); //sets view to top left corner
     while (window.isOpen()){
-        screenText.setOrigin(-viewCounterX + 310, -viewCounterY + 310);
+
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -363,10 +366,10 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
             cout << "about to try\n";
             for (int i=0;i<testmap.numberOfCharactersPossible;i++)
             {
-                int playerPositionx=(heroes[2].sprite.getPosition().x), playerPositiony=(heroes[2].sprite.getPosition().y);
+                int playerPositionx=(heroes[i].sprite.getPosition().x), playerPositiony=(heroes[i].sprite.getPosition().y);
                 int mousePositionx=(mousePos.x/32)*32, mousePositiony=(mousePos.y/32)*32;
-                cout << "X: " <<  playerPositionx << ":" << mousePositionx << endl;
-                cout << "Y: " <<  playerPositiony << ":" << mousePositiony << endl;
+                cout << "X: " <<  playerPositionx/32 << "\t:\t" << mousePositionx/32 << endl;
+                cout << "Y: " <<  playerPositiony/32 << "\t:\t" << mousePositiony/32 << endl << endl;
                 if (mousePositionx==playerPositionx and mousePositiony==playerPositiony)
                 {
 
@@ -380,6 +383,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         {
             heroes[i].placehero(window, testmap.characterPositionsX[i]*32,testmap.characterPositionsY[i]*32);
         }
+        screenText.setOrigin(-viewCounterX + 310, -viewCounterY + 310);
         tiles[8].drawToGrid(tiles[8].position.x, tiles[8].position.y,window.getView(), window);
         window.draw(screenText);
         window.display();
