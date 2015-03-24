@@ -21,7 +21,6 @@ class tile
         void isValidMovement(sf::RenderWindow& window);
     protected:
     private:
-        int tileLocationArray[3][4]={{0,32,32,32},{0,0,32,32},{0,64,32,32}};
 };
     tile tiles[9];
     tile grassTile;

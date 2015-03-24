@@ -32,7 +32,7 @@ public:
     sf::Vector2i Position;
     void placehero(sf::RenderWindow& window,int characterx, int charactery);
     void assignhero();
-    void rangecheck(vector<int>passabletilesx, vector<int>passabletilesy);
+    void rangecheck(vector<int>passabletilesx, vector<int>passabletilesy,sf::RenderWindow& window);
 };
 
 class tilemap
@@ -63,7 +63,7 @@ public:
 
 };
 
-void hero::rangecheck(vector<int> passabletilex, vector<int> passabletiley)
+void hero::rangecheck(vector<int> passabletilex, vector<int> passabletiley,sf::RenderWindow& window)
 {
     bool xaxis=false,yaxis=false;
     sf::Vector2i positioncheck,positionalter;
@@ -75,7 +75,7 @@ void hero::rangecheck(vector<int> passabletilex, vector<int> passabletiley)
         {
             for (int i=0;i<range-abs(j);i++)
             {
-                if (passabletilex[-i]==0 and passabletiley[j]==0)
+                if (passabletilex[-i]==1 and passabletiley[j]==1)
                 {
                     traversibletilesx.push_back(passabletilex[-i]);
                     traversibletilesy.push_back(passabletiley[j]);
@@ -90,8 +90,11 @@ void hero::rangecheck(vector<int> passabletilex, vector<int> passabletiley)
             }
         }
     }
-    //for (int i=0;i<traversibletilesx.size();i++)
+    tile validTiles[traversibletilesx.size()];
+    for (int i=0;i<traversibletilesx.size();i++)
     {
+        validTiles[i]=tiles[7];
+        validTiles[i].tileSprite.setPosition(traversibletilesx[i],traversibletilesy[i]);
     }
 }
 
@@ -239,6 +242,7 @@ void hero::placehero(sf::RenderWindow& window, int characterx, int charactery)
 
 void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
 {
+    int selectedHero;
     window.setSize(sf::Vector2u(800,640));
     int tileBeingUsed;
     sf::Font font;
@@ -344,16 +348,27 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         tiles[8].position.x = screenPos.x/32+.5;
         tiles[8].position.y = screenPos.y/32+.5;
         if (event.type == sf::Event::MouseButtonPressed){
-            for (int i=0;i<testmap.numberOfCharactersPossible;i++)
-            {
                 if (event.mouseButton.button == sf::Mouse::Left)
                 {
                     screenText.setString("Mouse pressed");
                     mousePressed = true;
+                    cout << "about to try\n";
+                    for (int i=0;i<testmap.numberOfCharactersPossible;i++)
+                    {
+                        int playerPositionx=(heroes[i].sprite.getPosition().x), playerPositiony=(heroes[i].sprite.getPosition().y);
+                        int mousePositionx=(mousePos.x/32)*32, mousePositiony=(mousePos.y/32)*32;
+                        cout << "X: " <<  playerPositionx/32 << "\t:\t" << mousePositionx/32 << endl;
+                        cout << "Y: " <<  playerPositiony/32 << "\t:\t" << mousePositiony/32 << endl << endl;
+                        if (mousePositionx==playerPositionx and mousePositiony==playerPositiony)
+                        {
+                            selectedHero=i;
+                        }
+
+                    heroes[selectedHero].rangecheck(testmap.passableTileX,testmap.passableTileY,window);
+                    }
                 }
             }
-
-        }else mousePressed = false;
+        else mousePressed = false;
         //Mouse tile stuff
         testmap.drawTilemap(tileBeingUsed, window);
         if(checkingValidity){
@@ -361,24 +376,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                 testmap.tileCollection[aa].isValidMovement(window);
             }}
         if(mousePressed) selectTile(screenPos, window);
-        if (mousePressed==true)
-        {
-            cout << "about to try\n";
-            for (int i=0;i<testmap.numberOfCharactersPossible;i++)
-            {
-                int playerPositionx=(heroes[i].sprite.getPosition().x), playerPositiony=(heroes[i].sprite.getPosition().y);
-                int mousePositionx=(mousePos.x/32)*32, mousePositiony=(mousePos.y/32)*32;
-                cout << "X: " <<  playerPositionx/32 << "\t:\t" << mousePositionx/32 << endl;
-                cout << "Y: " <<  playerPositiony/32 << "\t:\t" << mousePositiony/32 << endl << endl;
-                if (mousePositionx==playerPositionx and mousePositiony==playerPositiony)
-                {
 
-                    cout <<"trying\n";
-                    heroes[i].rangecheck(testmap.passableTileX,testmap.passableTileY);
-                    //cout << heroes[i].traversibletilesx[i] << " " << heroes[i].traversibletilesy[i] << endl;
-                }
-            }
-        }
         for (int i=0;i<testmap.numberOfCharactersPossible;i++)
         {
             heroes[i].placehero(window, testmap.characterPositionsX[i]*32,testmap.characterPositionsY[i]*32);
