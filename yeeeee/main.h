@@ -83,8 +83,8 @@ void hero::rangecheck(vector<int> passabletilex, vector<int> passabletiley,sf::R
                 traversibletilesx.push_back(passabletilex[i]);
                 traversibletilesy.push_back(passabletiley[j]);
             }
-            cout << endl << passabletilex[i] << endl;
-            cout << passabletiley[i] << endl;
+            //cout << endl << passabletilex[i] << endl;
+           // cout << passabletiley[i] << endl;
         }
     }
     tile validTiles[traversibletilesx.size()];
@@ -240,6 +240,7 @@ void hero::placehero(sf::RenderWindow& window, int characterx, int charactery)
 
 void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
 {
+    bool mouseHovering=false;
     int selectedHero;
     window.setSize(sf::Vector2u(800,640));
     int tileBeingUsed;
@@ -350,7 +351,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                 {
                     screenText.setString("Mouse pressed");
                     mousePressed = true;
-                    cout << "about to try\n";
                     for (int i=0;i<testmap.numberOfCharactersPossible;i++)
                     {
                         int playerPositionx=(heroes[i].sprite.getPosition().x), playerPositiony=(heroes[i].sprite.getPosition().y);
@@ -360,13 +360,20 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                         if (mousePositionx==playerPositionx and mousePositiony==playerPositiony)
                         {
                             selectedHero=i;
+                            mouseHovering=true;
                         }
-
-                    heroes[selectedHero].rangecheck(testmap.passableTileX,testmap.passableTileY,window);
+                        else
+                        {
+                            mouseHovering=false;
+                        }
                     }
                 }
             }
         else mousePressed = false;
+        if (mouseHovering=true)
+        {
+            heroes[selectedHero].rangecheck(testmap.passableTileX,testmap.passableTileY,window);
+        }
         //Mouse tile stuff
         testmap.drawTilemap(tileBeingUsed, window);
         if(checkingValidity){
