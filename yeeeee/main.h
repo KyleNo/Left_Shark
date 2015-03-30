@@ -73,9 +73,9 @@ void hero::rangecheck(vector<int> passabletilex, vector<int> passabletiley,sf::R
     {
         for (int i=0;i<range-abs(j);i++)
         {
-            if (passabletilex[-i]==1 and passabletiley[j]==1)
+            if (-passabletilex[i]==1 and passabletiley[j]==1)
             {
-                traversibletilesx.push_back(passabletilex[-i]);
+                traversibletilesx.push_back(-passabletilex[i]);
                 traversibletilesy.push_back(passabletiley[j]);
             }
             if (passabletilex[i]==0 and passabletiley[j]==0)
