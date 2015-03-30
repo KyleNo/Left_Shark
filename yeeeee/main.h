@@ -69,32 +69,30 @@ void hero::rangecheck(vector<int> passabletilex, vector<int> passabletiley,sf::R
     sf::Vector2i positioncheck,positionalter;
     int range=5;
     positioncheck=Position;
-    for (int a=-5;a<=range;a++)
+    for (int j=-5;j<=5;j++)
     {
-        for (int j=-5;j<=5;j++)
+        for (int i=0;i<range-abs(j);i++)
         {
-            for (int i=0;i<range-abs(j);i++)
+            if (passabletilex[-i]==1 and passabletiley[j]==1)
             {
-                if (passabletilex[-i]==1 and passabletiley[j]==1)
-                {
-                    traversibletilesx.push_back(passabletilex[-i]);
-                    traversibletilesy.push_back(passabletiley[j]);
-                }
-                if (passabletilex[i]==0 and passabletiley[j]==0)
-                {
-                    traversibletilesx.push_back(passabletilex[i]);
-                    traversibletilesy.push_back(passabletiley[j]);
-                }
-                    cout << endl << passabletilex[i] << endl;
-                    cout << passabletiley[i] << endl;
+                traversibletilesx.push_back(passabletilex[-i]);
+                traversibletilesy.push_back(passabletiley[j]);
             }
+            if (passabletilex[i]==0 and passabletiley[j]==0)
+            {
+                traversibletilesx.push_back(passabletilex[i]);
+                traversibletilesy.push_back(passabletiley[j]);
+            }
+            cout << endl << passabletilex[i] << endl;
+            cout << passabletiley[i] << endl;
         }
     }
     tile validTiles[traversibletilesx.size()];
     for (int i=0;i<traversibletilesx.size();i++)
     {
         validTiles[i]=tiles[7];
-        validTiles[i].tileSprite.setPosition(traversibletilesx[i],traversibletilesy[i]);
+        validTiles[i].tileSprite.setPosition(traversibletilesx[i]*32,traversibletilesy[i]*32);
+        window.draw(validTiles[i].tileSprite);
     }
 }
 
