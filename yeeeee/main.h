@@ -9,31 +9,9 @@ using namespace std;
 #include <iostream>
 #include <math.h>
 #include "resources/TMXParser.h"
+#include "herofunctions.h"
 
-class ability{
-public:
 
-};
-
-class heroClass{
-public:
-    vector<ability> jobAbilities;
-};
-
-class hero{
-public:
-    vector<int> traversibletilesx, traversibletilesy;
-    int range;
-    sf::Texture texture;
-    sf::Sprite sprite;
-    heroClass job;
-    vector<int>stats;
-    vector<ability>jobAbilities;
-    sf::Vector2i Position;
-    void placehero(sf::RenderWindow& window,int characterx, int charactery);
-    void assignhero();
-    void rangecheck(vector<int>passabletilesx, vector<int>passabletilesy,sf::RenderWindow& window, sf::Vector2i Position);
-};
 
 class tilemap
 {
@@ -57,44 +35,7 @@ public:
 
 };
 
-class weapon{
-public:
-    vector<int>stats;
 
-};
-
-void hero::rangecheck(vector<int> passabletilex, vector<int> passabletiley,sf::RenderWindow& window, sf::Vector2i Position)
-{
-    sf::Vector2i positioncheck,positionalter;//this isn't necessary yet.
-    int range=5;//this is the range.
-    positioncheck=Position;//this is the position of the hero getting his paths found
-    cout << Position.x << "\t" << Position.y;
-    for (int j=-5;j<=5;j++)//this is the initialization of a for loop
-    {
-        for (int i=0;i<range-abs(j);i++)//this is the initialization of a for loop
-        {
-
-            if (-passabletilex[i]==1 and passabletiley[j]==1)//this is an if statement to check if the spot at Y,-X is cool
-            {
-                traversibletilesx.push_back(-passabletilex[i]);//"Yes, you may step on this X coordinate
-                traversibletilesy.push_back(passabletiley[j]);//"Yes, you may step on this Y coordinate
-            }
-            if (passabletilex[i]==1 and passabletiley[j]==1)//this is an if statement to check if the spot at Y, X is cool
-            {
-                traversibletilesx.push_back(passabletilex[i]);//"Yes, you may step on this X coordinate
-                traversibletilesy.push_back(passabletiley[j]);//"Yes, you may step on this Y coordinate
-            }
-        }
-    }
-
-    tile validTiles[traversibletilesx.size()];//an array of "Sure, you may step here" tiles the size of the amount of tiles you can step on.
-    for (int i=0;i<traversibletilesx.size();i++)//this is the initialization of a for loop
-    {
-        validTiles[i]=tiles[7];//the "Sure, you may step here" tiles have the same properties as a valid tile.
-        validTiles[i].tileSprite.setPosition(traversibletilesx[i]*32,traversibletilesy[i]*32);//This is where we tell it where to go.
-        window.draw(validTiles[i].tileSprite);//put the pencil to the paper
-    }
-}
 
 void declareTiles(){
     int tilex=0,tiley=0;
@@ -120,17 +61,7 @@ void declareTiles(){
         }
     }
 }
-void tile::drawToGrid(int orderX, int orderY,sf::View view, sf::RenderWindow& window){  //orderX is for the x coordinate; orderY for y co. each tile is 1 value.
-    view=window.getView();
-    sf::FloatRect rect(sf::Vector2f(view.getCenter().x - (view.getSize().x)/2, view.getCenter().y - (view.getSize().y)/2) , view.getSize());
-    tile::tileSprite.setPosition(orderX*32,orderY*32);//multiply coordinates by size of tiles
-    tile::position.x = orderX; //position 0 is arbitrarily selected for x coordintes in quantities of 32
-    tile::position.y = orderY; //position 1 for y
-    if (rect.intersects(tile::tileSprite.getGlobalBounds()))
-    {
-        window.draw(tile::tileSprite);
-    }
-}
+
 //drawToGrid() is used in drawTileMap()
 int tilemap::generateTileCollection(){ //finds tile collection using tmx
     int goodtiles=0,badtiles=0;
@@ -226,31 +157,12 @@ void tilemap::drawTilemap(int tileBeingUsed, sf::RenderWindow& window){
         }
     }
 }
-void tile::isValidMovement(sf::RenderWindow& window){
-    if(tile::isOccupied == false && tile::passable == true){
-        tiles[7].drawToGrid(tile::position.x, tile::position.y,window.getView(), window);
-    }
-    else{
-        tiles[6].drawToGrid(tile::position.x, tile::position.y,window.getView(), window);
-    }
-}
+
 void selectTile(sf::Vector2i screenPos, sf::RenderWindow& window){
-    tileSelectorInvalid.drawToGrid(screenPos.x/32 + .5, screenPos.y/32 + .5,window.getView(), window);
+    tiles[7].drawToGrid(screenPos.x/32 + .5, screenPos.y/32 + .5,window.getView(), window);
 }
 
-void hero::assignhero()
-{
-    texture.loadFromFile("TestChar.png");
-    sprite.setTexture(texture);
-}
 
-void hero::placehero(sf::RenderWindow& window, int characterx, int charactery)
-{
-    sprite.setPosition(characterx,charactery);
-    Position.x=sprite.getPosition().x;
-    Position.y=sprite.getPosition().y;
-    window.draw(sprite);
-}
 void loading(sf::RenderWindow& window)
 {
     sf::Texture loadingScreen;
@@ -264,6 +176,7 @@ void loading(sf::RenderWindow& window)
 
 void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
 {
+    tile tiles[9];
     bool mouseHovering=false;
     int selectedHero;
     window.setSize(sf::Vector2u(800,640));
@@ -300,7 +213,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
     bool checkingValidity = false;
     bool mousePressed = false;
     sf::Vector2i mousePos;
-    cout << testmap.numberOfCharactersPossible;
     view1.move(400,320); //sets view to top left corner
     while (window.isOpen()){
 
@@ -373,29 +285,32 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         tiles[8].position.x = screenPos.x/32+.5;
         tiles[8].position.y = screenPos.y/32+.5;
         if (event.type == sf::Event::MouseButtonPressed){
+                sf::Vector2i playerPosition;
                 if (event.mouseButton.button == sf::Mouse::Left)
                 {
                     screenText.setString("Mouse pressed");
                     mousePressed = true;
                     for (int i=0;i<testmap.numberOfCharactersPossible;i++)
                     {
-                        int playerPositionx=(heroes[i].sprite.getPosition().x), playerPositiony=(heroes[i].sprite.getPosition().y);
                         int mousePositionx=(mousePos.x/32)*32, mousePositiony=(mousePos.y/32)*32;
                         //cout << "X: " <<  playerPositionx/32 << "\t:\t" << mousePositionx/32 << endl;
                         //cout << "Y: " <<  playerPositiony/32 << "\t:\t" << mousePositiony/32 << endl << endl;
-                        if (mousePositionx==playerPositionx and mousePositiony==playerPositiony or mouseHovering==true)
+                        if (mousePos.x==heroes[i].sprite.getPosition().x and mousePos.y==heroes[i].sprite.getPosition().y)
                         {
                             selectedHero=i;
                             mouseHovering=true;
-
+                            playerPosition.x=heroes[i].sprite.getPosition().x;
+                            playerPosition.y=heroes[i].sprite.getPosition().y;
+                            break;
                         }
                         else
                         {
                             mouseHovering=false;
                         }
                     }
-                    cout << "what";
-                    heroes[selectedHero].rangecheck(testmap.passableTileX,testmap.passableTileY,window,heroes[selectedHero].Position);
+                    cout << heroes[0].sprite.getPosition().x << "\t" << heroes[0].sprite.getPosition().y << endl;
+                    cout << "Player Position:" << playerPosition.x << "," << playerPosition.y << endl << "Mouse Position" << mousePos.x << "," << mousePos.y << endl;
+                    heroes[selectedHero].rangecheck(testmap.passableTileX,testmap.passableTileY,window,playerPosition);
                 }
             }
         else mousePressed = false;
