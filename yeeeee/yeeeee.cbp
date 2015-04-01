@@ -32,6 +32,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="herofunctions.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="main.h">
 			<Option target="&lt;{~None~}&gt;" />
