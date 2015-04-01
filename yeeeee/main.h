@@ -212,6 +212,7 @@ int tilemap::generateTileCollection(){ //finds tile collection using tmx
             }
         }
     }
+
     cout << "Good tiles:" << goodtiles;
     cout << endl << "Bad tiles:" << badtiles << endl;
     return tilemapGrid[counter];
@@ -321,7 +322,8 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         }
         else if(sf::Keyboard::isKeyPressed(sf::Keyboard::M)){//screen movement
             screenText.setString("View movement enabled, use the arrow keys");
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+            cout << testmap.width;
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) and view1.getCenter().x < testmap.width*32-400){//right
                 buttonPressed = true;
                 framerateCounter++;
                 if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 30)){
@@ -329,7 +331,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                     viewCounterX+=32;
                     window.setView(view1);
                 }}
-            else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+            else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) and view1.getCenter().x>400 ){//left
                 buttonPressed = true;
                 framerateCounter++;
                 if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 30)){
@@ -338,7 +340,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                     window.setView(view1);
 
                 }}
-            else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+            else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) and view1.getCenter().y > 320){//up
                 buttonPressed = true;
                 framerateCounter++;
                 if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 30)){
@@ -346,7 +348,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                         viewCounterY-=32;
                         window.setView(view1);
                 }}
-            else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
+            else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down) and view1.getCenter().y < testmap.height*32-320){//down
                 buttonPressed = true;
                 framerateCounter++;
                 if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 30)){
