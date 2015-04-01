@@ -355,12 +355,13 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                     {
                         int playerPositionx=(heroes[i].sprite.getPosition().x), playerPositiony=(heroes[i].sprite.getPosition().y);
                         int mousePositionx=(mousePos.x/32)*32, mousePositiony=(mousePos.y/32)*32;
-                        cout << "X: " <<  playerPositionx/32 << "\t:\t" << mousePositionx/32 << endl;
-                        cout << "Y: " <<  playerPositiony/32 << "\t:\t" << mousePositiony/32 << endl << endl;
-                        if (mousePositionx==playerPositionx and mousePositiony==playerPositiony)
+                        //cout << "X: " <<  playerPositionx/32 << "\t:\t" << mousePositionx/32 << endl;
+                        //cout << "Y: " <<  playerPositiony/32 << "\t:\t" << mousePositiony/32 << endl << endl;
+                        if (mousePositionx==playerPositionx and mousePositiony==playerPositiony and mouseHovering==true)
                         {
                             selectedHero=i;
                             mouseHovering=true;
+                            heroes[selectedHero].rangecheck(testmap.passableTileX,testmap.passableTileY,window);
                         }
                         else
                         {
@@ -370,10 +371,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                 }
             }
         else mousePressed = false;
-        if (mouseHovering=true)
-        {
-            heroes[selectedHero].rangecheck(testmap.passableTileX,testmap.passableTileY,window);
-        }
+
         //Mouse tile stuff
         testmap.drawTilemap(tileBeingUsed, window);
         if(checkingValidity){
