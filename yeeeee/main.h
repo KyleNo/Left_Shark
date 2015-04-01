@@ -83,8 +83,8 @@ void hero::rangecheck(vector<int> passabletilex, vector<int> passabletiley,sf::R
                 traversibletilesx.push_back(passabletilex[i]);
                 traversibletilesy.push_back(passabletiley[j]);
             }
-            //cout << endl << passabletilex[i] << endl;
-           // cout << passabletiley[i] << endl;
+            cout << endl << passabletilex[i] << endl;
+            cout << passabletiley[i] << endl;
         }
     }
     tile validTiles[traversibletilesx.size()];
@@ -357,17 +357,19 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                         int mousePositionx=(mousePos.x/32)*32, mousePositiony=(mousePos.y/32)*32;
                         //cout << "X: " <<  playerPositionx/32 << "\t:\t" << mousePositionx/32 << endl;
                         //cout << "Y: " <<  playerPositiony/32 << "\t:\t" << mousePositiony/32 << endl << endl;
-                        if (mousePositionx==playerPositionx and mousePositiony==playerPositiony and mouseHovering==true)
+                        if (mousePositionx==playerPositionx and mousePositiony==playerPositiony or mouseHovering==true)
                         {
                             selectedHero=i;
                             mouseHovering=true;
-                            heroes[selectedHero].rangecheck(testmap.passableTileX,testmap.passableTileY,window);
+
                         }
                         else
                         {
                             mouseHovering=false;
                         }
                     }
+                    cout << "what";
+                    heroes[selectedHero].rangecheck(testmap.passableTileX,testmap.passableTileY,window);
                 }
             }
         else mousePressed = false;
