@@ -36,7 +36,7 @@ Vector2i buttonTemplate::buttonSelection(Vector2i coordinates, Vector2i position
     {
         if (coordinates.x<250)
         {
-            coordinates.x+=3;
+            coordinates.x+=1;
         }
         hover=true;
     }
@@ -44,7 +44,7 @@ Vector2i buttonTemplate::buttonSelection(Vector2i coordinates, Vector2i position
     {
         if (coordinates.x>200)
         {
-            coordinates.x-=3;
+            coordinates.x-=1;
         }
         hover=false;
     }
@@ -76,7 +76,7 @@ void startMenu(RenderWindow& window)
     Sprite menu;
 
     menu.setTexture(menuLoadingTexture);
-
+    window.setFramerateLimit(300);
     while (window.isOpen())
     {
         Event event;
@@ -90,6 +90,7 @@ void startMenu(RenderWindow& window)
                 {
                     if(Button1.hover==true)
                     {
+                        window.setFramerateLimit(60);
                         tileDraw(window,NULL);
                         //cout << "Button 1 pressed.\n";
                         //Button1.addon=1.2;

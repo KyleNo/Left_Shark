@@ -237,12 +237,23 @@ void hero::placehero(sf::RenderWindow& window, int characterx, int charactery)
     sprite.setPosition(characterx,charactery);
     window.draw(sprite);
 }
+void loading(sf::RenderWindow& window)
+{
+    sf::Texture loadingScreen;
+    sf::Sprite loadingSprite;
+    loadingScreen.loadFromFile("Loading.png");
+    loadingSprite.setTexture(loadingScreen);
+    window.clear();
+    window.draw(loadingSprite);
+    window.display();
+}
 
 void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
 {
     bool mouseHovering=false;
     int selectedHero;
     window.setSize(sf::Vector2u(800,640));
+    loading(window);
     int tileBeingUsed;
     sf::Font font;
     font.loadFromFile("neoteric.ttf");
