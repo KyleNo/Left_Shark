@@ -32,7 +32,7 @@ public:
     sf::Vector2i Position;
     void placehero(sf::RenderWindow& window,int characterx, int charactery);
     void assignhero();
-    void rangecheck(vector<int>passabletilesx, vector<int>passabletilesy,sf::RenderWindow& window);
+    void rangecheck(vector<int>passabletilesx, vector<int>passabletilesy,sf::RenderWindow& window, sf::Vector2i Position);
 };
 
 class tilemap
@@ -63,36 +63,36 @@ public:
 
 };
 
-void hero::rangecheck(vector<int> passabletilex, vector<int> passabletiley,sf::RenderWindow& window)
+void hero::rangecheck(vector<int> passabletilex, vector<int> passabletiley,sf::RenderWindow& window, sf::Vector2i Position)
 {
-    bool xaxis=false,yaxis=false;
-    sf::Vector2i positioncheck,positionalter;
-    int range=5;
-    positioncheck=Position;
-    for (int j=-5;j<=5;j++)
+    sf::Vector2i positioncheck,positionalter;//this isn't necessary yet.
+    int range=5;//this is the range.
+    positioncheck=Position;//this is the position of the hero getting his paths found
+    cout << Position.x << "\t" << Position.y;
+    for (int j=-5;j<=5;j++)//this is the initialization of a for loop
     {
-        for (int i=0;i<range-abs(j);i++)
+        for (int i=0;i<range-abs(j);i++)//this is the initialization of a for loop
         {
-            if (-passabletilex[i]==1 and passabletiley[j]==1)
+
+            if (-passabletilex[i]==1 and passabletiley[j]==1)//this is an if statement to check if the spot at Y,-X is cool
             {
-                traversibletilesx.push_back(-passabletilex[i]);
-                traversibletilesy.push_back(passabletiley[j]);
+                traversibletilesx.push_back(-passabletilex[i]);//"Yes, you may step on this X coordinate
+                traversibletilesy.push_back(passabletiley[j]);//"Yes, you may step on this Y coordinate
             }
-            if (passabletilex[i]==0 and passabletiley[j]==0)
+            if (passabletilex[i]==1 and passabletiley[j]==1)//this is an if statement to check if the spot at Y, X is cool
             {
-                traversibletilesx.push_back(passabletilex[i]);
-                traversibletilesy.push_back(passabletiley[j]);
+                traversibletilesx.push_back(passabletilex[i]);//"Yes, you may step on this X coordinate
+                traversibletilesy.push_back(passabletiley[j]);//"Yes, you may step on this Y coordinate
             }
-            cout << endl << passabletilex[i] << endl;
-            cout << passabletiley[i] << endl;
         }
     }
-    tile validTiles[traversibletilesx.size()];
-    for (int i=0;i<traversibletilesx.size();i++)
+
+    tile validTiles[traversibletilesx.size()];//an array of "Sure, you may step here" tiles the size of the amount of tiles you can step on.
+    for (int i=0;i<traversibletilesx.size();i++)//this is the initialization of a for loop
     {
-        validTiles[i]=tiles[7];
-        validTiles[i].tileSprite.setPosition(traversibletilesx[i]*32,traversibletilesy[i]*32);
-        window.draw(validTiles[i].tileSprite);
+        validTiles[i]=tiles[7];//the "Sure, you may step here" tiles have the same properties as a valid tile.
+        validTiles[i].tileSprite.setPosition(traversibletilesx[i]*32,traversibletilesy[i]*32);//This is where we tell it where to go.
+        window.draw(validTiles[i].tileSprite);//put the pencil to the paper
     }
 }
 
@@ -133,6 +133,7 @@ void tile::drawToGrid(int orderX, int orderY,sf::View view, sf::RenderWindow& wi
 }
 //drawToGrid() is used in drawTileMap()
 int tilemap::generateTileCollection(){ //finds tile collection using tmx
+    int goodtiles=0,badtiles=0;
     sf::Vector2i gridcounter;
     tmxparser::TmxMap yee; //declares tmx map
     tmxparser::TmxReturn error; //error test
@@ -157,6 +158,14 @@ int tilemap::generateTileCollection(){ //finds tile collection using tmx
             {
                 tilemap::passableTileX.push_back(0);
                 tilemap::passableTileY.push_back(0);
+            }
+            if (passableTileX[i]==1 and passableTileY[i]==1)
+            {
+                badtiles++;
+            }
+            else
+            {
+                goodtiles++;
             }
             if (yee.layerCollection[1].tiles[i].gid == 6)
             {
@@ -203,6 +212,8 @@ int tilemap::generateTileCollection(){ //finds tile collection using tmx
             }
         }
     }
+    cout << "Good tiles:" << goodtiles;
+    cout << endl << "Bad tiles:" << badtiles << endl;
     return tilemapGrid[counter];
 }
 void tilemap::drawTilemap(int tileBeingUsed, sf::RenderWindow& window){
@@ -235,6 +246,8 @@ void hero::assignhero()
 void hero::placehero(sf::RenderWindow& window, int characterx, int charactery)
 {
     sprite.setPosition(characterx,charactery);
+    Position.x=sprite.getPosition().x;
+    Position.y=sprite.getPosition().y;
     window.draw(sprite);
 }
 void loading(sf::RenderWindow& window)
@@ -380,7 +393,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                         }
                     }
                     cout << "what";
-                    heroes[selectedHero].rangecheck(testmap.passableTileX,testmap.passableTileY,window);
+                    heroes[selectedHero].rangecheck(testmap.passableTileX,testmap.passableTileY,window,heroes[selectedHero].Position);
                 }
             }
         else mousePressed = false;
