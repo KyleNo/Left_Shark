@@ -65,9 +65,9 @@ void startMenu(RenderWindow& window)
     Texture menuLoadingTexture;
     buttonTemplate Button1;
     buttonTemplate Button2;
-    Button1.setButton(200,300,"startbutton.png");
-    Button2.setButton(200,410,"button420.png");
-    if (!menuLoadingTexture.loadFromFile("menushark2.png"))
+    Button1.setButton(200,300,"resources/images/startbutton.png");
+    Button2.setButton(200,410,"resources/images/button420.png");
+    if (!menuLoadingTexture.loadFromFile("resources/images/menushark2.png"))
     {
 
     }
