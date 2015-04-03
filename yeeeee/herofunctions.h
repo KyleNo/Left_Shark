@@ -73,7 +73,10 @@ void hero::rangecheck(vector<int> passabletilex, vector<int> passabletiley,sf::R
 
 void hero::assignhero()
 {
-    texture.loadFromFile("TestChar.png");
+    if(!texture.loadFromFile("resources/images/TestChar.png"))
+    {
+        //error...
+    }
     sprite.setTexture(texture);
 }
 

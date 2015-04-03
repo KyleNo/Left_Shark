@@ -167,7 +167,7 @@ void loading(sf::RenderWindow& window)
 {
     sf::Texture loadingScreen;
     sf::Sprite loadingSprite;
-    loadingScreen.loadFromFile("Loading.png");
+    loadingScreen.loadFromFile("resources/images/Loading.png");
     loadingSprite.setTexture(loadingScreen);
     window.clear();
     window.draw(loadingSprite);
