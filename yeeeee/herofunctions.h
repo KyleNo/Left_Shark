@@ -36,7 +36,8 @@ void hero::rangecheck(vector<int> passabletilex, vector<int> passabletiley,sf::R
 {
     sf::Vector2i positioncheck,positionalter;//this isn't necessary yet.
     int range=5;//this is the range.
-    for (int j=-5;j<=5;j++)//this is the initialization of a for loop
+    int invalidCounter = 0;
+    for (int j=-range;j<=range;j++)//this is the initialization of a for loop
     {
         for (int i=0;i<range-abs(j);i++)//this is the initialization of a for loop
         {
@@ -50,8 +51,10 @@ void hero::rangecheck(vector<int> passabletilex, vector<int> passabletiley,sf::R
                 traversibletilesx.push_back(passabletilex[i]);//"Yes, you may step on this X coordinate
                 traversibletilesy.push_back(passabletiley[j]);//"Yes, you may step on this Y coordinate
             }
+            else invalidCounter++;
         }
     }
+    cout << invalidCounter << endl;
     tile validTiles[traversibletilesx.size()];//an array of "Sure, you may step here" tiles the size of the amount of tiles you can step on.
     for (int i=0;i<traversibletilesx.size();i++)//this is the initialization of a for loop
     {
@@ -61,8 +64,7 @@ void hero::rangecheck(vector<int> passabletilex, vector<int> passabletiley,sf::R
     }
 }
 void hero::assignhero(){
-    if(!texture.loadFromFile("resources/images/TestChar.png"))
-    {
+    if(!texture.loadFromFile("resources/images/TestChar.png")){
         //error...
     }
     sprite.setTexture(texture);

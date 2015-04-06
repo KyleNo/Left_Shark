@@ -143,9 +143,6 @@ int tilemap::generateTileCollection(){ //finds tile collection using tmx
             }
         }
     }
-
-    cout << "Good tiles:" << goodtiles;
-    cout << endl << "Bad tiles:" << badtiles << endl;
     return tilemapGrid[counter];
 }
 void tilemap::drawTilemap(int tileBeingUsed, sf::RenderWindow& window){
@@ -233,7 +230,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::M)or true){//screen movement
             screenText.setString("View movement enabled, use the arrow keys");
-            cout << sf::Mouse::getPosition(window).x << "\t" << sf::Mouse::getPosition(window).y << endl;
             if(sf::Mouse::getPosition(window).x > 768 and view1.getCenter().x < testmap.width*32-400){//right
                 buttonPressed = true;
                 framerateCounter++;
@@ -289,21 +285,26 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                 {
                     screenText.setString("Mouse pressed");
                     mousePressed = true;
+                    int mousePositionx=(mousePos.x/32)*32, mousePositiony=(mousePos.y/32)*32;
                     for (int i=0;i<testmap.numberOfCharactersPossible;i++)
                     {
-                        int mousePositionx=(mousePos.x/32)*32, mousePositiony=(mousePos.y/32)*32;
                         if (mousePositionx==(heroes[i].sprite.getPosition().x/32)*32 && mousePositiony==(heroes[i].sprite.getPosition().y/32)*32)
                         {
                             selectedHero=i;
                             mouseHovering=true;
+                            cout << "ye" ;
                             break;
                         }
                         else
                         {
                             mouseHovering=false;
+                            selectedHero = -1;
                         }
                     }
-                    heroes[selectedHero].rangecheck(testmap.passableTileX,testmap.passableTileY,window);
+                    if(selectedHero > -1){
+                        heroes[selectedHero].rangecheck(testmap.passableTileX,testmap.passableTileY,window);
+                    }
+                  //  cout << mousePositionX << " : " << mousePositionY << " : " << heroes[selectedHero].Position.x << " : " << heroes[selectedHero].Position.y << endl;
                 }
             }
         else mousePressed = false;
