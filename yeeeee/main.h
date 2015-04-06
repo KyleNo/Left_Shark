@@ -37,7 +37,8 @@ public:
 
 
 
-void declareTiles(){
+void declareTiles()
+{
     int tilex=0,tiley=0;
     for (int i=0;i<9;i++)
     {
