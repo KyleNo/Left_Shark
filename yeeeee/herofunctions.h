@@ -60,8 +60,7 @@ void hero::rangecheck(vector<int> passabletilex, vector<int> passabletiley,sf::R
         window.draw(validTiles[i].tileSprite);//put the pencil to the paper
     }
 }
-void hero::assignhero()
-{
+void hero::assignhero(){
     if(!texture.loadFromFile("resources/images/TestChar.png"))
     {
         //error...
