@@ -157,7 +157,7 @@ void tilemap::drawTilemap(int tileBeingUsed, sf::RenderWindow& window){
 }
 
 void selectTile(sf::Vector2i screenPos, sf::RenderWindow& window){
-    tiles[7].drawToGrid(screenPos.x/32 + .5, screenPos.y/32 + .5,window.getView(), window);
+    tiles[8].drawToGrid(screenPos.x/32 + .5, screenPos.y/32 + .5,window.getView(), window);
 }
 
 
@@ -266,7 +266,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                 }}
             else {
                 buttonPressed = false;
-                //framerateCounter = 0;
             }}
         else {
                 screenText.setString("null");
@@ -280,6 +279,8 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         screenPos.y = window.mapPixelToCoords(mousePos).y;
         tiles[8].position.x = screenPos.x/32+.5;
         tiles[8].position.y = screenPos.y/32+.5;
+        cout << "PlayerPosition: " << heroes[0].sprite.getPosition().x <<"," << heroes[0].sprite.getPosition().y << endl;
+        cout << "Mouse Position: " << tiles[8].tileSprite.getPosition().x << "," << tiles[8].tileSprite.getPosition().y << endl;
         if (event.type == sf::Event::MouseButtonPressed){
                 sf::Vector2i playerPosition;
                 if (event.mouseButton.button == sf::Mouse::Left)
@@ -289,7 +290,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                     int mousePositionx=(mousePos.x/32)*32, mousePositiony=(mousePos.y/32)*32;
                     for (int i=0;i<testmap.numberOfCharactersPossible;i++)
                     {
-                        if (mousePositionx==(heroes[i].sprite.getPosition().x/32)*32 && mousePositiony==(heroes[i].sprite.getPosition().y/32)*32)
+                        if (tiles[8].tileSprite.getPosition().x==(heroes[i].sprite.getPosition().x/32)*32 && tiles[8].tileSprite.getPosition().y==(heroes[i].sprite.getPosition().y/32)*32)
                         {
                             selectedHero=i;
                             mouseHovering=true;
@@ -303,9 +304,9 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                         }
                     }
                     if(selectedHero > -1){
+
                         heroes[selectedHero].rangecheck(testmap.passableTileX,testmap.passableTileY,window);
                     }
-                  //  cout << mousePositionX << " : " << mousePositionY << " : " << heroes[selectedHero].Position.x << " : " << heroes[selectedHero].Position.y << endl;
                 }
             }
         else mousePressed = false;
@@ -316,11 +317,12 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
             for(int aa = 0; aa < testmap.tileCollection.size(); aa++){
                 testmap.tileCollection[aa].isValidMovement(window);
             }}
-        if(mousePressed) selectTile(screenPos, window);
 
+        selectTile(screenPos, window);
         for (int i=0;i<testmap.numberOfCharactersPossible;i++)
         {
             heroes[i].placehero(window, testmap.characterPositionsX[i]*32,testmap.characterPositionsY[i]*32);
+
         }
         screenText.setOrigin(-viewCounterX + 310, -viewCounterY + 310);
         tiles[8].drawToGrid(tiles[8].position.x, tiles[8].position.y,window.getView(), window);

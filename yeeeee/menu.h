@@ -23,7 +23,6 @@ void buttonTemplate::setButton(int x, int y, string filename)
 {
     if (!buttonLoadingTexture.loadFromFile(filename))
     {
-
     }
     button.setTexture(buttonLoadingTexture);
     coordinates.x=x;
