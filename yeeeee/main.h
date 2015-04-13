@@ -16,7 +16,7 @@ using namespace std;
 class tilemap
 {
     public:
-        vector<sf::Vector2i> passableTile;
+        vector<int> passableTileX, passableTileY;
         vector<int> characterPositionsX, characterPositionsY;
         int height,width;
         int numberOfCharactersPossible;
@@ -83,14 +83,15 @@ int tilemap::generateTileCollection(){ //finds tile collection using tmx
             tilemapGrid[i]=yee.layerCollection[0].tiles[i].gid;
             if (tilemapGrid[i]==2)
             {
-                tilemap::passableTile.push_back(sf::Vector2i(1,1));
-                //tilemap::passableTile.push_back(1);
+                tilemap::passableTileX.push_back(1);
+                tilemap::passableTileY.push_back(1);
             }
             else
             {
-                tilemap::passableTile.push_back(sf::Vector2i(0,0));
+                tilemap::passableTileX.push_back(0);
+                tilemap::passableTileY.push_back(0);
             }
-            if (passableTile[i].x==1 and passableTile[i].y==1)
+            if (passableTileX[i]==1 and passableTileY[i]==1)
             {
                 badtiles++;
             }
@@ -119,17 +120,17 @@ int tilemap::generateTileCollection(){ //finds tile collection using tmx
                 gridcounter.y++;
             }
         }
-//        vector<int> sortingvector;
-//        for (int i=0;i<passableTile.x.size();i++)
-//        {
-//            sortingvector.push_back(passableTile.x[i]);
-//        }
-//        passableTile.x=sortingvector;
-//        for (int i=0;i<passableTile.y.size();i++)
-//        {
-//            sortingvector.push_back(passableTile.y[i]);
-//        }
-//        passableTile.y=sortingvector;
+        vector<int> sortingvector;
+        for (int i=0;i<passableTileX.size();i++)
+        {
+            sortingvector.push_back(passableTileX[i]);
+        }
+        passableTileX=sortingvector;
+        for (int i=0;i<passableTileY.size();i++)
+        {
+            sortingvector.push_back(passableTileY[i]);
+        }
+        passableTileY=sortingvector;
     }
     tilemap::tileCollection.resize(mapSize);
     int counter = 0;
@@ -230,7 +231,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::M)or true){//screen movement
             screenText.setString("View movement enabled, use the arrow keys");
-            if(sf::Mouse::getPosition(window).x > 672 and view1.getCenter().x < testmap.width*32-400){//right
+            if(sf::Mouse::getPosition(window).x > 768 and view1.getCenter().x < testmap.width*32-400){//right
                 buttonPressed = true;
                 framerateCounter++;
                 if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 5)){
@@ -278,8 +279,8 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         screenPos.y = window.mapPixelToCoords(mousePos).y;
         tiles[8].position.x = screenPos.x/32+.5;
         tiles[8].position.y = screenPos.y/32+.5;
-        //cout << "PlayerPosition: " << heroes[0].sprite.getPosition().x <<", " << heroes[0].sprite.getPosition().y << "\t";
-        //cout << "Mouse Position: " << tiles[8].tileSprite.getPosition().x << ", " << tiles[8].tileSprite.getPosition().y << endl;
+        cout << "PlayerPosition: " << heroes[0].sprite.getPosition().x <<"," << heroes[0].sprite.getPosition().y << endl;
+        cout << "Mouse Position: " << tiles[8].tileSprite.getPosition().x << "," << tiles[8].tileSprite.getPosition().y << endl;
         if (event.type == sf::Event::MouseButtonPressed){
                 sf::Vector2i playerPosition;
                 if (event.mouseButton.button == sf::Mouse::Left)
@@ -304,7 +305,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                     }
                     if(selectedHero > -1){
 
-                        heroes[selectedHero].rangecheck(testmap.passableTile,window);
+                        heroes[selectedHero].rangecheck(testmap.passableTileX,testmap.passableTileY,window);
                     }
                 }
             }
