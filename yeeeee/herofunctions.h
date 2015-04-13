@@ -23,7 +23,7 @@ public:
     sf::Vector2i Position;
     void placehero(sf::RenderWindow& window,int characterx, int charactery);
     void assignhero();
-    void rangecheck(vector<int>passabletilesx, vector<int>passabletilesy,sf::RenderWindow& window);
+    void rangecheck(vector<sf::Vector2i> passableTiles,sf::RenderWindow& window);
 };
 
 class weapon{
@@ -32,7 +32,7 @@ public:
 
 };
 
-void hero::rangecheck(vector<int> passabletilex, vector<int> passabletiley,sf::RenderWindow& window)
+void hero::rangecheck(vector<sf::Vector2i> passableTile,sf::RenderWindow& window)
 {
     sf::Vector2i positioncheck,positionalter;//this isn't necessary yet.
     int range=5;//this is the range.
@@ -41,15 +41,15 @@ void hero::rangecheck(vector<int> passabletilex, vector<int> passabletiley,sf::R
     {
         for (int i=0;i<range-abs(j);i++)//this is the initialization of a for loop
         {
-            if (-passabletilex[i]==1 and passabletiley[j]==1)//this is an if statement to check if the spot at Y,-X is cool
+            if (-passableTile[i].x==1 and passableTile[j].y==1)//this is an if statement to check if the spot at Y,-X is cool
             {
-                traversibletilesx.push_back(-passabletilex[i]);//"Yes, you may step on this X coordinate
-                traversibletilesy.push_back(passabletiley[j]);//"Yes, you may step on this Y coordinate
+                traversibletilesx.push_back(-passableTile[i].x);//"Yes, you may step on this X coordinate
+                traversibletilesy.push_back(passableTile[j].y);//"Yes, you may step on this Y coordinate
             }
-            if (passabletilex[i]==1 and passabletiley[j]==1)//this is an if statement to check if the spot at Y, X is cool
+            if (passableTile[i].x==1 and passableTile[j].y==1)//this is an if statement to check if the spot at Y, X is cool
             {
-                traversibletilesx.push_back(passabletilex[i]);//"Yes, you may step on this X coordinate
-                traversibletilesy.push_back(passabletiley[j]);//"Yes, you may step on this Y coordinate
+                traversibletilesx.push_back(passableTile[i].x);//"Yes, you may step on this X coordinate
+                traversibletilesy.push_back(passableTile[j].y);//"Yes, you may step on this Y coordinate
             }
             else invalidCounter++;
         }
