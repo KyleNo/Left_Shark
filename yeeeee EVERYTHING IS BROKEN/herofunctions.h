@@ -1,9 +1,22 @@
 #ifndef HEROFUNCTIONS_H_INCLUDED
 #define HEROFUNCTIONS_H_INCLUDED
-
+struct hero;
 class ability{
 public:
-
+     string abilityName;
+     bool isAttack;
+     bool isHeal;
+     bool isBuff;
+     int abilityPotency;
+     float abilityModifier;
+     int range;
+     int radius;
+     int forTurns;
+     int statAffected;
+     void useAbility(hero user, hero target);
+     void abilityHeal(hero user, hero target);
+     void abilityAttack(hero user, hero target);
+     void abilityBuff(hero user, hero target);
 };
 
 class heroClass{
@@ -19,6 +32,8 @@ public:
     sf::Sprite sprite;
     heroClass job;
     vector<int>stats;
+    int currentHealth;
+    int team;
     vector<ability>jobAbilities;
     sf::Vector2i Position;
     void placehero(sf::RenderWindow& window,int characterx, int charactery);
@@ -31,9 +46,7 @@ public:
     vector<int>stats;
 
 };
-
-void hero::rangecheck(vector < vector<int> > passableTiles,sf::RenderWindow& window)
-{
+void hero::rangecheck(vector < vector<int> > passableTiles,sf::RenderWindow& window){
     sf::Vector2i positioncheck,positionalter;//this isn't necessary yet.
     int range=5;//this is the range.
     int invalidCounter = 0;
@@ -76,5 +89,19 @@ void hero::placehero(sf::RenderWindow& window, int characterx, int charactery){
     Position.x=sprite.getPosition().x;
     Position.y=sprite.getPosition().y;
     window.draw(sprite);
+}
+void ability::useAbility(hero user, hero target){
+    if(ability::isAttack) ability::abilityAttack(user, target);
+    if(ability::isHeal) ability::abilityHeal(user, target);
+    if(ability::isBuff) ability::abilityBuff(user, target);
+}
+void ability::abilityAttack(hero user, hero target){
+    if(user.team != target.team) target.currentHealth -= ability::abilityPotency * ability::abilityModifier;
+}
+void ability::abilityHeal(hero user, hero target){
+    if(user.team == target.team) target.currentHealth += ability::abilityPotency * ability::abilityModifier;
+}
+void ability::abilityBuff(hero user, hero target){
+    target.stats[ability::statAffected]+= ability::abilityPotency * ability::abilityModifier;
 }
 #endif // HEROFUNCTIONS_H_INCLUDED
