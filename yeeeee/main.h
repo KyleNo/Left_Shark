@@ -10,7 +10,7 @@ using namespace std;
 #include <math.h>
 #include "resources/TMXParser.h"
 #include "herofunctions.h"
-
+#include "menuDeclare.h"
 
 
 class tilemap
@@ -303,8 +303,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                         }
                     }
                     if(selectedHero > -1){
-
-                        heroes[selectedHero].rangecheck(testmap.passableTile,window);
+                        actionMenu(heroes[selectedHero], window);
                     }
                 }
             }
