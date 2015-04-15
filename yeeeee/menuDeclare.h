@@ -72,8 +72,7 @@ void actionMenu(hero user, RenderWindow& window){
     buttonTemplate heroAction;
     View windowView = window.getView();
     Vector2i screenPosition = window.mapCoordsToPixel(windowView.getCenter());
-    heroMove.setButton(screenPosition.x, screenPosition.y, "resources\images\cooltestbutton.png");
-    while (window.isOpen()){
+    heroMove.setButton(500, 1000, "resources/images/attackButton.png");
       Event event;
         while(window.pollEvent(event)){
             if (event.type == Event::Closed)window.close();
@@ -85,10 +84,9 @@ void actionMenu(hero user, RenderWindow& window){
                     else if(heroAction.hover == true){
                         //null
                     }
-                    }}}}
+                    }}}
 
-    window.draw(heroMove.button);
-
+        window.draw(heroMove.button);
 }
 
 
