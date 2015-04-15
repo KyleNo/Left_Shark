@@ -228,49 +228,55 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
             screenText.setString("Tile Validity Shown");
             checkingValidity = true;
         }
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::M)or true){//screen movement
-            screenText.setString("View movement enabled, use the arrow keys");
-            if(sf::Mouse::getPosition(window).x > 672 and view1.getCenter().x < testmap.width*32-400){//right
-                buttonPressed = true;
-                framerateCounter++;
-                if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 5)){
-                    view1.move(32,0);
-                    viewCounterX+=32;
-                    window.setView(view1);
-                }}
-            else if(sf::Mouse::getPosition(window).x < 128 and view1.getCenter().x>400 ){//left
-                buttonPressed = true;
-                framerateCounter++;
-                if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 5)){
-                    view1.move(-32,0);
-                    viewCounterX-=32;
-                    window.setView(view1);
-
-                }}
-            else if(sf::Mouse::getPosition(window).y < 128 and view1.getCenter().y > 320){//up
-                buttonPressed = true;
-                framerateCounter++;
-                if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 5)){
-                        view1.move(0,-32);
-                        viewCounterY-=32;
-                        window.setView(view1);
-                }}
-            else if(sf::Mouse::getPosition(window).y > 472 and view1.getCenter().y < testmap.height*32-320){//down
-                buttonPressed = true;
-                framerateCounter++;
-                if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 5)){
-                    view1.move(0,32);
-                    viewCounterY+=32;
-                    window.setView(view1);
-                }}
-            else {
-                buttonPressed = false;
+        else
+        {
+            checkingValidity = false;
+        }
+        //screen movement
+        screenText.setString("View movement enabled, use the arrow keys");
+        if(sf::Mouse::getPosition(window).x > 672 and view1.getCenter().x < testmap.width*32-400){//right
+            framerateCounter++;
+            if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 5)){
+                view1.move(32,0);
+                viewCounterX+=32;
+                window.setView(view1);
             }}
-        else {
-                screenText.setString("null");
-                buttonPressed = false;
-                checkingValidity = false;
+        if(sf::Mouse::getPosition(window).x < 128 and view1.getCenter().x>400 ){//left
+            framerateCounter++;
+            if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 5)){
+                view1.move(-32,0);
+                viewCounterX-=32;
+                window.setView(view1);
             }
+        }
+        if(sf::Mouse::getPosition(window).y < 128 and view1.getCenter().y > 320){//up
+            framerateCounter++;
+            if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 5)){
+                    view1.move(0,-32);
+                    viewCounterY-=32;
+                    window.setView(view1);
+            }
+        }
+        if(sf::Mouse::getPosition(window).y > 472 and view1.getCenter().y < testmap.height*32-320){//down
+            framerateCounter++;
+            if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 5)){
+                view1.move(0,32);
+                viewCounterY+=32;
+                window.setView(view1);
+            }
+        }
+        if((sf::Mouse::getPosition(window).y > 472 and view1.getCenter().y < testmap.height*32-320) or (sf::Mouse::getPosition(window).y < 128 and view1.getCenter().y > 320) or (sf::Mouse::getPosition(window).x < 128 and view1.getCenter().x>400 ) or (sf::Mouse::getPosition(window).x > 672 and view1.getCenter().x < testmap.width*32-400)) {
+            buttonPressed = true;
+        }
+        else{
+            buttonPressed = false;
+        }
+
+//        else {
+//            screenText.setString("null");
+//            buttonPressed = false;
+//            checkingValidity = false;
+//        }
         //Mouse tile stuff
         sf::Vector2i screenPos;
         mousePos = sf::Mouse::getPosition(window);
