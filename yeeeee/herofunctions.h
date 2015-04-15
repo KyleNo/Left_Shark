@@ -1,6 +1,5 @@
 #ifndef HEROFUNCTIONS_H_INCLUDED
 #define HEROFUNCTIONS_H_INCLUDED
-
 struct hero;
 class ability{
 public:
@@ -32,7 +31,9 @@ public:
     sf::Sprite sprite;
     heroClass job;
     vector<int>stats;
+    int currentHealth;
     vector<ability>jobAbilities;
+    int team;
     sf::Vector2i Position;
     void placehero(sf::RenderWindow& window,int characterx, int charactery);
     void assignhero();
