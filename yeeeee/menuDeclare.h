@@ -84,7 +84,9 @@ void actionMenu(hero user, RenderWindow& window){
                     else if(heroAction.hover == true){
                         //null
                     }
-                    }}}
+                }
+            }
+        }
 
         window.draw(heroMove.button);
 }
