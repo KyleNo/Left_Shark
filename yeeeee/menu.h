@@ -6,8 +6,7 @@
 #endif // MENU_H_INCLUDED
 using namespace std;
 using namespace sf;
-class buttonTemplate
-{
+class buttonTemplate{
 public:
     Texture buttonLoadingTexture;
     Texture startButtonTexture;

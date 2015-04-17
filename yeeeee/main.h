@@ -286,15 +286,16 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         screenPos.y = window.mapPixelToCoords(mousePos).y;
         tiles[8].position.x = screenPos.x/32+.5;
         tiles[8].position.y = screenPos.y/32+.5;
+        int mousePositionx=(mousePos.x/32)*32, mousePositiony=(mousePos.y/32)*32;
 //        cout << "PlayerPosition: " << heroes[0].sprite.getPosition().x <<"," << heroes[0].sprite.getPosition().y << endl;
 //        cout << "Mouse Position: " << tiles[8].tileSprite.getPosition().x << "," << tiles[8].tileSprite.getPosition().y << endl;
-        if (event.type == sf::Event::MouseButtonPressed){
+        if (event.type == sf::Event::MouseButtonPressed and actionMenu == false){
                 sf::Vector2i playerPosition;
                 if (event.mouseButton.button == sf::Mouse::Left)
                 {
                     screenText.setString("Mouse pressed");
                     mousePressed = true;
-                    int mousePositionx=(mousePos.x/32)*32, mousePositiony=(mousePos.y/32)*32;
+
                     for (int i=0;i<testmap.numberOfCharactersPossible;i++)
                     {
                         if (tiles[8].tileSprite.getPosition().x==(heroes[i].sprite.getPosition().x/32)*32 && tiles[8].tileSprite.getPosition().y==(heroes[i].sprite.getPosition().y/32)*32)
@@ -310,7 +311,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                         }
                     }
                     if(selectedHero > -1){
-                           // heroes[selectedHero].rangecheck(testmap.passableTile, window);
                         actionMenu = true;
                     }
                 }
@@ -334,8 +334,9 @@ if(actionMenu){
             if (event.type == Event::MouseButtonPressed){
                     cout << "good";
                 if (event.mouseButton.button == Mouse::Left and (heroMove.hover==true || heroAction.hover == true || menuCancel.hover == true)){
+                    cout << "Nice";
                     if(heroMove.hover==true){
-                        //attackMenu(user, window);
+                        heroes[selectedHero].rangecheck(testmap.passableTile, window);
                         cout << " WOOP " << endl;
                     }
                     else if(heroAction.hover == true){
@@ -353,6 +354,9 @@ if(actionMenu){
                 }
             }
         }
+    heroMove.buttonSelection(heroMove.coordinates, mousePos);
+    heroAction.buttonSelection(heroAction.coordinates, mousePos);
+    menuCancel.buttonSelection(menuCancel.coordinates, mousePos);
     heroMove.button.setPosition(heroMove.coordinates.x,heroMove.coordinates.y);
     heroAction.button.setPosition(heroAction.coordinates.x, heroAction.coordinates.y);
     menuCancel.button.setPosition(menuCancel.coordinates.x, menuCancel.coordinates.y);
