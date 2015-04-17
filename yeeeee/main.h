@@ -170,7 +170,10 @@ void loading(sf::RenderWindow& window)
     window.draw(loadingSprite);
     window.display();
 }
-
+    buttonTemplate heroMove;
+    buttonTemplate heroAction;
+    buttonTemplate menuCancel;
+    bool actionMenu = false;
 void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
 {
     tile tiles[9];
@@ -307,8 +310,8 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                         }
                     }
                     if(selectedHero > -1){
-                            heroes[selectedHero].rangecheck(testmap.passableTile, window);
-                        //actionMenu(heroes[selectedHero], window);
+                           // heroes[selectedHero].rangecheck(testmap.passableTile, window);
+                        actionMenu = true;
                     }
                 }
             }
@@ -320,8 +323,40 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
             for(int aa = 0; aa < testmap.tileCollection.size(); aa++){
                 testmap.tileCollection[aa].isValidMovement(window);
             }}
-
-        selectTile(screenPos, window);
+if(actionMenu){
+    hero user;
+    user = heroes[selectedHero];
+    View windowView = window.getView();
+    Vector2i screenPosition = window.mapCoordsToPixel(windowView.getCenter());
+    heroMove.setButton(user.Position.x + 50, user.Position.y, "resources/images/moveButton.png");
+    heroAction.setButton(user.Position.x - 125, user.Position.y, "resources/images/attackButton.png");
+    menuCancel.setButton(user.Position.x - 35, user.Position.y - 50, "resources/images/whiteCancel.png");
+            if (event.type == Event::MouseButtonPressed){
+                    cout << "good";
+                if (event.mouseButton.button == Mouse::Left and (heroMove.hover==true || heroAction.hover == true || menuCancel.hover == true)){
+                    if(heroMove.hover==true){
+                        //attackMenu(user, window);
+                        cout << " WOOP " << endl;
+                    }
+                    else if(heroAction.hover == true){
+                        //null
+                        cout << "WOP" << endl;
+                    }
+                    else if(menuCancel.hover == true){
+                        actionMenu = false;
+                        cout << "BYEEEE" << endl;
+                    }
+                    else{
+                        cout << "BYEEE" << endl;
+                        actionMenu = false;
+                    }
+                }
+            }
+        }
+    heroMove.button.setPosition(heroMove.coordinates.x,heroMove.coordinates.y);
+    heroAction.button.setPosition(heroAction.coordinates.x, heroAction.coordinates.y);
+    menuCancel.button.setPosition(menuCancel.coordinates.x, menuCancel.coordinates.y);
+        if (!actionMenu)selectTile(screenPos, window);
         for (int i=0;i<testmap.numberOfCharactersPossible;i++)
         {
             heroes[i].placehero(window, testmap.characterPositionsX[i]*32,testmap.characterPositionsY[i]*32);
@@ -329,6 +364,11 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         screenText.setOrigin(-viewCounterX + 310, -viewCounterY + 310);
         tiles[8].drawToGrid(tiles[8].position.x, tiles[8].position.y,window.getView(), window);
         window.draw(screenText);
+        if(actionMenu){
+            window.draw(heroMove.button);
+            window.draw(heroAction.button);
+            window.draw(menuCancel.button);
+        }
         window.display();
         window.clear();
     }

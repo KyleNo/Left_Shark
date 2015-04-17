@@ -67,29 +67,5 @@ void startMenu(RenderWindow& window)
     }
 }
 
-void actionMenu(hero user, RenderWindow& window){
-    buttonTemplate heroMove;
-    buttonTemplate heroAction;
-    View windowView = window.getView();
-    Vector2i screenPosition = window.mapCoordsToPixel(windowView.getCenter());
-    heroMove.setButton(500, 1000, "resources/images/attackButton.png");
-      Event event;
-        while(window.pollEvent(event)){
-            if (event.type == Event::Closed)window.close();
-            if (event.type == Event::MouseButtonPressed){
-                if (event.mouseButton.button == Mouse::Left and (heroMove.hover==true || heroAction.hover == true)){
-                    if(heroMove.hover==true){
-                        //attackMenu(user, window);
-                    }
-                    else if(heroAction.hover == true){
-                        //null
-                    }
-                }
-            }
-        }
-
-        window.draw(heroMove.button);
-}
-
 
 #endif // MENUDECLARE_H_INCLUDED

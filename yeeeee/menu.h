@@ -18,6 +18,7 @@ public:
     double buttonscale(double addon);
     bool hover=false;
     double addon=1;
+
 };
 void buttonTemplate::setButton(int x, int y, string filename)
 {
