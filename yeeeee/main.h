@@ -204,7 +204,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
     {
         heroes[i].assignhero();
     }
-
     bool buttonPressed = false;
     bool checkingValidity = false;
     bool mousePressed = false;
@@ -299,7 +298,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                         {
                             selectedHero=i;
                             mouseHovering=true;
-                            cout << "ye" ;
                             break;
                         }
                         else
@@ -309,7 +307,8 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                         }
                     }
                     if(selectedHero > -1){
-                        actionMenu(heroes[selectedHero], window);
+                            heroes[selectedHero].rangecheck(testmap.passableTile, window);
+                        //actionMenu(heroes[selectedHero], window);
                     }
                 }
             }
@@ -326,7 +325,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         for (int i=0;i<testmap.numberOfCharactersPossible;i++)
         {
             heroes[i].placehero(window, testmap.characterPositionsX[i]*32,testmap.characterPositionsY[i]*32);
-
         }
         screenText.setOrigin(-viewCounterX + 310, -viewCounterY + 310);
         tiles[8].drawToGrid(tiles[8].position.x, tiles[8].position.y,window.getView(), window);

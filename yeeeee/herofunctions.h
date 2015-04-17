@@ -55,24 +55,24 @@ void hero::rangecheck(vector<sf::Vector2i> passableTile,sf::RenderWindow& window
     {
         for (int i=0;i<range-abs(j);i++)//this is the initialization of a for loop
         {
-            if (-passableTile[i].x==1 and passableTile[j].y==1)//this is an if statement to check if the spot at Y,-X is cool
+            if (-passableTile[Position.x-i].x==1 and passableTile[Position.y+j].y==1)//this is an if statement to check if the spot at Y,-X is cool
             {
-                traversibletilesx.push_back(-passableTile[i].x);//"Yes, you may step on this X coordinate
-                traversibletilesy.push_back(passableTile[j].y);//"Yes, you may step on this Y coordinate
+                traversibletilesx.push_back(Position.x-i);//"Yes, you may step on this X coordinate
+                traversibletilesy.push_back(Position.y+j);//"Yes, you may step on this Y coordinate
             }
-            if (passableTile[i].x==1 and passableTile[j].y==1)//this is an if statement to check if the spot at Y, X is cool
+            if (passableTile[Position.x+i].x==1 and passableTile[Position.y+j].y==1)//this is an if statement to check if the spot at Y, X is cool
             {
-                traversibletilesx.push_back(passableTile[i].x);//"Yes, you may step on this X coordinate
-                traversibletilesy.push_back(passableTile[j].y);//"Yes, you may step on this Y coordinate
+                traversibletilesx.push_back(Position.x+i);//"Yes, you may step on this X coordinate
+                traversibletilesy.push_back(Position.y+j);//"Yes, you may step on this Y coordinate
             }
-            else invalidCounter++;
         }
     }
-    cout << invalidCounter << endl;
+    cout << traversibletilesx.size() << endl;
     tile validTiles[traversibletilesx.size()];//an array of "Sure, you may step here" tiles the size of the amount of tiles you can step on.
     for (int i=0;i<traversibletilesx.size();i++)//this is the initialization of a for loop
     {
-        validTiles[i]=tiles[7];//the "Sure, you may step here" tiles have the same properties as a valid tile.
+        //cout << traversibletilesx[i] << " , " << traversibletilesy[i] << endl;
+        validTiles[i]=tiles[6];//the "Sure, you may step here" tiles have the same properties as a valid tile.
         validTiles[i].tileSprite.setPosition(traversibletilesx[i]*32,traversibletilesy[i]*32);//This is where we tell it where to go.
         window.draw(validTiles[i].tileSprite);//put the pencil to the paper
     }
