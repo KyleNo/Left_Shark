@@ -25,7 +25,6 @@ public:
 
 class hero{
 public:
-    vector<sf::Vector2i> traversableTiles;
     int range;
     sf::Texture texture;
     sf::Sprite sprite;
@@ -37,7 +36,7 @@ public:
     sf::Vector2i Position;
     void placehero(sf::RenderWindow& window,int characterx, int charactery);
     void assignhero();
-    void rangecheck(vector<sf::Vector2i> passableTiles,sf::RenderWindow& window);
+    void rangecheck(vector<bool> passableTile,sf::RenderWindow& window);
 };
 
 class weapon{
@@ -46,36 +45,24 @@ public:
 
 };
 
-void hero::rangecheck(vector<sf::Vector2i> passableTile,sf::RenderWindow& window)
+void hero::rangecheck(vector<bool> passableTile,sf::RenderWindow& window)
 {
-    sf::Vector2i positioncheck,positionalter;//this isn't necessary yet.
-    int range=5;//this is the range.
-    int invalidCounter = 0;
-    for (int j=-range;j<=range;j++)//this is the initialization of a for loop
+    range=5;
+    int counter=0;
+    vector<sf::Vector2i> traversableTiles;
+    for (int i=-range;i<range;i++)
     {
-        for (int i=0;i<range-abs(j);i++)//this is the initialization of a for loop
+        for (int j=-(range-abs(i));j<range-abs(i);j++)
         {
-            if (-passableTile[Position.x-i].x==1 and passableTile[Position.y+j].y==1)//this is an if statement to check if the spot at Y,-X is cool
+            if(passableTile[Position.x+j][Position.y+i]==1)
             {
-                traversableTiles.push_back(sf::Vector2i(Position.x-i,Position.y+j));//"Yes, you may step on this X coordinate
-                //traversibletiles.push_back(Position.y+j).y;//"Yes, you may step on this Y coordinate
+                traversableTiles.push_back(sf::Vector2i(Position.x-j,Position.y+i));
+                cout << traversableTiles[0].x << traversableTiles[0].y << endl;
             }
-            if (passableTile[Position.x+i].x==1 and passableTile[Position.y+j].y==1)//this is an if statement to check if the spot at Y, X is cool
-            {
-                traversableTiles.push_back(sf::Vector2i(Position.x+i,Position.y+j));//"Yes, you may step on this X coordinate
-                //traversibletiles.push_back(Position.y+j).y;//"Yes, you may step on this Y coordinate
-            }
+            counter++;
         }
     }
-    cout << traversableTiles.size() << endl;
-    tile validTiles[traversableTiles.size()];//an array of "Sure, you may step here" tiles the size of the amount of tiles you can step on.
-    for (int i=0;i<traversableTiles.size();i++)//this is the initialization of a for loop
-    {
-        //cout << traversibletilesx[i] << " , " << traversibletilesy[i] << endl;
-        validTiles[i]=tiles[6];//the "Sure, you may step here" tiles have the same properties as a valid tile.
-        validTiles[i].tileSprite.setPosition(traversableTiles[i].x*32,traversableTiles[i].y*32);//This is where we tell it where to go.
-        window.draw(validTiles[i].tileSprite);//put the pencil to the paper
-    }
+    cout << counter << endl;
 }
 void hero::assignhero(){
     if(!texture.loadFromFile("resources/images/TestChar.png")){

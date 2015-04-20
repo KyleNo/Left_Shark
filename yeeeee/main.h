@@ -16,7 +16,8 @@ using namespace std;
 class tilemap
 {
     public:
-        vector<sf::Vector2i> passableTile;
+        vector< vector<bool> > passableTile;
+        vector<sf::Vector2i> passableTiles;
         vector<int> characterPositionsX, characterPositionsY;
         int height,width;
         int numberOfCharactersPossible;
@@ -75,50 +76,76 @@ int tilemap::generateTileCollection(){ //finds tile collection using tmx
     numberOfCharactersPossible=0;
     if (!error) //negative error test
     {
+
         height=yee.height; //sets map height
         width=yee.width; //sets map width
-        for (int i =0;i<mapSize;i++)
+        passableTile.resize(height);
+        for (int i=0;i<passableTile.size();i++)
         {
-
-            tilemapGrid[i]=yee.layerCollection[0].tiles[i].gid;
-            if (tilemapGrid[i]==2)
+            passableTile[i].resize(width);
+        }
+        for (int i=0;i<height;i++)
+        {
+            for (int j=0;j<width;j++)
             {
-                tilemap::passableTile.push_back(sf::Vector2i(1,1));
-                //tilemap::passableTile.push_back(1);
-            }
-            else
-            {
-                tilemap::passableTile.push_back(sf::Vector2i(0,0));
-            }
-            if (passableTile[i].x==1 and passableTile[i].y==1)
-            {
-                badtiles++;
-            }
-            else
-            {
-                goodtiles++;
-            }
-            if (yee.layerCollection[1].tiles[i].gid == 6)
-            {
-                numberOfCharactersPossible++;
-                characterPositionsX.push_back(gridcounter.x);
-                characterPositionsY.push_back(gridcounter.y);
-            }
-            if (gridcounter.x==width)
-            {
-                gridcounter.x=0;
-                gridcounter.y++;
-            }
-            else
-            {
-                gridcounter.x++;
-            }
-            if (gridcounter.x==width)
-            {
-                gridcounter.x=0;
-                gridcounter.y++;
+               tilemapGrid[i*j]=yee.layerCollection[0].tiles[i*j].gid;
+               if (tilemapGrid[i*j]==2)
+               {
+                   passableTile[i][j]=false;
+               }
+               else
+               {
+                   passableTile[i][j]=true;
+               }
+               if (yee.layerCollection[1].tiles[i*j].gid == 6)
+                {
+                    numberOfCharactersPossible++;
+                    characterPositionsX.push_back(j);
+                    characterPositionsY.push_back(i);
+                }
             }
         }
+//        for (int i =0;i<mapSize;i++)
+//        {
+//            tilemapGrid[i]=yee.layerCollection[0].tiles[i].gid;
+//            if (tilemapGrid[i]==2)
+//            {
+//                tilemap::passableTile.push_back(sf::Vector2i(1,1));
+//                //tilemap::passableTile.push_back(1);
+//            }
+//            else
+//            {
+//                tilemap::passableTile.push_back(sf::Vector2i(0,0));
+//            }
+//            if (passableTile[i].x==1 and passableTile[i].y==1)
+//            {
+//                badtiles++;
+//            }
+//            else
+//            {
+//                goodtiles++;
+//            }
+//            if (yee.layerCollection[1].tiles[i].gid == 6)
+//            {
+//                numberOfCharactersPossible++;
+//                characterPositionsX.push_back(gridcounter.x);
+//                characterPositionsY.push_back(gridcounter.y);
+//            }
+//            if (gridcounter.x==width)
+//            {
+//                gridcounter.x=0;
+//                gridcounter.y++;
+//            }
+//            else
+//            {
+//                gridcounter.x++;
+//            }
+//            if (gridcounter.x==width)
+//            {
+//                gridcounter.x=0;
+//                gridcounter.y++;
+//            }
+//        }
 //        vector<int> sortingvector;
 //        for (int i=0;i<passableTileX.size();i++)
 //        {
@@ -332,7 +359,7 @@ if(actionMenu){
     heroAction.setButton(user.Position.x - 125, user.Position.y, "resources/images/attackButton.png");
     menuCancel.setButton(user.Position.x - 35, user.Position.y - 50, "resources/images/whiteCancel.png");
             if (event.type == Event::MouseButtonPressed){
-                    cout << "good";
+                    heroes[selectedHero].rangecheck(testmap.passableTile, window);
                 if (event.mouseButton.button == Mouse::Left and (heroMove.hover==true || heroAction.hover == true || menuCancel.hover == true)){
                     cout << "Nice";
                     if(heroMove.hover==true){
