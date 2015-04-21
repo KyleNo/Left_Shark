@@ -36,7 +36,7 @@ public:
     sf::Vector2i Position;
     void placehero(sf::RenderWindow& window,int characterx, int charactery);
     void assignhero();
-    void rangecheck(vector<bool> passableTile,sf::RenderWindow& window);
+    void rangecheck(vector< vector <bool> > passableTile,sf::RenderWindow& window);
 };
 
 class weapon{
@@ -45,7 +45,7 @@ public:
 
 };
 
-void hero::rangecheck(vector<bool> passableTile,sf::RenderWindow& window)
+void hero::rangecheck(vector< vector <bool> > passableTile,sf::RenderWindow& window)
 {
     range=5;
     int counter=0;
@@ -54,7 +54,7 @@ void hero::rangecheck(vector<bool> passableTile,sf::RenderWindow& window)
     {
         for (int j=-(range-abs(i));j<range-abs(i);j++)
         {
-            if(passableTile[Position.x+j][Position.y+i]==1)
+            if(passableTile[Position.x+j][Position.y+i]==true)
             {
                 traversableTiles.push_back(sf::Vector2i(Position.x-j,Position.y+i));
                 cout << traversableTiles[0].x << traversableTiles[0].y << endl;
