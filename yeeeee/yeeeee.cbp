@@ -47,6 +47,7 @@
 		<Unit filename="resources/tinyxml2.cpp" />
 		<Unit filename="resources/tinyxml2.h" />
 		<Unit filename="resources/tmxparser.cpp" />
+		<Unit filename="tilemap.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

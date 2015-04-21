@@ -53,19 +53,19 @@ int tilemap::generateTileCollection(){ //finds tile collection using tmx
         {
             passableTile[i].resize(width);
         }
-        for (int i=0;i<height;i++)
+        for (int i=height-1;i>=0;i--)
         {
-            for (int j=0;j<width;j++)
+            for (int j=width-1;j>=0;j--)
             {
-               if (tilemapGrid[i*j]==2)
-               {
-                   passableTile[i][j]=false;
-               }
-               else
-               {
-                   passableTile[i][j]=true;
-               }
-               cout << passableTile[i][j];
+                cout << tilemapGrid[i+j*width];
+                if (tilemapGrid[i+j*width]==2)
+                {
+                    passableTile[i][j]=false;
+                }
+                else
+                {
+                    passableTile[i][j]=true;
+                }
             }
             cout << endl;
         }
