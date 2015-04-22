@@ -224,13 +224,8 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         if(checkingValidity){
             for(int aa = 0; aa < testmap.tileCollection.size(); aa++){
                 testmap.tileCollection[aa].isValidMovement(window);
-<<<<<<< HEAD
             }
         }
-    if(!actionMenu)
-    {
-        cout << "whyyyyyyyyyyy\n";
-    }
     if(actionMenu){
         hero user;
         user = heroes[selectedHero];
