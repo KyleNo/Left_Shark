@@ -230,11 +230,11 @@ if(actionMenu){
     user = heroes[selectedHero];
     View windowView = window.getView();
     Vector2i screenPosition = window.mapCoordsToPixel(windowView.getCenter());
-    heroMove.setButton(user.Position.x + 50, user.Position.y, "resources/images/moveButton.png");
-    heroAction.setButton(user.Position.x - 125, user.Position.y, "resources/images/attackButton.png");
-    menuCancel.setButton(user.Position.x - 35, user.Position.y - 50, "resources/images/whiteCancel.png");
+    heroMove.setButton((user.Position.x)*32 + 50, (user.Position.y)*32, "resources/images/moveButton.png");
+    heroAction.setButton((user.Position.x)*32 - 125, (user.Position.y)*32, "resources/images/attackButton.png");
+    menuCancel.setButton((user.Position.x)*32 - 35, (user.Position.y)*32 - 50, "resources/images/whiteCancel.png");
             if (event.type == Event::MouseButtonPressed){
-                    heroes[selectedHero].rangecheck(testmap.passableTile, window);
+                    //heroes[selectedHero].rangecheck(testmap.passableTile, window);
                 if (event.mouseButton.button == Mouse::Left and (heroMove.hover==true || heroAction.hover == true || menuCancel.hover == true)){
                     cout << "Nice";
                     if(heroMove.hover==true){

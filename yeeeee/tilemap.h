@@ -27,23 +27,15 @@ int tilemap::generateTileCollection(){ //finds tile collection using tmx
     numberOfCharactersPossible=0;
     if (!error) //negative error test
     {
-
         height=yee.height; //sets map height
         width=yee.width; //sets map width
         passableTile.resize(height);
-        //Because we're inefficient
+
         for (int i=0;i<mapSize;i++)
         {
-            //tilemapGrid[i]=yee.layerCollection[0].tiles[i].gid;
             tilemapGrid[i]=yee.layerCollection[0].tiles[i].gid;
-
-            gridcounter.x++;
-            if (gridcounter.x==width)
-            {
-                gridcounter.x=0;
-                gridcounter.y++;
-            }
         }
+
         //me trying to be efficient
         for (int i=0;i<passableTile.size();i++)
         {
@@ -53,12 +45,12 @@ int tilemap::generateTileCollection(){ //finds tile collection using tmx
         {
             for (int j=0;j<width;j++)
             {
-                cout << tilemapGrid[j+i*width];
                 if (yee.layerCollection[1].tiles[i+j*width].gid == 6)
                 {
+                    cout << yee.layerCollection[1].tiles[i+j*width].gid << endl;
                     numberOfCharactersPossible++;
-                    characterPositionsX.push_back(gridcounter.x);
-                    characterPositionsY.push_back(gridcounter.y);
+                    characterPositionsX.push_back(j);
+                    characterPositionsY.push_back(i);
                 }
                 if (tilemapGrid[i+j*width]==2)
                 {
@@ -69,7 +61,6 @@ int tilemap::generateTileCollection(){ //finds tile collection using tmx
                     passableTile[i][j]=true;
                 }
             }
-            cout << endl;
         }
     tilemap::tileCollection.resize(mapSize);
     int counter = 0;
