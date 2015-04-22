@@ -259,7 +259,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                 else{
                     cout << "BYEEE" << endl;
                     actionMenu = false;
-=======
+
             }}
 if(actionMenu){
     hero user;
@@ -289,7 +289,6 @@ if(actionMenu){
                         cout << "BYEEE" << endl;
                         actionMenu = false;
                     }
->>>>>>> origin/WiP
                 }
             }
         }
