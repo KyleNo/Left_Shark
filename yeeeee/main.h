@@ -99,13 +99,16 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
     tilemap testmap;
     testmap.mapSize = 400;
     tileBeingUsed=testmap.generateTileCollection();
+
+
     //this is where we designate the heroes.
-    //we should split this into a different header file.
     hero heroes[testmap.numberOfCharactersPossible];
     for (int i=0;i<testmap.numberOfCharactersPossible;i++)
     {
         heroes[i].assignhero();
     }
+
+
     bool buttonPressed = false;
     bool checkingValidity = false;
     bool mousePressed = false;
@@ -221,6 +224,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         if(checkingValidity){
             for(int aa = 0; aa < testmap.tileCollection.size(); aa++){
                 testmap.tileCollection[aa].isValidMovement(window);
+<<<<<<< HEAD
             }
         }
     if(!actionMenu)
@@ -260,6 +264,37 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                 else{
                     cout << "BYEEE" << endl;
                     actionMenu = false;
+=======
+            }}
+if(actionMenu){
+    hero user;
+    user = heroes[selectedHero];
+    View windowView = window.getView();
+    Vector2i screenPosition = window.mapCoordsToPixel(windowView.getCenter());
+    heroMove.setButton((user.Position.x)*32 + 50, (user.Position.y)*32, "resources/images/moveButton.png");
+    heroAction.setButton((user.Position.x)*32 - 125, (user.Position.y)*32, "resources/images/attackButton.png");
+    menuCancel.setButton((user.Position.x)*32 - 35, (user.Position.y)*32 - 50, "resources/images/whiteCancel.png");
+            if (event.type == Event::MouseButtonPressed){
+                    //heroes[selectedHero].rangecheck(testmap.passableTile, window);
+                if (event.mouseButton.button == Mouse::Left and (heroMove.hover==true || heroAction.hover == true || menuCancel.hover == true)){
+                    cout << "Nice";
+                    if(heroMove.hover==true){
+                        heroes[selectedHero].rangecheck(testmap.passableTile, window);
+                        cout << " WOOP " << endl;
+                    }
+                    else if(heroAction.hover == true){
+                        //null
+                        cout << "WOP" << endl;
+                    }
+                    else if(menuCancel.hover == true){
+                        actionMenu = false;
+                        cout << "BYEEEE" << endl;
+                    }
+                    else{
+                        cout << "BYEEE" << endl;
+                        actionMenu = false;
+                    }
+>>>>>>> origin/WiP
                 }
             }
         }

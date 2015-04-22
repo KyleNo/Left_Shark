@@ -57,6 +57,7 @@ void hero::rangecheck(vector< vector <bool> > passableTile,sf::RenderWindow& win
             if(passableTile[Position.x+j][Position.y+i]==true)
             {
                 traversableTiles.push_back(sf::Vector2i(Position.x-j,Position.y+i));
+                cout << "Not nice\n";
                 cout << traversableTiles[0].x << traversableTiles[0].y << endl;
             }
             counter++;
@@ -71,9 +72,9 @@ void hero::assignhero(){
     sprite.setTexture(texture);
 }
 void hero::placehero(sf::RenderWindow& window, int characterx, int charactery){
-    sprite.setPosition(characterx,charactery);
-    Position.x=sprite.getPosition().x;
-    Position.y=sprite.getPosition().y;
+    sprite.setPosition(charactery,characterx);
+    Position.x=(sprite.getPosition().x)/32;
+    Position.y=(sprite.getPosition().y)/32;
     window.draw(sprite);
 }
 void ability::useAbility(hero user, hero target){
