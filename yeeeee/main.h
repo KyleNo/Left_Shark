@@ -99,13 +99,16 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
     tilemap testmap;
     testmap.mapSize = 400;
     tileBeingUsed=testmap.generateTileCollection();
+
+
     //this is where we designate the heroes.
-    //we should split this into a different header file.
     hero heroes[testmap.numberOfCharactersPossible];
     for (int i=0;i<testmap.numberOfCharactersPossible;i++)
     {
         heroes[i].assignhero();
     }
+
+
     bool buttonPressed = false;
     bool checkingValidity = false;
     bool mousePressed = false;
