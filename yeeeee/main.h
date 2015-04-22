@@ -221,45 +221,57 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         if(checkingValidity){
             for(int aa = 0; aa < testmap.tileCollection.size(); aa++){
                 testmap.tileCollection[aa].isValidMovement(window);
-            }}
-if(actionMenu){
-    hero user;
-    user = heroes[selectedHero];
-    View windowView = window.getView();
-    Vector2i screenPosition = window.mapCoordsToPixel(windowView.getCenter());
-    heroMove.setButton(user.Position.x + 50, user.Position.y, "resources/images/moveButton.png");
-    heroAction.setButton(user.Position.x - 125, user.Position.y, "resources/images/attackButton.png");
-    menuCancel.setButton(user.Position.x - 35, user.Position.y - 50, "resources/images/whiteCancel.png");
-            if (event.type == Event::MouseButtonPressed){
-                    heroes[selectedHero].rangecheck(testmap.passableTile, window);
-                if (event.mouseButton.button == Mouse::Left and (heroMove.hover==true || heroAction.hover == true || menuCancel.hover == true)){
-                    cout << "Nice";
-                    if(heroMove.hover==true){
-                        heroes[selectedHero].rangecheck(testmap.passableTile, window);
-                        cout << " WOOP " << endl;
-                    }
-                    else if(heroAction.hover == true){
-                        //null
-                        cout << "WOP" << endl;
-                    }
-                    else if(menuCancel.hover == true){
-                        actionMenu = false;
-                        cout << "BYEEEE" << endl;
-                    }
-                    else{
-                        cout << "BYEEE" << endl;
-                        actionMenu = false;
-                    }
+            }
+        }
+    if(!actionMenu)
+    {
+        cout << "whyyyyyyyyyyy\n";
+    }
+    if(actionMenu){
+        hero user;
+        user = heroes[selectedHero];
+        View windowView = window.getView();
+
+
+        Vector2i screenPosition = window.mapCoordsToPixel(windowView.getCenter());
+        heroMove.setButton(user.Position.x + 50, user.Position.y, "resources/images/moveButton.png");
+        heroAction.setButton(user.Position.x - 125, user.Position.y, "resources/images/attackButton.png");
+        menuCancel.setButton(user.Position.x - 35, user.Position.y - 50, "resources/images/whiteCancel.png");
+
+        heroMove.bSize=sf::Vector2i(100,50);
+        heroAction.bSize=sf::Vector2i(100,50);
+        menuCancel.bSize=sf::Vector2i(100,50);
+        //if (event.type == Event::MouseButtonPressed){
+            //heroes[selectedHero].rangecheck(testmap.passableTile, window);
+            if (event.mouseButton.button == Mouse::Left and (heroMove.hovercheck(mousePos)==true || heroAction.hovercheck(mousePos) == true || menuCancel.hovercheck(mousePos) == true)){
+                cout << "Nice";
+                if(heroMove.hovercheck(mousePos)){
+                    //heroes[selectedHero].rangecheck(testmap.passableTile, window);
+                    cout << " WOOP " << endl;
+                }
+                else if(heroAction.hovercheck(mousePos)){
+                    //null
+                    cout << "WOP" << endl;
+                }
+                else if(menuCancel.hovercheck(mousePos)){
+                    actionMenu = false;
+                    cout << "BYEEEE" << endl;
+                }
+                else{
+                    cout << "BYEEE" << endl;
+                    actionMenu = false;
                 }
             }
         }
-    heroMove.buttonSelection(heroMove.coordinates, mousePos);
-    heroAction.buttonSelection(heroAction.coordinates, mousePos);
-    menuCancel.buttonSelection(menuCancel.coordinates, mousePos);
+    //}
+    //heroMove.buttonSelection(heroMove.coordinates, mousePos);
+    //heroAction.buttonSelection(heroAction.coordinates, mousePos);
+    //menuCancel.buttonSelection(menuCancel.coordinates, mousePos);
     heroMove.button.setPosition(heroMove.coordinates.x,heroMove.coordinates.y);
     heroAction.button.setPosition(heroAction.coordinates.x, heroAction.coordinates.y);
     menuCancel.button.setPosition(menuCancel.coordinates.x, menuCancel.coordinates.y);
-        if (!actionMenu)selectTile(screenPos, window);
+
+    if (!actionMenu)selectTile(screenPos, window);
         for (int i=0;i<testmap.numberOfCharactersPossible;i++)
         {
             heroes[i].placehero(window, testmap.characterPositionsX[i]*32,testmap.characterPositionsY[i]*32);
