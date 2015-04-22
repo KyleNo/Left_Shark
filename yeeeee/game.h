@@ -73,6 +73,7 @@ void loading(sf::RenderWindow& window)
     buttonTemplate heroAction;
     buttonTemplate menuCancel;
     bool actionMenu = false;
+void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
 
 
 

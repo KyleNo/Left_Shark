@@ -17,7 +17,6 @@ class tilemap
 
 //drawToGrid() is used in drawTileMap()
 int tilemap::generateTileCollection(){ //finds tile collection using tmx
-    int goodtiles=0,badtiles=0;
     sf::Vector2i gridcounter;
     tmxparser::TmxMap yee; //declares tmx map
     tmxparser::TmxReturn error; //error test
@@ -79,8 +78,10 @@ int tilemap::generateTileCollection(){ //finds tile collection using tmx
 }
 void tilemap::drawTilemap(int tileBeingUsed, sf::RenderWindow& window){
     int counter = 0;
-    for(int aa = 0; aa < height; aa++){
-        for(int ab = 0; ab < width; ab++){
+    for(int aa = 0; aa < height; aa++)
+    {
+        for(int ab = 0; ab < width; ab++)
+            {
             tilemap::tileCollection[counter].drawToGrid(ab,aa,window.getView(), window);
             counter++;
         }

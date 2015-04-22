@@ -57,13 +57,10 @@ void hero::rangecheck(vector< vector <bool> > passableTile,sf::RenderWindow& win
             if(passableTile[Position.x+j][Position.y+i]==true)
             {
                 traversableTiles.push_back(sf::Vector2i(Position.x-j,Position.y+i));
-                cout << "Not nice\n";
-                cout << traversableTiles[0].x << traversableTiles[0].y << endl;
             }
             counter++;
         }
     }
-    cout << counter << endl;
 }
 void hero::assignhero(){
     if(!texture.loadFromFile("resources/images/TestChar.png")){
