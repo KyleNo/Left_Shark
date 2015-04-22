@@ -34,13 +34,8 @@ int tilemap::generateTileCollection(){ //finds tile collection using tmx
         //Because we're inefficient
         for (int i=0;i<mapSize;i++)
         {
+            //tilemapGrid[i]=yee.layerCollection[0].tiles[i].gid;
             tilemapGrid[i]=yee.layerCollection[0].tiles[i].gid;
-            if (yee.layerCollection[1].tiles[i].gid == 6)
-            {
-                numberOfCharactersPossible++;
-                characterPositionsX.push_back(gridcounter.x);
-                characterPositionsY.push_back(gridcounter.y);
-            }
             gridcounter.x++;
             if (gridcounter.x==width)
             {
@@ -53,10 +48,17 @@ int tilemap::generateTileCollection(){ //finds tile collection using tmx
         {
             passableTile[i].resize(width);
         }
-        for (int i=height-1;i>=0;i--)
+        for (int i=0;i<height;i++)
         {
-            for (int j=width-1;j>=0;j--)
+            for (int j=0;j<width;j++)
             {
+
+                if (yee.layerCollection[1].tiles[i+j*width].gid == 6)
+                {
+                    numberOfCharactersPossible++;
+                    characterPositionsX.push_back(gridcounter.x);
+                    characterPositionsY.push_back(gridcounter.y);
+                }
                 cout << tilemapGrid[i+j*width];
                 if (tilemapGrid[i+j*width]==2)
                 {
