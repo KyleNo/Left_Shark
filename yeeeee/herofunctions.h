@@ -1,28 +1,6 @@
 #ifndef HEROFUNCTIONS_H_INCLUDED
 #define HEROFUNCTIONS_H_INCLUDED
-struct hero;
-class ability{
-public:
-     string abilityName;
-     bool isAttack;
-     bool isHeal;
-     bool isBuff;
-     int abilityPotency;
-     float abilityModifier;
-     int range;
-     int radius;
-     int forTurns;
-     int statAffected;
-     void useAbility(hero user, hero target);
-     void abilityHeal(hero user, hero target);
-     void abilityAttack(hero user, hero target);
-     void abilityBuff(hero user, hero target);
-};
-class heroClass{
-public:
-    vector<ability> jobAbilities;
-};
-
+#include "abilities.h"
 class hero{
 public:
     int range;
@@ -32,6 +10,7 @@ public:
     vector<int>stats;
     int currentHealth;
     vector<ability>jobAbilities;
+    void useAbility(ability abilityUsed, hero target, hero user);
     int team;
     sf::Vector2i Position;
     void placehero(sf::RenderWindow& window,int characterx, int charactery);
@@ -76,10 +55,10 @@ void hero::placehero(sf::RenderWindow& window, int characterx, int charactery){
     Position.y=(sprite.getPosition().y)/32;
     window.draw(sprite);
 }
-void ability::useAbility(hero user, hero target){
-    if(ability::isAttack) ability::abilityAttack(user, target);
-    if(ability::isHeal) ability::abilityHeal(user, target);
-    if(ability::isBuff) ability::abilityBuff(user, target);
+void hero::useAbility(ability abilityUsed, hero target, hero user){
+    if(abilityUsed.isAttack) abilityUsed.abilityAttack(hero , target);
+    if(abilityUsed.isHeal) abilityUsed.abilityHeal(hero, target);
+    if(abilityUsed.isBuff) abilityUsed.abilityBuff(hero, target);
 }
 void ability::abilityAttack(hero user, hero target){
     if(user.team != target.team) target.currentHealth -= ability::abilityPotency * ability::abilityModifier;

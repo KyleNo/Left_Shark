@@ -251,10 +251,17 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                     //heroes[selectedHero].rangecheck(testmap.passableTile, window);
                     cout << " WOOP " << endl;
                 }
+<<<<<<< HEAD
                 else if(heroAction.hovercheck(mousePos))
                 {
                     //null
                     cout << "WOP" << endl;
+=======
+                else if(heroAction.hovercheck(mousePos)){//IM SETTING IT UP DONT WORRY
+                        ability abilityUsed;
+                        hero target;
+                    user.useAbility(abilityUsed, target, user);
+>>>>>>> origin/WiP
                 }
                 else if(menuCancel.hovercheck(mousePos))
                 {
@@ -265,6 +272,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                 {
                     cout << "BYEEE" << endl;
                     actionMenu = false;
+<<<<<<< HEAD
                 }
             }
 if(actionMenu){
@@ -309,6 +317,9 @@ if(actionMenu){
         {
             window.draw(validtiles[i].tileSprite);
         }
+=======
+            }}
+>>>>>>> origin/WiP
     //heroMove.buttonSelection(heroMove.coordinates, mousePos);
     //heroAction.buttonSelection(heroAction.coordinates, mousePos);
     //menuCancel.buttonSelection(menuCancel.coordinates, mousePos);
