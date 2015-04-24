@@ -1,6 +1,7 @@
 #ifndef MENUDECLARE_H_INCLUDED
 #define MENUDECLARE_H_INCLUDED
 #include "menu.h"
+#include "main.h"
 void tileDraw(sf::RenderWindow& window, int numberofcharectorspossible);
 void startMenu(RenderWindow& window)
 {
@@ -14,6 +15,8 @@ void startMenu(RenderWindow& window)
     {
 
     }
+
+
     Sprite menu;
 
     menu.setTexture(menuLoadingTexture);
