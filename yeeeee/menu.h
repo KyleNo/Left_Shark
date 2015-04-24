@@ -62,19 +62,19 @@ double buttonTemplate::buttonscale(double addon)
 
 bool buttonTemplate::hovercheck(sf::Vector2i mousePos, int viewCounterX, int viewCounterY)
 {
-<<<<<<< HEAD
+
     //cout << "______________________________________________________________\n";
     //cout << mousePos.x << "," << mousePos.y << endl;
     //cout << coordinates.x << "\t" << coordinates.y << endl;
     //cout << "______________________________________________________________\n";
     if((mousePos.x >= coordinates.x and mousePos.x <=coordinates.x + bSize.x and mousePos.y >= coordinates.y and mousePos.y <= coordinates.y + bSize.y) /*and sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)*/)
-=======
+
 //    cout << "______________________________________________________________\n";
     cout << mousePos.x << "," << mousePos.y << endl;
 //    cout << coordinates.x << "\t" << coordinates.y << endl;
 //    cout << "______________________________________________________________\n";
     if((mousePos.x >= coordinates.x  and mousePos.x <=coordinates.x + bSize.x  and mousePos.y >= coordinates.y  and mousePos.y <= coordinates.y + bSize.y ) /*and sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)*/)
->>>>>>> 9285f1ba5dbebba2482c502d0eeca84414e3ab73
+
     {
         hover=true;
         return true;

@@ -243,7 +243,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         menuCancel.bSize=sf::Vector2i(100,50);
         //if (event.type == Event::MouseButtonPressed){
             //heroes[selectedHero].rangecheck(testmap.passableTile, window);
-<<<<<<< HEAD
+
             if (event.mouseButton.button == Mouse::Left and (heroMove.hovercheck(mousePos)==true || heroAction.hovercheck(mousePos) == true || menuCancel.hovercheck(mousePos) == true))
             {
                 cout << "Nice";
@@ -252,21 +252,21 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                     //heroes[selectedHero].rangecheck(testmap.passableTile, window);
                     cout << " WOOP " << endl;
                 }
-<<<<<<< HEAD
+
                 else if(heroAction.hovercheck(mousePos))
                 {
                     //null
                     cout << "WOP" << endl;
-=======
+
                 else if(heroAction.hovercheck(mousePos)){//IM SETTING IT UP DONT WORRY
                         ability abilityUsed;
                         hero target;
                     user.useAbility(abilityUsed, target, user);
->>>>>>> origin/WiP
+
                 }
                 else if(menuCancel.hovercheck(mousePos))
                 {
-=======
+
             if (event.mouseButton.button == Mouse::Left /*and (heroMove.hovercheck(mousePos, viewCounterX, viewCounterY)==true || heroAction.hovercheck(mousePos, viewCounterX, viewCounterY) == true || menuCancel.hovercheck(mousePos, viewCounterX, viewCounterY) == true)*/){
                 cout << "Nice";
                 if(heroMove.hovercheck(tiles[8].position, viewCounterX, viewCounterY)){
@@ -280,7 +280,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                     cout << "act\n";
                 }
                 else if(menuCancel.hovercheck(tiles[8].position, viewCounterX, viewCounterY)){
->>>>>>> 9285f1ba5dbebba2482c502d0eeca84414e3ab73
+
                     actionMenu = false;
                     cout << "BYEEEE" << endl;
                 }
@@ -288,8 +288,8 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                 {
                     cout << "BYEEE" << endl;
                     actionMenu = false;
-<<<<<<< HEAD
-<<<<<<< HEAD
+
+
                 }
             }
 if(actionMenu){
@@ -334,14 +334,14 @@ if(actionMenu){
         {
             window.draw(validtiles[i].tileSprite);
         }
-=======
+
             }}
->>>>>>> origin/WiP
-=======
+
+
             }
         }
     }
->>>>>>> 9285f1ba5dbebba2482c502d0eeca84414e3ab73
+
     //heroMove.buttonSelection(heroMove.coordinates, mousePos);
     //heroAction.buttonSelection(heroAction.coordinates, mousePos);
     //menuCancel.buttonSelection(menuCancel.coordinates, mousePos);
