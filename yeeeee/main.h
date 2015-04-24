@@ -263,92 +263,95 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         //if (event.type == Event::MouseButtonPressed){
             //heroes[selectedHero].rangecheck(testmap.passableTile, window);
 
-            if (event.mouseButton.button == Mouse::Left and (heroMove.hovercheck(mousePos)==true || heroAction.hovercheck(mousePos) == true || menuCancel.hovercheck(mousePos) == true))
+            if (event.mouseButton.button == Mouse::Left and (heroMove.hovercheck(tiles[8].position*32)==true || heroAction.hovercheck(tiles[8].position*32) == true || menuCancel.hovercheck(tiles[8].position*32) == true))
             {
                 cout << "Nice";
-                if(heroMove.hovercheck(mousePos))
+                if(heroMove.hovercheck(tiles[8].position*32))
                 {
                     //heroes[selectedHero].rangecheck(testmap.passableTile, window);
                     cout << " WOOP " << endl;
                 }
-                else if(heroAction.hovercheck(mousePos))
+                else if(heroAction.hovercheck(tiles[8].position*32))
                 {//IM SETTING IT UP DONT WORRY
                     ability abilityUsed;
                     hero target;
                     user.useAbility(abilityUsed, target, user);
+                    cout << "act\n";
                 }
-                else if(menuCancel.hovercheck(mousePos))
+                else if(menuCancel.hovercheck(tiles[8].position*32))
                 {
-                    if (event.mouseButton.button == Mouse::Left /*and (heroMove.hovercheck(mousePos, viewCounterX, viewCounterY)==true || heroAction.hovercheck(mousePos, viewCounterX, viewCounterY) == true || menuCancel.hovercheck(mousePos, viewCounterX, viewCounterY) == true)*/)
-                    {
-                        cout << "Nice";
-                        if(heroMove.hovercheck(tiles[8].position))
-                        {
-                            //heroes[selectedHero].rangecheck(testmap.passableTile, window);
-                            cout << " WOOP " << endl;
-                        }
-                        else if(heroAction.hovercheck(tiles[8].position))
-                        {//IM SETTING IT UP DONT WORRY
-                            //ability abilityUsed;
-                            //hero target;
-                            //user.useAbility(abilityUsed, target, user);
-                            cout << "act\n";
-                        }
-                        else if(menuCancel.hovercheck(tiles[8].position))
-                        {
-                            actionMenu = false;
-                            cout << "BYEEEE" << endl;
-                        }
-                        else
-                        {
-                            cout << "BYEEE" << endl;
-                            actionMenu = false;
-                        }
-                    }
-                    if(actionMenu)
-                    {
-                        hero user;
-                        user = heroes[selectedHero];
-                        View windowView = window.getView();
-                        Vector2i screenPosition = window.mapCoordsToPixel(windowView.getCenter());
-                        heroMove.setButton((user.Position.x)*32 + 50, (user.Position.y)*32, "resources/images/moveButton.png");
-                        heroAction.setButton((user.Position.x)*32 - 125, (user.Position.y)*32, "resources/images/attackButton.png");
-                        menuCancel.setButton((user.Position.x)*32 - 35, (user.Position.y)*32 - 50, "resources/images/whiteCancel.png");
-                        if (event.type == Event::MouseButtonPressed)
-                        {
-                            for (int i=-5;i<5;i++)
-                            {
-                                for (int j=-(5-abs(i));j<=5-abs(i);j++)
-                                {
-                                    validtiles.push_back(heroes[selectedHero].rangecheck(testmap.passableTile, window,j,i));
-                                }
-                            }
-                            if (event.mouseButton.button == Mouse::Left and (heroMove.hover==true || heroAction.hover == true || menuCancel.hover == true))
-                            {
-                                cout << "Nice";
-                                if(heroMove.hover==true)
-                                {
-                                    //heroes[selectedHero].rangecheck(testmap.passableTile, window);
-                                    cout << " WOOP " << endl;
-                                }
-                                else if(heroAction.hover == true)
-                                {
-                                    //null
-                                    cout << "WOP" << endl;
-                                }
-                                else if(menuCancel.hover == true)
-                                {
-                                    actionMenu = false;
-                                    cout << "BYEEEE" << endl;
-                                }
-                                else
-                                {
-                                    cout << "BYEEE" << endl;
-                                    actionMenu = false;
-                                }
-                            }
-                        }
-                    }
+                    cout << "gay\n";
+                    actionMenu=false;
+//                    if (event.mouseButton.button == Mouse::Left /*and (heroMove.hovercheck(mousePos, viewCounterX, viewCounterY)==true || heroAction.hovercheck(mousePos, viewCounterX, viewCounterY) == true || menuCancel.hovercheck(mousePos, viewCounterX, viewCounterY) == true)*/)
+//                    {
+//                        cout << "Nice";
+//                        if(heroMove.hovercheck(tiles[8].position))
+//                        {
+//                            //heroes[selectedHero].rangecheck(testmap.passableTile, window);
+//                            cout << " WOOP " << endl;
+//                        }
+//                        else if(heroAction.hovercheck(tiles[8].position))
+//                        {//IM SETTING IT UP DONT WORRY
+//                            //ability abilityUsed;
+//                            //hero target;
+//                            //user.useAbility(abilityUsed, target, user);
+//                            cout << "act\n";
+//                        }
+//                        else if(menuCancel.hovercheck(tiles[8].position))
+//                        {
+//                            actionMenu = false;
+//                            cout << "BYEEEE" << endl;
+//                        }
+//                        else
+//                        {
+//                            cout << "BYEEE" << endl;
+//                            actionMenu = false;
+//                        }
+//                    }
+//                    if(actionMenu)
+//                    {
+//                        hero user;
+//                        user = heroes[selectedHero];
+//                        View windowView = window.getView();
+//                        Vector2i screenPosition = window.mapCoordsToPixel(windowView.getCenter());
+//                        heroMove.setButton((user.Position.x)*32 + 50, (user.Position.y)*32, "resources/images/moveButton.png");
+//                        heroAction.setButton((user.Position.x)*32 - 125, (user.Position.y)*32, "resources/images/attackButton.png");
+//                        menuCancel.setButton((user.Position.x)*32 - 35, (user.Position.y)*32 - 50, "resources/images/whiteCancel.png");
+//                        if (event.type == Event::MouseButtonPressed)
+//                        {
+//                            for (int i=-5;i<5;i++)
+//                            {
+//                                for (int j=-(5-abs(i));j<=5-abs(i);j++)
+//                                {
+//                                    validtiles.push_back(heroes[selectedHero].rangecheck(testmap.passableTile, window,j,i));
+//                                }
+//                            }
+//                            if (event.mouseButton.button == Mouse::Left and (heroMove.hover==true || heroAction.hover == true || menuCancel.hover == true))
+//                            {
+//                                cout << "Nice";
+//                                if(heroMove.hover==true)
+//                                {
+//                                    //heroes[selectedHero].rangecheck(testmap.passableTile, window);
+//                                    cout << " WOOP " << endl;
+//                                }
+//                                else if(heroAction.hover == true)
+//                                {
+//                                    //null
+//                                    cout << "WOP" << endl;
+//                                }
+//                                else if(menuCancel.hover == true)
+//                                {
+//                                    actionMenu = false;
+//                                    cout << "BYEEEE" << endl;
+//                                }
+//                                else
+//                                {
+//                                    cout << "BYEEE" << endl;
+//                                    actionMenu = false;
+//                                }
+//                            }
+//                        }
+//                    }
                 }
                 for (int i=0;i<validtiles.size();i++)
                 {
