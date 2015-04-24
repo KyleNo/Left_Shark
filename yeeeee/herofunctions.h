@@ -36,7 +36,7 @@ public:
     sf::Vector2i Position;
     void placehero(sf::RenderWindow& window,int characterx, int charactery);
     void assignhero();
-    void rangecheck(vector< vector <bool> > passableTile,sf::RenderWindow& window);
+    tile rangecheck(vector< vector <bool> > passableTile,sf::RenderWindow& window, int x, int y);
 };
 
 class weapon{
@@ -45,26 +45,25 @@ public:
 
 };
 
-void hero::rangecheck(vector< vector <bool> > passableTile,sf::RenderWindow& window)
+
+
+tile hero::rangecheck(vector< vector <bool> > passableTile,sf::RenderWindow& window,int x,int y)
 {
     range=5;
-    int counter=0;
-    vector<sf::Vector2i> traversableTiles;
-    for (int i=-range;i<range;i++)
+    tile validtile;
+    sf::Vector2i traversableTile;
+    if(passableTile[Position.x+x][Position.y+y]==true)
     {
-        for (int j=-(range-abs(i));j<range-abs(i);j++)
-        {
-            if(passableTile[Position.x+j][Position.y+i]==true)
-            {
-                traversableTiles.push_back(sf::Vector2i(Position.x-j,Position.y+i));
-                cout << "Not nice\n";
-                cout << traversableTiles[0].x << traversableTiles[0].y << endl;
-            }
-            counter++;
-        }
+        traversableTile=(sf::Vector2i(Position.x-x,Position.y+y));
     }
-    cout << counter << endl;
+    validtile=(tiles[7]);
+    validtile=tiles[7];
+    validtile.tileSprite.setPosition((Position.x+x)*32,(Position.y+y)*32);
+    return validtile;
 }
+
+
+
 void hero::assignhero(){
     if(!texture.loadFromFile("resources/images/TestChar.png")){
         //error...

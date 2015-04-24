@@ -75,6 +75,7 @@ void loading(sf::RenderWindow& window)
     bool actionMenu = false;
 void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
 {
+    vector<tile> validtiles;
     tile tiles[9];
     bool mouseHovering=false;
     int selectedHero;
@@ -226,10 +227,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                 testmap.tileCollection[aa].isValidMovement(window);
             }
         }
-    if(!actionMenu)
-    {
-        cout << "whyyyyyyyyyyy\n";
-    }
     if(actionMenu){
         hero user;
         user = heroes[selectedHero];
@@ -246,24 +243,30 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         menuCancel.bSize=sf::Vector2i(100,50);
         //if (event.type == Event::MouseButtonPressed){
             //heroes[selectedHero].rangecheck(testmap.passableTile, window);
-            if (event.mouseButton.button == Mouse::Left and (heroMove.hovercheck(mousePos)==true || heroAction.hovercheck(mousePos) == true || menuCancel.hovercheck(mousePos) == true)){
+            if (event.mouseButton.button == Mouse::Left and (heroMove.hovercheck(mousePos)==true || heroAction.hovercheck(mousePos) == true || menuCancel.hovercheck(mousePos) == true))
+            {
                 cout << "Nice";
-                if(heroMove.hovercheck(mousePos)){
+                if(heroMove.hovercheck(mousePos))
+                {
                     //heroes[selectedHero].rangecheck(testmap.passableTile, window);
                     cout << " WOOP " << endl;
                 }
-                else if(heroAction.hovercheck(mousePos)){
+                else if(heroAction.hovercheck(mousePos))
+                {
                     //null
                     cout << "WOP" << endl;
                 }
-                else if(menuCancel.hovercheck(mousePos)){
+                else if(menuCancel.hovercheck(mousePos))
+                {
                     actionMenu = false;
                     cout << "BYEEEE" << endl;
                 }
-                else{
+                else
+                {
                     cout << "BYEEE" << endl;
                     actionMenu = false;
-            }}
+                }
+            }
 if(actionMenu){
     hero user;
     user = heroes[selectedHero];
@@ -273,11 +276,17 @@ if(actionMenu){
     heroAction.setButton((user.Position.x)*32 - 125, (user.Position.y)*32, "resources/images/attackButton.png");
     menuCancel.setButton((user.Position.x)*32 - 35, (user.Position.y)*32 - 50, "resources/images/whiteCancel.png");
             if (event.type == Event::MouseButtonPressed){
-                    //heroes[selectedHero].rangecheck(testmap.passableTile, window);
+                for (int i=-5;i<5;i++)
+                {
+                    for (int j=-(5-abs(i));j<=5-abs(i);j++)
+                    {
+                        validtiles.push_back(heroes[selectedHero].rangecheck(testmap.passableTile, window,j,i));
+                    }
+                }
                 if (event.mouseButton.button == Mouse::Left and (heroMove.hover==true || heroAction.hover == true || menuCancel.hover == true)){
                     cout << "Nice";
                     if(heroMove.hover==true){
-                        heroes[selectedHero].rangecheck(testmap.passableTile, window);
+                        //heroes[selectedHero].rangecheck(testmap.passableTile, window);
                         cout << " WOOP " << endl;
                     }
                     else if(heroAction.hover == true){
@@ -295,6 +304,10 @@ if(actionMenu){
                 }
             }
         }
+        }
+        for (int i=0;i<validtiles.size();i++)
+        {
+            window.draw(validtiles[i].tileSprite);
         }
     //heroMove.buttonSelection(heroMove.coordinates, mousePos);
     //heroAction.buttonSelection(heroAction.coordinates, mousePos);

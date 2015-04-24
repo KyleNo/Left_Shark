@@ -47,7 +47,6 @@ int tilemap::generateTileCollection(){ //finds tile collection using tmx
             {
                 if (yee.layerCollection[1].tiles[i+j*width].gid == 6)
                 {
-                    cout << yee.layerCollection[1].tiles[i+j*width].gid << endl;
                     numberOfCharactersPossible++;
                     characterPositionsX.push_back(j);
                     characterPositionsY.push_back(i);
@@ -61,6 +60,14 @@ int tilemap::generateTileCollection(){ //finds tile collection using tmx
                     passableTile[i][j]=true;
                 }
             }
+        }
+        for (int i=0;i<50;i++)
+        {
+            for (int j=0;j<50;j++)
+            {
+                cout << passableTile[j][i];
+            }
+            cout << endl;
         }
     tilemap::tileCollection.resize(mapSize);
     int counter = 0;
