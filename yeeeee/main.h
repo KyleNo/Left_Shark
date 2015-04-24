@@ -295,7 +295,7 @@ if(actionMenu){
                 }
             }
         }
-    //}
+        }
     //heroMove.buttonSelection(heroMove.coordinates, mousePos);
     //heroAction.buttonSelection(heroAction.coordinates, mousePos);
     //menuCancel.buttonSelection(menuCancel.coordinates, mousePos);
@@ -318,7 +318,6 @@ if(actionMenu){
         }
         window.display();
         window.clear();
-    }
     }
 }
 
