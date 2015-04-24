@@ -253,9 +253,9 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
             View windowView = window.getView();
 
             Vector2i screenPosition = window.mapCoordsToPixel(windowView.getCenter());
-            heroMove.setButton(user.Position.x + 50, user.Position.y, "resources/images/moveButton.png");
-            heroAction.setButton(user.Position.x - 125, user.Position.y, "resources/images/attackButton.png");
-            menuCancel.setButton(user.Position.x - 35, user.Position.y - 50, "resources/images/whiteCancel.png");
+            heroMove.setButton(((user.Position.x)*32) + 50, user.Position.y*32, "resources/images/moveButton.png");
+            heroAction.setButton(((user.Position.x)*32)- 125, user.Position.y*32, "resources/images/attackButton.png");
+            menuCancel.setButton(((user.Position.x)*32) - 35, (32*user.Position.y) - 50, "resources/images/whiteCancel.png");
 
             heroMove.bSize=sf::Vector2i(100,50);
             heroAction.bSize=sf::Vector2i(100,50);
