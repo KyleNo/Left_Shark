@@ -282,19 +282,19 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                     if (event.mouseButton.button == Mouse::Left /*and (heroMove.hovercheck(mousePos, viewCounterX, viewCounterY)==true || heroAction.hovercheck(mousePos, viewCounterX, viewCounterY) == true || menuCancel.hovercheck(mousePos, viewCounterX, viewCounterY) == true)*/)
                     {
                         cout << "Nice";
-                        if(heroMove.hovercheck(tiles[8].position, viewCounterX, viewCounterY))
+                        if(heroMove.hovercheck(tiles[8].position))
                         {
                             //heroes[selectedHero].rangecheck(testmap.passableTile, window);
                             cout << " WOOP " << endl;
                         }
-                        else if(heroAction.hovercheck(tiles[8].position, viewCounterX, viewCounterY))
+                        else if(heroAction.hovercheck(tiles[8].position))
                         {//IM SETTING IT UP DONT WORRY
                             //ability abilityUsed;
                             //hero target;
                             //user.useAbility(abilityUsed, target, user);
                             cout << "act\n";
                         }
-                        else if(menuCancel.hovercheck(tiles[8].position, viewCounterX, viewCounterY))
+                        else if(menuCancel.hovercheck(tiles[8].position))
                         {
                             actionMenu = false;
                             cout << "BYEEEE" << endl;
