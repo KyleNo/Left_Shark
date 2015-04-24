@@ -57,9 +57,9 @@ void hero::placehero(sf::RenderWindow& window, int characterx, int charactery){
     window.draw(sprite);
 }
 void hero::useAbility(ability abilityUsed, hero target, hero user){
-    if(abilityUsed.isAttack) abilityUsed.abilityAttack(hero , target);
-    if(abilityUsed.isHeal) abilityUsed.abilityHeal(hero, target);
-    if(abilityUsed.isBuff) abilityUsed.abilityBuff(hero, target);
+    //if(abilityUsed.isAttack) abilityUsed.abilityAttack(hero , target);
+    //if(abilityUsed.isHeal) abilityUsed.abilityHeal(hero, target);
+    //if(abilityUsed.isBuff) abilityUsed.abilityBuff(hero, target);
 }
 void ability::abilityAttack(hero user, hero target){
     if(user.team != target.team) target.currentHealth -= ability::abilityPotency * ability::abilityModifier;

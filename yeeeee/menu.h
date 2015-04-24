@@ -17,7 +17,7 @@ public:
     double buttonscale(double addon);
     bool hover=false;
     double addon=1;
-    bool hovercheck(sf::Vector2i mousePos);
+    bool hovercheck(sf::Vector2i mousePos, int viewCounterX, int viewCounterY);
     sf::Vector2i bSize;
 };
 void buttonTemplate::setButton(int x, int y, string filename)
@@ -60,13 +60,13 @@ double buttonTemplate::buttonscale(double addon)
     return addon;
 }
 
-bool buttonTemplate::hovercheck(sf::Vector2i mousePos)
+bool buttonTemplate::hovercheck(sf::Vector2i mousePos, int viewCounterX, int viewCounterY)
 {
 //    cout << "______________________________________________________________\n";
     cout << mousePos.x << "," << mousePos.y << endl;
 //    cout << coordinates.x << "\t" << coordinates.y << endl;
 //    cout << "______________________________________________________________\n";
-    if((mousePos.x >= coordinates.x and mousePos.x <=coordinates.x + bSize.x and mousePos.y >= coordinates.y and mousePos.y <= coordinates.y + bSize.y) /*and sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)*/)
+    if((mousePos.x >= coordinates.x  and mousePos.x <=coordinates.x + bSize.x  and mousePos.y >= coordinates.y  and mousePos.y <= coordinates.y + bSize.y ) /*and sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)*/)
     {
         hover=true;
         return true;
