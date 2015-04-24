@@ -224,7 +224,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         if(checkingValidity){
             for(int aa = 0; aa < testmap.tileCollection.size(); aa++){
                 testmap.tileCollection[aa].isValidMovement(window);
-<<<<<<< HEAD
             }
         }
     if(!actionMenu)
@@ -264,7 +263,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                 else{
                     cout << "BYEEE" << endl;
                     actionMenu = false;
-=======
             }}
 if(actionMenu){
     hero user;
@@ -294,7 +292,6 @@ if(actionMenu){
                         cout << "BYEEE" << endl;
                         actionMenu = false;
                     }
->>>>>>> origin/WiP
                 }
             }
         }
@@ -322,9 +319,8 @@ if(actionMenu){
         window.display();
         window.clear();
     }
-
+    }
 }
-
 
 
 

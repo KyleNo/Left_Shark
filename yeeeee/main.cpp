@@ -1,8 +1,10 @@
 #include "main.h"
 #include "menuDeclare.h"
 #include "resources/TMXParser.h"
-sf::RenderWindow window(sf::VideoMode(800,600), "Cool");
+
 int main(){
+
+    sf::RenderWindow window(sf::VideoMode(800,600), "Cool");
     window.setFramerateLimit(60);
     startMenu(window);
 
