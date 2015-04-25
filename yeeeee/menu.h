@@ -69,13 +69,12 @@ bool buttonTemplate::hovercheck(sf::Vector2i mousePos)
     if((mousePos.x >= coordinates.x  and mousePos.x <=coordinates.x + bSize.x  and mousePos.y >= coordinates.y  and mousePos.y <= coordinates.y + bSize.y ) /*and sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)*/)
 
     {
-        hover=true;
+        //hover=true;
         return true;
-        cout << ":p";
     }
     else
     {
-        hover=false;
+        //hover=false;
         return false;
     }
 }

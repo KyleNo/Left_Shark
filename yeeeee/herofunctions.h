@@ -13,7 +13,7 @@ public:
     void useAbility(ability abilityUsed, hero target, hero user);
     int team;
     sf::Vector2i Position;
-    void placehero(sf::RenderWindow& window,int characterx, int charactery);
+    void placehero(sf::RenderWindow& window, int characterx, int charactery, bool initialPlacement, sf::Vector2f tileTo);
     void assignhero();
     tile rangecheck(vector< vector <bool> > passableTile,sf::RenderWindow& window, int x, int y);
 };
@@ -21,7 +21,6 @@ public:
 class weapon{
 public:
     vector<int>stats;
-
 };
 
 
@@ -31,13 +30,13 @@ tile hero::rangecheck(vector< vector <bool> > passableTile,sf::RenderWindow& win
     range=5;
     tile validtile;
     sf::Vector2i traversableTile;
-    if(passableTile[Position.x+x][Position.y+y]==true)
-    {
-        traversableTile=(sf::Vector2i(Position.x-x,Position.y+y));
-    }
     validtile=(tiles[7]);
     validtile=tiles[7];
-    validtile.tileSprite.setPosition((Position.x+x)*32,(Position.y+y)*32);
+    if(passableTile[Position.x-x][Position.y+y]==false)
+    {
+        //traversableTile=(sf::Vector2i(Position.x-x,Position.y+y));
+        validtile.tileSprite.setPosition((Position.x-x)*32,(Position.y+y)*32);
+    }
     return validtile;
 }
 
@@ -49,11 +48,18 @@ void hero::assignhero(){
     }
     sprite.setTexture(texture);
 }
-void hero::placehero(sf::RenderWindow& window, int characterx, int charactery){
-    sprite.setPosition(charactery,characterx);
+void hero::placehero(sf::RenderWindow& window, int characterx, int charactery, bool initialPlacement, sf::Vector2f tileTo)
+{
+    if (initialPlacement==false)
+    {
+        sprite.move(characterx, charactery);
+    }
+    else
+    {
+        sprite.setPosition(charactery, characterx);
+    }
     Position.x=(sprite.getPosition().x)/32;
     Position.y=(sprite.getPosition().y)/32;
-    window.draw(sprite);
 }
 void hero::useAbility(ability abilityUsed, hero target, hero user){
     //if(abilityUsed.isAttack) abilityUsed.abilityAttack(hero , target);
