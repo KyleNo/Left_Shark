@@ -12,7 +12,7 @@ using namespace std;
 #include "herofunctions.h"
 #include "menuDeclare.h"
 #include "tilemap.h"
-
+#include "button.h"
 
 
 class structure{
