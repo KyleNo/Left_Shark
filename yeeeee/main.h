@@ -1,7 +1,6 @@
 #ifndef MAIN_H_INCLUDED
 #define MAIN_H_INCLUDED
 #include <SFML/Graphics.hpp>
-using namespace std;
 #include <vector>
 #include "windows.h"
 #include "tile.h"
@@ -13,7 +12,7 @@ using namespace std;
 #include "menuDeclare.h"
 #include "tilemap.h"
 #include "button.h"
-
+using namespace std;
 
 class structure{
 public:
@@ -101,6 +100,20 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
     tilemap testmap;
     testmap.mapSize = 400;
     tileBeingUsed=testmap.generateTileCollection();
+
+
+
+
+    //declare new buttons
+
+    button moveHero;
+    button actHero;
+    button cancelHero;
+
+    moveHero.declareButton(sf::Vector2i(70,25), "Move");
+    actHero.declareButton(sf::Vector2i(70,25), "Attack");
+    cancelHero.declareButton(sf::Vector2i(70,25), "Cancel");
+
 
 
     //this is where we designate the heroes.
@@ -255,13 +268,21 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
             View windowView = window.getView();
 
             Vector2i screenPosition = window.mapCoordsToPixel(windowView.getCenter());
+            //old buttons
             heroMove.setButton(((user.Position.x)*32) + 50, user.Position.y*32, "resources/images/moveButton.png");
             heroAction.setButton(((user.Position.x)*32)- 125, user.Position.y*32, "resources/images/attackButton.png");
             menuCancel.setButton(((user.Position.x)*32) - 35, (32*user.Position.y) - 50, "resources/images/whiteCancel.png");
-
             heroMove.bSize=sf::Vector2i(70,25);
             heroAction.bSize=sf::Vector2i(70,25);
             menuCancel.bSize=sf::Vector2i(70,25);
+
+            //new buttons
+
+            moveHero.setPosition(((user.Position.x)*32) + 50, user.Position.y*32);
+            actHero.setPosition(((user.Position.x)*32) - 125, user.Position.y*32);
+            cancelHero.setPosition(((user.Position.x)*32) - 35, user.Position.y*32);
+
+
         //if (event.type == Event::MouseButtonPressed){
             //heroes[selectedHero].rangecheck(testmap.passableTile, window);
             if (event.mouseButton.button == Mouse::Left)
@@ -304,9 +325,15 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         if(actionMenu)
         {
             validtiles.clear();
-            window.draw(heroMove.button);
-            window.draw(heroAction.button);
-            window.draw(menuCancel.button);
+            //window.draw(heroMove.button);
+            //window.draw(heroAction.button);
+            //window.draw(menuCancel.button);
+            window.draw(moveHero.buttonBackg);
+            window.draw(moveHero.text);
+            window.draw(actHero.buttonBackg);
+            window.draw(actHero.text);
+            window.draw(cancelHero.buttonBackg);
+            window.draw(cancelHero.text);
         }
         else
         {
