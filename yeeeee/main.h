@@ -68,9 +68,9 @@ void loading(sf::RenderWindow& window)
     window.draw(loadingSprite);
     window.display();
 }
-    buttonTemplate heroMove;
-    buttonTemplate heroAction;
-    buttonTemplate menuCancel;
+    //buttonTemplate heroMove;
+    //buttonTemplate heroAction;
+    //buttonTemplate menuCancel;
     bool actionMenu = false;
 
 void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
@@ -100,8 +100,11 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
     tilemap testmap;
     testmap.mapSize = 400;
     tileBeingUsed=testmap.generateTileCollection();
-
-
+    sf::Texture bckgrnd;
+    if (!bckgrnd.loadFromFile("resources/images/blackbutt-10x10"))
+    {
+        //error...
+    }
 
 
     //declare new buttons
@@ -110,9 +113,9 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
     button actHero;
     button cancelHero;
 
-    moveHero.declareButton(sf::Vector2i(70,25), "Move");
-    actHero.declareButton(sf::Vector2i(70,25), "Attack");
-    cancelHero.declareButton(sf::Vector2i(70,25), "Cancel");
+    moveHero.declareButton(sf::Vector2i(70,25), "Move", bckgrnd);
+    actHero.declareButton(sf::Vector2i(70,25), "Attack", bckgrnd);
+    cancelHero.declareButton(sf::Vector2i(70,25), "Cancel", bckgrnd);
 
 
 
@@ -269,9 +272,9 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
 
             Vector2i screenPosition = window.mapCoordsToPixel(windowView.getCenter());
             //old buttons
-            heroMove.setButton(((user.Position.x)*32) + 50, user.Position.y*32, "resources/images/moveButton.png");
-            heroAction.setButton(((user.Position.x)*32)- 125, user.Position.y*32, "resources/images/attackButton.png");
-            menuCancel.setButton(((user.Position.x)*32) - 35, (32*user.Position.y) - 50, "resources/images/whiteCancel.png");
+            //heroMove.setButton(((user.Position.x)*32) + 50, user.Position.y*32, "resources/images/moveButton.png");
+            //heroAction.setButton(((user.Position.x)*32)- 125, user.Position.y*32, "resources/images/attackButton.png");
+            //menuCancel.setButton(((user.Position.x)*32) - 35, (32*user.Position.y) - 50, "resources/images/whiteCancel.png");
             heroMove.bSize=sf::Vector2i(70,25);
             heroAction.bSize=sf::Vector2i(70,25);
             menuCancel.bSize=sf::Vector2i(70,25);

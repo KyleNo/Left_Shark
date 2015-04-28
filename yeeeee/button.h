@@ -12,22 +12,27 @@ public:
     sf::Sprite buttonBackg;
     sf::Text text;
     string name;
-    void declareButton(sf::Vector2i buSize, string Name);
+    void declareButton(sf::Vector2i buSize, string Name, sf::Texture bckgrnd);
     void setPosition(int x, int y);
     void moveButton(int x, int y);
+    bool hovercheck();
+    bool hover= false;
 };
 
 
-void button::declareButton(sf::Vector2i buSize, string Name)
+void button::declareButton(sf::Vector2i buSize, string Name, sf::Texture bckgrnd)
 {
-    button.buttonSize=buSize;
+    buttonSize=buSize;
     sf::Font arial;
-    if(!arial.loadFromFile(resources/Fonts/arial.ttf))
+    if(!arial.loadFromFile("resources/Fonts/arial.ttf"))
     {
         //error...
     }
-    button.text.setFont(arial);
-    button.text.setString(Name);
+    text.setFont(arial);
+    text.setString(Name);
+    text.setScale(buttonSize.x/10-1,buttonSize.y/10-1);
+    buttonBackg.setTexture(bckgrnd);
+    buttonBackg.setScale(buttonSize.x/10,buttonsize.y/10);
 }
 
 
@@ -42,5 +47,22 @@ void button::moveButton(int x, int y)
 {
     button.setPosition(button.position.x + x, button.position.y + y);
 }
+bool buttonTemplate::hovercheck(sf::Vector2i mousePos)
+{
+//    cout << "______________________________________________________________\n";
+    //cout << mousePos.x << "," << mousePos.y << endl;
+//    cout << coordinates.x << "\t" << coordinates.y << endl;
+//    cout << "______________________________________________________________\n";
+    if((mousePos.x >= coordinates.x  and mousePos.x <=coordinates.x + buttonSize.x  and mousePos.y >= coordinates.y  and mousePos.y <= coordinates.y + buttonSize.y ) /*and sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)*/)
 
+    {
+        hover=true;
+        return true;
+    }
+    else
+    {
+        hover=false;
+        return false;
+    }
+}
 #endif // BUTTON_H_INCLUDED

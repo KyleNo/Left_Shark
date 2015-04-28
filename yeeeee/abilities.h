@@ -1,5 +1,6 @@
 #ifndef ABILITIES_H_INCLUDED
 #define ABILITIES_H_INCLUDED
+#include <string>
 struct hero;
 class ability{
 public:
