@@ -2,9 +2,18 @@
 #define MENUDECLARE_H_INCLUDED
 #include "menu.h"
 #include "main.h"
+#include <SFML/Audio.hpp>
 void tileDraw(sf::RenderWindow& window, int numberofcharectorspossible);
 void startMenu(RenderWindow& window)
 {
+    sf::Music music;
+    if (!music.openFromFile("mynameisnathaniel.ogg"))
+    {
+        //reerer
+    }
+    music.setLoop(true);
+    music.setVolume(50000);
+    music.play();
     Vector2i position;
     Texture menuLoadingTexture;
     buttonTemplate Button1;
@@ -50,7 +59,6 @@ void startMenu(RenderWindow& window)
 
         position=Mouse::getPosition(window);
         window.clear();
-
         Button1.coordinates=Button1.buttonSelection(Button1.coordinates, position);
         Button1.button.setPosition(Button1.coordinates.x,Button1.coordinates.y);
         Button2.coordinates=Button2.buttonSelection(Button2.coordinates, position);
