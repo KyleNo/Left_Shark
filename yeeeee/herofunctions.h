@@ -9,7 +9,7 @@ public:
     heroClass job;
     vector<int>stats;
     int currentHealth;
-    vector<ability>jobAbilities;
+    vector<ability>heroAbilities;
     void useAbility(ability abilityUsed, hero target, hero user);
     int team;
     sf::Vector2i Position;
@@ -17,13 +17,6 @@ public:
     void assignhero();
     tile rangecheck(vector< vector <bool> > passableTile,sf::RenderWindow& window, int x, int y);
 };
-
-class weapon{
-public:
-    vector<int>stats;
-};
-
-
 
 tile hero::rangecheck(vector< vector <bool> > passableTile,sf::RenderWindow& window,int x,int y)
 {
@@ -62,9 +55,9 @@ void hero::placehero(sf::RenderWindow& window, int characterx, int charactery, b
     Position.y=(sprite.getPosition().y)/32;
 }
 void hero::useAbility(ability abilityUsed, hero target, hero user){
-    //if(abilityUsed.isAttack) abilityUsed.abilityAttack(hero , target);
-    //if(abilityUsed.isHeal) abilityUsed.abilityHeal(hero, target);
-    //if(abilityUsed.isBuff) abilityUsed.abilityBuff(hero, target);
+    if(abilityUsed.isAttack) abilityUsed.abilityAttack(user , target);
+    if(abilityUsed.isHeal) abilityUsed.abilityHeal(user, target);
+    if(abilityUsed.isBuff) abilityUsed.abilityBuff(user, target);
 }
 void ability::abilityAttack(hero user, hero target){
     if(user.team != target.team) target.currentHealth -= ability::abilityPotency * ability::abilityModifier;
@@ -75,4 +68,5 @@ void ability::abilityHeal(hero user, hero target){
 void ability::abilityBuff(hero user, hero target){
     target.stats[ability::statAffected]+= ability::abilityPotency * ability::abilityModifier;
 }
+
 #endif // HEROFUNCTIONS_H_INCLUDED

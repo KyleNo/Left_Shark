@@ -23,9 +23,17 @@ class heroClass{
 public:
     vector<ability> jobAbilities;
 };
-
-heroClass ninja;
-ability throwingKnife;
-//throwingKnife.range = 5;
+class weapon{
+public:
+    vector<int>stats;
+    ability weaponAbility;
+};
+void abilityDeclare(){
+    ability testAbility;
+    testAbility.isAttack = true;
+    testAbility.abilityPotency = 50;
+    testAbility.range = 1000;
+    testAbility.abilityModifier = 1;
+}
 
 #endif // ABILITIES_H_INCLUDED

@@ -12,6 +12,7 @@
 #include "menuDeclare.h"
 #include "tilemap.h"
 #include "button.h"
+#include "abilities.h"
 using namespace std;
 
 class structure{
@@ -90,6 +91,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
     screenText.setCharacterSize(12);
     screenText.setColor(sf::Color::Red);
     declareTiles();
+    abilityDeclare();
     int viewCounterX = -64;
     int viewCounterY = -0;
     int framerateCounter = 0;
@@ -152,6 +154,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::V))
         {//tile validity
+
             screenText.setString("Tile Validity Shown");
             checkingValidity = true;
         }
@@ -305,9 +308,14 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                 }
                 else if(actHero.hovercheck(tiles[8].position*32)==true)
                 {//IM SETTING IT UP DONT WORRY
-                    ability abilityUsed;
-                    hero target;
-                    user.useAbility(abilityUsed, target, user);
+                    ability testAbility;
+                    testAbility.isAttack = true;
+                    testAbility.abilityPotency = 50;
+                    testAbility.range = 1000;
+                    testAbility.abilityModifier = 1;
+                    hero target = heroes[selectedHero+1];
+                    user.useAbility(testAbility, target, user);
+                    cout << target.currentHealth << endl;
                 }
                 else if(cancelHero.hovercheck(tiles[8].position*32)==true)
                 {
