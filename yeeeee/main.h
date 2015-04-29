@@ -1,6 +1,7 @@
 #ifndef MAIN_H_INCLUDED
 #define MAIN_H_INCLUDED
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <vector>
 #include "windows.h"
 #include "tile.h"
@@ -12,7 +13,12 @@
 #include "menuDeclare.h"
 #include "tilemap.h"
 #include "button.h"
+<<<<<<< HEAD
 #include "abilities.h"
+=======
+#include <SFML/Audio.hpp>
+
+>>>>>>> origin/WiP
 using namespace std;
 
 class structure{
@@ -76,6 +82,11 @@ void loading(sf::RenderWindow& window)
 
 void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
 {
+    sf::Music music;
+    if (!music.openFromFile("mynameisnathaniel.ogg"))
+    {
+        //reerer
+    }
     vector<tile> validtiles;
     tile tiles[9];
     bool mouseHovering=false;
@@ -102,11 +113,15 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
     tilemap testmap;
     testmap.mapSize = 400;
     tileBeingUsed=testmap.generateTileCollection();
+<<<<<<< HEAD
+
+=======
     sf::Texture bckgrnd;
-    if (!bckgrnd.loadFromFile("resources/images/blackbutt-10x10"))
+    if (!bckgrnd.loadFromFile("resources/images/blackbutt-10x10.png"))
     {
         //error...
     }
+>>>>>>> origin/WiP
 
 
     //declare new buttons
@@ -114,11 +129,13 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
     button moveHero;
     button actHero;
     button cancelHero;
+    button testButt;
 
-    moveHero.declareButton(sf::Vector2i(70,25), "Move", bckgrnd);
-    actHero.declareButton(sf::Vector2i(70,25), "Attack", bckgrnd);
-    cancelHero.declareButton(sf::Vector2i(70,25), "Cancel", bckgrnd);
 
+    moveHero.declareButton(sf::Vector2i(70,25), "Move");
+    actHero.declareButton(sf::Vector2i(70,25), "Attack");
+    cancelHero.declareButton(sf::Vector2i(2,2), "Cancel");
+    testButt.declareButton(sf::Vector2i(70,25), "Test");
 
 
     //this is where we designate the heroes.
@@ -212,12 +229,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         {
             buttonPressed = false;
         }
-//        else{
-//            screenText.setString("null");
-//            buttonPressed = false;
-//            checkingValidity = false;
-//        }
-    //Mouse tile stuff
         sf::Vector2i screenPos;
         mousePos = sf::Mouse::getPosition(window);
         screenPos.x = window.mapPixelToCoords(mousePos).x;
@@ -225,8 +236,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         tiles[8].position.x = screenPos.x/32+.5;
         tiles[8].position.y = screenPos.y/32+.5;
         int mousePositionx=(mousePos.x/32)*32, mousePositiony=(mousePos.y/32)*32;
-//        cout << "PlayerPosition: " << heroes[0].sprite.getPosition().x <<"," << heroes[0].sprite.getPosition().y << endl;
-//        cout << "Mouse Position: " << tiles[8].tileSprite.getPosition().x << "," << tiles[8].tileSprite.getPosition().y << endl;
         if (event.type == sf::Event::MouseButtonPressed and actionMenu == false)
         {
             sf::Vector2i playerPosition;
@@ -269,6 +278,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         }
         if(actionMenu)
         {
+            music.play();
             hero user;
             user = heroes[selectedHero];
             View windowView = window.getView();
@@ -287,7 +297,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
             moveHero.setPosition(((user.Position.x)*32) + 50, user.Position.y*32);
             actHero.setPosition(((user.Position.x)*32) - 125, user.Position.y*32);
             cancelHero.setPosition(((user.Position.x)*32) - 35, user.Position.y*32);
-
+            testButt.setPosition(400,400);
 
         //if (event.type == Event::MouseButtonPressed){
             //heroes[selectedHero].rangecheck(testmap.passableTile, window);
@@ -303,7 +313,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                             int counter=validtiles.size();
                         }
                     }
-                    cout << "____________________________________________\n";
                     actionMenu=false;
                 }
                 else if(actHero.hovercheck(tiles[8].position*32)==true)
@@ -335,23 +344,32 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         window.draw(screenText);
         if(actionMenu)
         {
+            cout << moveHero.blackButt.getPosition().x << "\t"<< moveHero.blackButt.getPosition().y << endl;
             validtiles.clear();
             //window.draw(heroMove.button);
             //window.draw(heroAction.button);
             //window.draw(menuCancel.button);
             window.draw(moveHero.buttonBackg);
-            window.draw(moveHero.text);
+
+            //window.draw(moveHero.text);
+            cout << 2 << endl;
             window.draw(actHero.buttonBackg);
-            window.draw(actHero.text);
+           // window.draw(actHero.text);
+            cout << 3 << endl;
             window.draw(cancelHero.buttonBackg);
-            window.draw(cancelHero.text);
+           // window.draw(cancelHero.text);
+            cout << 4 << endl;
+            window.draw(testButt.buttonBackg);
+          //  window.draw(testButt.text);
         }
         else
         {
+            //cout << 5 << endl;
             for (int i=0;i<validtiles.size();i++)
             {
                 window.draw(validtiles[i].tileSprite);
             }
+            //cout << 6 << endl;
             if (event.mouseButton.button == Mouse::Right and actionMenu== false)
             {
                 for (int i=0;i<validtiles.size();i++)
