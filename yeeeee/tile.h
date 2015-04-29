@@ -1,8 +1,9 @@
 #ifndef TILE_H
 #define TILE_H
-#include "string.h"
 #include "main.h"
 #include <iostream>
+using namespace std;
+using namespace sf;
 class tile
 {
     public:

@@ -4,7 +4,7 @@
 #include <vector>
 #include "windows.h"
 #include "tile.h"
-#include "string.h"
+#include <string.h>
 #include <iostream>
 #include <math.h>
 #include "resources/TMXParser.h"
