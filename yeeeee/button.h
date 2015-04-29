@@ -35,7 +35,7 @@ void button::declareButton(sf::Vector2i buSize, string Name)
     text.setString(Name);
     text.setScale(1,1);
     blackButt.setSize(sf::Vector2f(buttonSize.x, buttonSize.y));
-    blackButt.setFillColor(0,0,0);
+    blackButt.setFillColor(sf::Color(0,0,0));
 }
 
 

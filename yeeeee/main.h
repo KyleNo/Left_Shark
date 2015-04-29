@@ -13,12 +13,10 @@
 #include "menuDeclare.h"
 #include "tilemap.h"
 #include "button.h"
-<<<<<<< HEAD
 #include "abilities.h"
-=======
 #include <SFML/Audio.hpp>
 
->>>>>>> origin/WiP
+
 using namespace std;
 
 class structure{
@@ -82,11 +80,11 @@ void loading(sf::RenderWindow& window)
 
 void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
 {
-    sf::Music music;
-    if (!music.openFromFile("mynameisnathaniel.ogg"))
-    {
+//    sf::Music music;
+//    if (!music.openFromFile("mynameisnathaniel.ogg"))
+//    {
         //reerer
-    }
+//    }
     vector<tile> validtiles;
     tile tiles[9];
     bool mouseHovering=false;
@@ -113,15 +111,11 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
     tilemap testmap;
     testmap.mapSize = 400;
     tileBeingUsed=testmap.generateTileCollection();
-<<<<<<< HEAD
-
-=======
     sf::Texture bckgrnd;
     if (!bckgrnd.loadFromFile("resources/images/blackbutt-10x10.png"))
     {
         //error...
     }
->>>>>>> origin/WiP
 
 
     //declare new buttons
@@ -278,7 +272,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         }
         if(actionMenu)
         {
-            music.play();
+//            music.play();
             hero user;
             user = heroes[selectedHero];
             View windowView = window.getView();
@@ -344,21 +338,19 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         window.draw(screenText);
         if(actionMenu)
         {
-            cout << moveHero.blackButt.getPosition().x << "\t"<< moveHero.blackButt.getPosition().y << endl;
-            validtiles.clear();
+
+            //IT STEPS THROUGH ALL OF THIS SO DONT WORRY
+            //cout << moveHero.blackButt.getPosition().x << "\t"<< moveHero.blackButt.getPosition().y << endl;
+            //validtiles.clear();
             //window.draw(heroMove.button);
             //window.draw(heroAction.button);
             //window.draw(menuCancel.button);
             window.draw(moveHero.buttonBackg);
-
             //window.draw(moveHero.text);
-            cout << 2 << endl;
             window.draw(actHero.buttonBackg);
            // window.draw(actHero.text);
-            cout << 3 << endl;
             window.draw(cancelHero.buttonBackg);
            // window.draw(cancelHero.text);
-            cout << 4 << endl;
             window.draw(testButt.buttonBackg);
           //  window.draw(testButt.text);
         }

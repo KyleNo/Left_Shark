@@ -6,14 +6,14 @@
 void tileDraw(sf::RenderWindow& window, int numberofcharectorspossible);
 void startMenu(RenderWindow& window)
 {
-    sf::Music music;
-    if (!music.openFromFile("mynameisnathaniel.ogg"))
-    {
+    //sf::Music music;
+   // if (!music.openFromFile("mynameisnathaniel.ogg"))
+   // {
         //reerer
-    }
-    music.setLoop(true);
-    music.setVolume(50000);
-    music.play();
+    //}
+   // music.setLoop(true);
+   // music.setVolume(50000);
+    //music.play();
     Vector2i position;
     Texture menuLoadingTexture;
     buttonTemplate Button1;
