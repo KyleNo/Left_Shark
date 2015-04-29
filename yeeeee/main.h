@@ -12,6 +12,8 @@
 #include "menuDeclare.h"
 #include "tilemap.h"
 #include "button.h"
+#include <SFML/Audio.hpp>
+
 using namespace std;
 
 class structure{
@@ -75,6 +77,11 @@ void loading(sf::RenderWindow& window)
 
 void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
 {
+    sf::Music music;
+    if (!music.openFromFile("mynameisnathaniel.ogg"))
+    {
+        //reerer
+    }
     vector<tile> validtiles;
     tile tiles[9];
     bool mouseHovering=false;
@@ -101,7 +108,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
     testmap.mapSize = 400;
     tileBeingUsed=testmap.generateTileCollection();
     sf::Texture bckgrnd;
-    if (!bckgrnd.loadFromFile("resources/images/blackbutt-10x10"))
+    if (!bckgrnd.loadFromFile("resources/images/blackbutt-10x10.png"))
     {
         //error...
     }
@@ -209,12 +216,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         {
             buttonPressed = false;
         }
-//        else{
-//            screenText.setString("null");
-//            buttonPressed = false;
-//            checkingValidity = false;
-//        }
-    //Mouse tile stuff
         sf::Vector2i screenPos;
         mousePos = sf::Mouse::getPosition(window);
         screenPos.x = window.mapPixelToCoords(mousePos).x;
@@ -222,8 +223,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         tiles[8].position.x = screenPos.x/32+.5;
         tiles[8].position.y = screenPos.y/32+.5;
         int mousePositionx=(mousePos.x/32)*32, mousePositiony=(mousePos.y/32)*32;
-//        cout << "PlayerPosition: " << heroes[0].sprite.getPosition().x <<"," << heroes[0].sprite.getPosition().y << endl;
-//        cout << "Mouse Position: " << tiles[8].tileSprite.getPosition().x << "," << tiles[8].tileSprite.getPosition().y << endl;
         if (event.type == sf::Event::MouseButtonPressed and actionMenu == false)
         {
             sf::Vector2i playerPosition;
@@ -266,6 +265,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         }
         if(actionMenu)
         {
+            music.play();
             hero user;
             user = heroes[selectedHero];
             View windowView = window.getView();
@@ -300,7 +300,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                             int counter=validtiles.size();
                         }
                     }
-                    cout << "____________________________________________\n";
                     actionMenu=false;
                 }
                 else if(actHero.hovercheck(tiles[8].position*32)==true)
