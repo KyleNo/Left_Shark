@@ -53,7 +53,7 @@ bool button::hovercheck(sf::Vector2i mousePos)
     //cout << mousePos.x << "," << mousePos.y << endl;
 //    cout << coordinates.x << "\t" << coordinates.y << endl;
 //    cout << "______________________________________________________________\n";
-    if((mousePos.x >= coordinates.x  and mousePos.x <=coordinates.x + buttonSize.x  and mousePos.y >= coordinates.y  and mousePos.y <= coordinates.y + buttonSize.y ) /*and sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)*/)
+    if((mousePos.x >= position.x  and mousePos.x <=position.x + buttonSize.x  and mousePos.y >= position.y  and mousePos.y <= position.y + buttonSize.y ) /*and sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)*/)
 
     {
         hover=true;

@@ -275,9 +275,9 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
             //heroMove.setButton(((user.Position.x)*32) + 50, user.Position.y*32, "resources/images/moveButton.png");
             //heroAction.setButton(((user.Position.x)*32)- 125, user.Position.y*32, "resources/images/attackButton.png");
             //menuCancel.setButton(((user.Position.x)*32) - 35, (32*user.Position.y) - 50, "resources/images/whiteCancel.png");
-            heroMove.bSize=sf::Vector2i(70,25);
-            heroAction.bSize=sf::Vector2i(70,25);
-            menuCancel.bSize=sf::Vector2i(70,25);
+            //heroMove.bSize=sf::Vector2i(70,25);
+            //heroAction.bSize=sf::Vector2i(70,25);
+            //menuCancel.bSize=sf::Vector2i(70,25);
 
             //new buttons
 
@@ -290,7 +290,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
             //heroes[selectedHero].rangecheck(testmap.passableTile, window);
             if (event.mouseButton.button == Mouse::Left)
             {
-                if(heroMove.hovercheck(tiles[8].position*32)==true)
+                if(moveHero.hovercheck(tiles[8].position*32)==true)
                 {
                     for (int i=-5;i<=5;i++)
                     {
@@ -303,21 +303,21 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                     cout << "____________________________________________\n";
                     actionMenu=false;
                 }
-                else if(heroAction.hovercheck(tiles[8].position*32)==true)
+                else if(actHero.hovercheck(tiles[8].position*32)==true)
                 {//IM SETTING IT UP DONT WORRY
                     ability abilityUsed;
                     hero target;
                     user.useAbility(abilityUsed, target, user);
                 }
-                else if(menuCancel.hovercheck(tiles[8].position*32)==true)
+                else if(cancelHero.hovercheck(tiles[8].position*32)==true)
                 {
                     actionMenu=false;
                 }
             }
         }
-        heroMove.button.setPosition(heroMove.coordinates.x,heroMove.coordinates.y);
-        heroAction.button.setPosition(heroAction.coordinates.x, heroAction.coordinates.y);
-        menuCancel.button.setPosition(menuCancel.coordinates.x, menuCancel.coordinates.y);
+        //heroMove.button.setPosition(heroMove.coordinates.x,heroMove.coordinates.y);
+        //heroAction.button.setPosition(heroAction.coordinates.x, heroAction.coordinates.y);
+        //menuCancel.button.setPosition(menuCancel.coordinates.x, menuCancel.coordinates.y);
         if (!actionMenu)
         {
             selectTile(screenPos, window);
