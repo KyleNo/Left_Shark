@@ -15,7 +15,7 @@ public:
     void declareButton(sf::Vector2i buSize, string Name, sf::Texture bckgrnd);
     void setPosition(int x, int y);
     void moveButton(int x, int y);
-    bool hovercheck();
+    bool hovercheck(sf::Vector2i mousePos);
     bool hover= false;
 };
 
@@ -32,22 +32,22 @@ void button::declareButton(sf::Vector2i buSize, string Name, sf::Texture bckgrnd
     text.setString(Name);
     text.setScale(buttonSize.x/10-1,buttonSize.y/10-1);
     buttonBackg.setTexture(bckgrnd);
-    buttonBackg.setScale(buttonSize.x/10,buttonsize.y/10);
+    buttonBackg.setScale(button::buttonSize.x/10,button::buttonSize.y/10);
 }
 
 
 void button::setPosition(int x, int y)
 {
-    button.position=sf::Vector2i(x,y);
-    button.buttonBackg.setPosition(x,y);
-    button.text.setPosition(x+10,y+10);
+    button::position=sf::Vector2i(x,y);
+    button::buttonBackg.setPosition(x,y);
+    button::text.setPosition(x+10,y+10);
 }
 
 void button::moveButton(int x, int y)
 {
-    button.setPosition(button.position.x + x, button.position.y + y);
+    button::setPosition(button::position.x + x, button::position.y + y);
 }
-bool buttonTemplate::hovercheck(sf::Vector2i mousePos)
+bool button::hovercheck(sf::Vector2i mousePos)
 {
 //    cout << "______________________________________________________________\n";
     //cout << mousePos.x << "," << mousePos.y << endl;
