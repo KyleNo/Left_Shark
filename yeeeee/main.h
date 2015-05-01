@@ -346,7 +346,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         screenText.setOrigin(-viewCounterX + 310, -viewCounterY + 310);
         tiles[8].drawToGrid(tiles[8].position.x, tiles[8].position.y,window.getView(), window);
         window.draw(screenText);
-<<<<<<< HEAD
         if(actionMenu)
         {
 
@@ -363,9 +362,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
           //  window.draw(testButt.text);
         }
         else
-=======
         if (!actionMenu)
->>>>>>> origin/WiP
         {
             //cout << 5 << endl;
             for (int i=0;i<validtiles.size();i++)
