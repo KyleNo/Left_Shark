@@ -128,7 +128,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
 
     moveHero.declareButton(sf::Vector2i(70,25), "Move");
     actHero.declareButton(sf::Vector2i(70,25), "Attack");
-    cancelHero.declareButton(sf::Vector2i(2,2), "Cancel");
+    cancelHero.declareButton(sf::Vector2i(70,25), "Cancel");
     testButt.declareButton(sf::Vector2i(70,25), "Test");
 
 
@@ -290,7 +290,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
 
             moveHero.setPosition(((user.Position.x)*32) + 50, user.Position.y*32);
             actHero.setPosition(((user.Position.x)*32) - 125, user.Position.y*32);
-            cancelHero.setPosition(((user.Position.x)*32) - 35, user.Position.y*32);
+            cancelHero.setPosition(((user.Position.x)*32) - 35 , user.Position.y*32 - 35);
             testButt.setPosition(400,400);
 
         //if (event.type == Event::MouseButtonPressed){
@@ -322,6 +322,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                 }
                 else if(cancelHero.hovercheck(tiles[8].position*32)==true)
                 {
+                    cout << "pls no\n";
                     actionMenu=false;
                 }
             }
@@ -341,17 +342,17 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
 
             //IT STEPS THROUGH ALL OF THIS SO DONT WORRY
             //cout << moveHero.blackButt.getPosition().x << "\t"<< moveHero.blackButt.getPosition().y << endl;
-            //validtiles.clear();
+            validtiles.clear();
             //window.draw(heroMove.button);
             //window.draw(heroAction.button);
             //window.draw(menuCancel.button);
-            window.draw(moveHero.buttonBackg);
+            window.draw(moveHero.blackButt);
             //window.draw(moveHero.text);
-            window.draw(actHero.buttonBackg);
-           // window.draw(actHero.text);
-            window.draw(cancelHero.buttonBackg);
-           // window.draw(cancelHero.text);
-            window.draw(testButt.buttonBackg);
+            window.draw(actHero.blackButt);
+            //window.draw(actHero.text);
+            window.draw(cancelHero.blackButt);
+            //window.draw(cancelHero.text);
+            //window.draw(testButt.blackButt);
           //  window.draw(testButt.text);
         }
         else
@@ -368,6 +369,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                 {
                     if (tiles[8].tileSprite.getPosition().x==validtiles[i].tileSprite.getPosition().x and tiles[8].tileSprite.getPosition().y==validtiles[i].tileSprite.getPosition().y)
                     {
+
                         heroes[selectedHero].placehero(window,heroes[selectedHero].sprite.getPosition().x,heroes[selectedHero].sprite.getPosition().y, false, validtiles[i].tileSprite.getPosition());
                     }
                 }
