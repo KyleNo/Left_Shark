@@ -116,8 +116,17 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
     {
         //error...
     }
-
-
+    sf::Font arial;
+    if(!arial.loadFromFile("resources/Fonts/arial.ttf"))
+    {
+        //error...
+    }
+    sf::Text testt;
+    testt.setCharacterSize(16);
+    testt.setString("Hello");
+    testt.setColor(sf::Color::White);
+    testt.setFont(arial);
+    testt.setPosition(400,400);
     //declare new buttons
 
     button moveHero;
@@ -126,10 +135,10 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
     button testButt;
 
 
-    moveHero.declareButton(sf::Vector2i(70,25), "Move");
-    actHero.declareButton(sf::Vector2i(70,25), "Attack");
-    cancelHero.declareButton(sf::Vector2i(70,25), "Cancel");
-    testButt.declareButton(sf::Vector2i(70,25), "Test");
+    moveHero.declareButton(sf::Vector2i(70,25), "Move", arial);
+    actHero.declareButton(sf::Vector2i(70,25), "Attack", arial);
+    cancelHero.declareButton(sf::Vector2i(70,25), "Cancel", arial);
+    testButt.declareButton(sf::Vector2i(70,25), "Test", arial);
 
 
     //this is where we designate the heroes.
@@ -337,25 +346,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         screenText.setOrigin(-viewCounterX + 310, -viewCounterY + 310);
         tiles[8].drawToGrid(tiles[8].position.x, tiles[8].position.y,window.getView(), window);
         window.draw(screenText);
-        if(actionMenu)
-        {
-
-            //IT STEPS THROUGH ALL OF THIS SO DONT WORRY
-            //cout << moveHero.blackButt.getPosition().x << "\t"<< moveHero.blackButt.getPosition().y << endl;
-            validtiles.clear();
-            //window.draw(heroMove.button);
-            //window.draw(heroAction.button);
-            //window.draw(menuCancel.button);
-            window.draw(moveHero.blackButt);
-            //window.draw(moveHero.text);
-            window.draw(actHero.blackButt);
-            //window.draw(actHero.text);
-            window.draw(cancelHero.blackButt);
-            //window.draw(cancelHero.text);
-            //window.draw(testButt.blackButt);
-          //  window.draw(testButt.text);
-        }
-        else
+        if (!actionMenu)
         {
             //cout << 5 << endl;
             for (int i=0;i<validtiles.size();i++)
@@ -378,6 +369,30 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         for (int i=0;i<testmap.numberOfCharactersPossible;i++)
         {
             window.draw(heroes[i].sprite);
+        }
+        if(actionMenu)
+        {
+
+            //IT STEPS THROUGH ALL OF THIS SO DONT WORRY
+            //cout << moveHero.blackButt.getPosition().x << "\t"<< moveHero.blackButt.getPosition().y << endl;
+            validtiles.clear();
+            //window.draw(heroMove.button);
+            //window.draw(heroAction.button);
+            //window.draw(menuCancel.button);
+            //int testtt= moveHero.text.getCharacterSize();
+            //cout << testtt << endl;
+
+
+            window.draw(moveHero.blackButt);
+            window.draw(moveHero.text);
+            window.draw(actHero.blackButt);
+            window.draw(actHero.text);
+            window.draw(cancelHero.blackButt);
+            window.draw(cancelHero.text);
+            window.draw(testButt.blackButt);
+            //window.draw(testButt.text);
+            window.draw(testt);
+
         }
         window.display();
         window.clear();
