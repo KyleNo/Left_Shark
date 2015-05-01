@@ -137,6 +137,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
     for (int i=0;i<testmap.numberOfCharactersPossible;i++)
     {
         heroes[i].assignhero();
+        heroes[i].currentHealth = 50;
     }
     bool buttonPressed = false;
     bool checkingValidity = false;
@@ -295,8 +296,8 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
 
         //if (event.type == Event::MouseButtonPressed){
             //heroes[selectedHero].rangecheck(testmap.passableTile, window);
-            if (event.mouseButton.button == Mouse::Left)
-            {
+    if (event.mouseButton.button == Mouse::Left||mousePressed)
+        {
                 if(moveHero.hovercheck(tiles[8].position*32)==true)
                 {
                     for (int i=-5;i<=5;i++)
@@ -311,12 +312,14 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                 }
                 else if(actHero.hovercheck(tiles[8].position*32)==true)
                 {//IM SETTING IT UP DONT WORRY
+                    hero target = heroes[selectedHero+1];
                     ability testAbility;
                     testAbility.isAttack = true;
-                    testAbility.abilityPotency = 50;
+                    testAbility.abilityPotency = 500;
                     testAbility.range = 1000;
                     testAbility.abilityModifier = 1;
-                    hero target = heroes[selectedHero+1];
+                    target.team = 1;
+                    user.team = 0;
                     user.useAbility(testAbility, target, user);
                     cout << target.currentHealth << endl;
                 }
@@ -327,9 +330,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                 }
             }
         }
-        //heroMove.button.setPosition(heroMove.coordinates.x,heroMove.coordinates.y);
-        //heroAction.button.setPosition(heroAction.coordinates.x, heroAction.coordinates.y);
-        //menuCancel.button.setPosition(menuCancel.coordinates.x, menuCancel.coordinates.y);
         if (!actionMenu)
         {
             selectTile(screenPos, window);
@@ -343,9 +343,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
             //IT STEPS THROUGH ALL OF THIS SO DONT WORRY
             //cout << moveHero.blackButt.getPosition().x << "\t"<< moveHero.blackButt.getPosition().y << endl;
             validtiles.clear();
-            //window.draw(heroMove.button);
-            //window.draw(heroAction.button);
-            //window.draw(menuCancel.button);
             window.draw(moveHero.blackButt);
             //window.draw(moveHero.text);
             window.draw(actHero.blackButt);

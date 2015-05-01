@@ -56,11 +56,15 @@ void hero::placehero(sf::RenderWindow& window, int characterx, int charactery, b
 }
 void hero::useAbility(ability abilityUsed, hero target, hero user){
     if(abilityUsed.isAttack) abilityUsed.abilityAttack(user , target);
-    if(abilityUsed.isHeal) abilityUsed.abilityHeal(user, target);
-    if(abilityUsed.isBuff) abilityUsed.abilityBuff(user, target);
+    else{
+        return;
+        cout << "whelp";
+    }
+    if(abilityUsed.isHeal) abilityUsed.abilityHeal(user, target); else return;
+    if(abilityUsed.isBuff) abilityUsed.abilityBuff(user, target);else return;
 }
 void ability::abilityAttack(hero user, hero target){
-    if(user.team != target.team) target.currentHealth -= ability::abilityPotency * ability::abilityModifier;
+    target.currentHealth -= ability::abilityPotency * ability::abilityModifier;
 }
 void ability::abilityHeal(hero user, hero target){
     if(user.team == target.team) target.currentHealth += ability::abilityPotency * ability::abilityModifier;
