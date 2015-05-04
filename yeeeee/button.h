@@ -13,15 +13,21 @@ public:
     sf::RectangleShape blackButt;
     sf::Text text;
     string name;
-    void declareButton(sf::Vector2i buSize, string Name, sf::Font arial);
+    void declareButton(sf::Vector2i buSize, string Name, sf::Font& arial);
     void setPosition(int x, int y);
     void moveButton(int x, int y);
+    void drawButton(sf::RenderWindow& window);
     bool hovercheck(sf::Vector2i mousePos);
     bool hover= false;
+
+    void test();
+
+
+
 };
 
 
-void button::declareButton(sf::Vector2i buSize, string Name, sf::Font arial)
+void button::declareButton(sf::Vector2i buSize, string Name, sf::Font& arial)
 {
     buttonSize=buSize;
     name=Name;
@@ -30,7 +36,7 @@ void button::declareButton(sf::Vector2i buSize, string Name, sf::Font arial)
     text.setString(Name);
     text.setCharacterSize(16);
     text.setColor(sf::Color::White);
-    //text.setStyle(sf::Text::Style::Regular);
+    text.setStyle(sf::Text::Style::Bold);
     blackButt.setSize(sf::Vector2f(buttonSize.x, buttonSize.y));
     blackButt.setFillColor(sf::Color(0,0,0));
 }
@@ -40,7 +46,11 @@ void button::setPosition(int x, int y)
 {
     position=sf::Vector2i(x,y);
     blackButt.setPosition(x,y); //moves button sprite to set position
+<<<<<<< HEAD
     text.setPosition(x+10,y+10); //offsets text
+=======
+    text.setPosition(x+5,y+5); //offsets text
+>>>>>>> origin/WiP
 }
 
 void button::moveButton(int x, int y)
@@ -65,4 +75,19 @@ bool button::hovercheck(sf::Vector2i mousePos)
         return false;
     }
 }
+
+void button::drawButton(sf::RenderWindow& window)
+{
+    window.draw(blackButt);
+    window.draw(text);
+}
+
+
+
+
+
+
+
+
+
 #endif // BUTTON_H_INCLUDED

@@ -134,12 +134,13 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
     button cancelHero;
     button testButt;
 
+    button test2;
+
 
     moveHero.declareButton(sf::Vector2i(70,25), "Move", arial);
     actHero.declareButton(sf::Vector2i(70,25), "Attack", arial);
     cancelHero.declareButton(sf::Vector2i(70,25), "Cancel", arial);
     testButt.declareButton(sf::Vector2i(70,25), "Test", arial);
-
 
     //this is where we designate the heroes.
     hero heroes[testmap.numberOfCharactersPossible];
@@ -338,22 +339,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         screenText.setOrigin(-viewCounterX + 310, -viewCounterY + 310);
         tiles[8].drawToGrid(tiles[8].position.x, tiles[8].position.y,window.getView(), window);
         window.draw(screenText);
-        if(actionMenu)
-        {
-
-            //IT STEPS THROUGH ALL OF THIS SO DONT WORRY
-            //cout << moveHero.blackButt.getPosition().x << "\t"<< moveHero.blackButt.getPosition().y << endl;
-            validtiles.clear();
-            window.draw(moveHero.blackButt);
-            //window.draw(moveHero.text);
-            window.draw(actHero.blackButt);
-            //window.draw(actHero.text);
-            window.draw(cancelHero.blackButt);
-            //window.draw(cancelHero.text);
-            //window.draw(testButt.blackButt);
-          //  window.draw(testButt.text);
-        }
-        else
         if (!actionMenu)
         {
             //cout << 5 << endl;
@@ -382,25 +367,11 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         {
 
             //IT STEPS THROUGH ALL OF THIS SO DONT WORRY
-            //cout << moveHero.blackButt.getPosition().x << "\t"<< moveHero.blackButt.getPosition().y << endl;
             validtiles.clear();
-            //window.draw(heroMove.button);
-            //window.draw(heroAction.button);
-            //window.draw(menuCancel.button);
-            //int testtt= moveHero.text.getCharacterSize();
-            //cout << testtt << endl;
 
-
-            window.draw(moveHero.blackButt);
-            window.draw(moveHero.text);
-            window.draw(actHero.blackButt);
-            window.draw(actHero.text);
-            window.draw(cancelHero.blackButt);
-            window.draw(cancelHero.text);
-            window.draw(testButt.blackButt);
-            //window.draw(testButt.text);
-            window.draw(testt);
-
+            actHero.drawButton(window);
+            moveHero.drawButton(window);
+            cancelHero.drawButton(window);
         }
         window.display();
         window.clear();
