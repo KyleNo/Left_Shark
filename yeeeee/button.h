@@ -16,8 +16,14 @@ public:
     void declareButton(sf::Vector2i buSize, string Name, sf::Font arial);
     void setPosition(int x, int y);
     void moveButton(int x, int y);
+    void drawButton(sf::RenderWindow& window);
     bool hovercheck(sf::Vector2i mousePos);
     bool hover= false;
+
+    void test();
+
+
+
 };
 
 
@@ -66,4 +72,19 @@ bool button::hovercheck(sf::Vector2i mousePos)
         return false;
     }
 }
+
+void button::drawButton(sf::RenderWindow& window)
+{
+    window.draw(blackButt);
+    window.draw(text);
+}
+
+
+
+
+
+
+
+
+
 #endif // BUTTON_H_INCLUDED

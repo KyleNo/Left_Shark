@@ -134,6 +134,8 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
     button cancelHero;
     button testButt;
 
+    button test2;
+
 
     moveHero.declareButton(sf::Vector2i(70,25), "Move", arial);
     actHero.declareButton(sf::Vector2i(70,25), "Attack", arial);
@@ -352,14 +354,18 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
             //IT STEPS THROUGH ALL OF THIS SO DONT WORRY
             //cout << moveHero.blackButt.getPosition().x << "\t"<< moveHero.blackButt.getPosition().y << endl;
             validtiles.clear();
-            window.draw(moveHero.blackButt);
+            //window.draw(moveHero.blackButt);
             //window.draw(moveHero.text);
-            window.draw(actHero.blackButt);
+            //window.draw(actHero.blackButt);
             //window.draw(actHero.text);
-            window.draw(cancelHero.blackButt);
+            //window.draw(cancelHero.blackButt);
             //window.draw(cancelHero.text);
             //window.draw(testButt.blackButt);
           //  window.draw(testButt.text);
+            actHero.drawButton(window);
+            moveHero.drawButton(window);
+            cancelHero.drawButton(window);
+
         }
         else
         if (!actionMenu)
