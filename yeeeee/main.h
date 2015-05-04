@@ -145,6 +145,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
     {
         heroes[i].assignhero();
         heroes[i].currentHealth = 50;
+        heroes[i].heroId = i;
     }
     bool buttonPressed = false;
     bool checkingValidity = false;
@@ -238,8 +239,8 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         tiles[8].position.x = screenPos.x/32+.5;
         tiles[8].position.y = screenPos.y/32+.5;
         int mousePositionx=(mousePos.x/32)*32, mousePositiony=(mousePos.y/32)*32;
-        if (event.type == sf::Event::MouseButtonPressed and actionMenu == false)
-        {
+        if (((event.type == sf::Event::MouseButtonPressed) || mousePressed) and actionMenu == false)
+        {mousePressed = true;
             sf::Vector2i playerPosition;
             if (event.mouseButton.button == sf::Mouse::Left)
             {
@@ -264,11 +265,9 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                     actionMenu = true;
                 }
             }
-        }
-        else
-        {
-            mousePressed = false;
-        }
+
+        } else mousePressed = false;
+
     //Mouse tile stuff
         testmap.drawTilemap(tileBeingUsed, window);
         if(checkingValidity)
@@ -283,27 +282,25 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
 //            music.play();
             hero user;
             user = heroes[selectedHero];
+            hero target = heroes[user.heroId+1];
             View windowView = window.getView();
-
             Vector2i screenPosition = window.mapCoordsToPixel(windowView.getCenter());
-            //old buttons
-            //heroMove.setButton(((user.Position.x)*32) + 50, user.Position.y*32, "resources/images/moveButton.png");
-            //heroAction.setButton(((user.Position.x)*32)- 125, user.Position.y*32, "resources/images/attackButton.png");
-            //menuCancel.setButton(((user.Position.x)*32) - 35, (32*user.Position.y) - 50, "resources/images/whiteCancel.png");
-            //heroMove.bSize=sf::Vector2i(70,25);
-            //heroAction.bSize=sf::Vector2i(70,25);
-            //menuCancel.bSize=sf::Vector2i(70,25);
-
             //new buttons
 
             moveHero.setPosition(((user.Position.x)*32) + 50, user.Position.y*32);
             actHero.setPosition(((user.Position.x)*32) - 125, user.Position.y*32);
             cancelHero.setPosition(((user.Position.x)*32) - 35 , user.Position.y*32 - 35);
+<<<<<<< HEAD
 
         //if (event.type == Event::MouseButtonPressed){
             //heroes[selectedHero].rangecheck(testmap.passableTile, window);
     if (event.mouseButton.button == Mouse::Left||mousePressed)
         {
+=======
+            testButt.setPosition(400,400);
+    if ((event.mouseButton.button == Mouse::Left)||mousePressed){mousePressed = true;
+            if(!event.mouseButton.button&&mousePressed){
+>>>>>>> origin/WiP
                 if(moveHero.hovercheck(tiles[8].position*32)==true)
                 {
                     for (int i=-5;i<=5;i++)
@@ -318,23 +315,27 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                 }
                 else if(actHero.hovercheck(tiles[8].position*32)==true)
                 {//IM SETTING IT UP DONT WORRY
-                    hero target = heroes[selectedHero+1];
+                    cout << user.heroId << endl;
+
                     ability testAbility;
                     testAbility.isAttack = true;
+                    testAbility.isBuff = false;
                     testAbility.abilityPotency = 500;
                     testAbility.range = 1000;
                     testAbility.abilityModifier = 1;
                     target.team = 1;
                     user.team = 0;
                     user.useAbility(testAbility, target, user);
+                    cout << target.heroId << endl;
                     cout << target.currentHealth << endl;
                 }
                 else if(cancelHero.hovercheck(tiles[8].position*32)==true)
                 {
                     cout << "pls no\n";
                     actionMenu=false;
+                    }
                 }
-            }
+            } else mousePressed = false;
         }
         if (!actionMenu)
         {

@@ -7,6 +7,7 @@ public:
     sf::Texture texture;
     sf::Sprite sprite;
     heroClass job;
+    int heroId;
     vector<int>stats;
     int currentHealth;
     vector<ability>heroAbilities;
@@ -55,13 +56,9 @@ void hero::placehero(sf::RenderWindow& window, int characterx, int charactery, b
     Position.y=(sprite.getPosition().y)/32;
 }
 void hero::useAbility(ability abilityUsed, hero target, hero user){
-    if(abilityUsed.isAttack) abilityUsed.abilityAttack(user , target);
-    else{
-        return;
-        cout << "whelp";
-    }
-    if(abilityUsed.isHeal) abilityUsed.abilityHeal(user, target); else return;
-    if(abilityUsed.isBuff) abilityUsed.abilityBuff(user, target);else return;
+        if(abilityUsed.isAttack)  abilityUsed.abilityAttack(user, target);
+        else if(abilityUsed.isHeal) abilityUsed.abilityHeal(user, target);
+        else if(abilityUsed.isBuff) abilityUsed.abilityBuff(user, target);
 }
 void ability::abilityAttack(hero user, hero target){
     target.currentHealth -= ability::abilityPotency * ability::abilityModifier;
