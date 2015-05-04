@@ -132,15 +132,12 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
     button moveHero;
     button actHero;
     button cancelHero;
-    button testButt;
 
-    button test2;
 
 
     moveHero.declareButton(sf::Vector2i(70,25), "Move", arial);
     actHero.declareButton(sf::Vector2i(70,25), "Attack", arial);
     cancelHero.declareButton(sf::Vector2i(70,25), "Cancel", arial);
-    testButt.declareButton(sf::Vector2i(70,25), "Test", arial);
 
     //this is where we designate the heroes.
     hero heroes[testmap.numberOfCharactersPossible];
@@ -302,7 +299,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
             moveHero.setPosition(((user.Position.x)*32) + 50, user.Position.y*32);
             actHero.setPosition(((user.Position.x)*32) - 125, user.Position.y*32);
             cancelHero.setPosition(((user.Position.x)*32) - 35 , user.Position.y*32 - 35);
-            testButt.setPosition(400,400);
 
         //if (event.type == Event::MouseButtonPressed){
             //heroes[selectedHero].rangecheck(testmap.passableTile, window);
