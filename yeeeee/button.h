@@ -46,11 +46,8 @@ void button::setPosition(int x, int y)
 {
     position=sf::Vector2i(x,y);
     blackButt.setPosition(x,y); //moves button sprite to set position
-<<<<<<< HEAD
     text.setPosition(x+10,y+10); //offsets text
-=======
     text.setPosition(x+5,y+5); //offsets text
->>>>>>> origin/WiP
 }
 
 void button::moveButton(int x, int y)
