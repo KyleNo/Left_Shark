@@ -13,7 +13,7 @@ public:
     sf::RectangleShape blackButt;
     sf::Text text;
     string name;
-    void declareButton(sf::Vector2i buSize, string Name, sf::Font arial);
+    void declareButton(sf::Vector2i buSize, string Name, sf::Font& arial);
     void setPosition(int x, int y);
     void moveButton(int x, int y);
     void drawButton(sf::RenderWindow& window);
@@ -27,7 +27,7 @@ public:
 };
 
 
-void button::declareButton(sf::Vector2i buSize, string Name, sf::Font arial)
+void button::declareButton(sf::Vector2i buSize, string Name, sf::Font& arial)
 {
     buttonSize=buSize;
     name=Name;
@@ -36,7 +36,7 @@ void button::declareButton(sf::Vector2i buSize, string Name, sf::Font arial)
     text.setString(Name);
     text.setCharacterSize(16);
     text.setColor(sf::Color::White);
-    //text.setStyle(sf::Text::Style::Regular);
+    text.setStyle(sf::Text::Style::Bold);
     blackButt.setSize(sf::Vector2f(buttonSize.x, buttonSize.y));
     blackButt.setFillColor(sf::Color(0,0,0));
 }
@@ -46,8 +46,7 @@ void button::setPosition(int x, int y)
 {
     position=sf::Vector2i(x,y);
     blackButt.setPosition(x,y); //moves button sprite to set position
-    text.setPosition(x+10,y+10); //offsets text
-    cout << name << endl;
+    text.setPosition(x+5,y+5); //offsets text
 }
 
 void button::moveButton(int x, int y)
