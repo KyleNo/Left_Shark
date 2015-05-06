@@ -20,6 +20,21 @@ public:
     bool hovercheck(sf::Vector2i mousePos);
     sf::Vector2i bSize;
 };
+
+class mapThumbnail{
+public:
+    Texture texture;
+    Sprite sprite;
+    Vector2i coordinates;
+    string fileLocation;
+    void setThumbnail(sf::Vector2i location, string filename, string imagename);
+
+};
+
+
+
+
+string chewsMap(sf::Sprite& menuBack, sf::RenderWindow& window);
 void buttonTemplate::setButton(int x, int y, string filename)
 {
     if (!buttonLoadingTexture.loadFromFile(filename))
@@ -78,5 +93,54 @@ bool buttonTemplate::hovercheck(sf::Vector2i mousePos)
         return false;
     }
 }
+void mapThumbnail::setThumbnail(sf::Vector2i location, string filename, string imagename)
+{
+    coordinates = location;
+    fileLocation = filename;
+    sprite.setPosition(sf::Vector2f(location.x, location.y));
+    texture.loadFromFile(imagename);
+    sprite.setTexture(texture);
+}
 
+string chewsMap(sf::Sprite& menuBack, sf::RenderWindow& window)
+{
+    sf::RectangleShape faded;
+    faded.setFillColor(sf::Color(0,0,0,180));
+    faded.setSize(sf::Vector2f(800,600));
+    faded.setPosition(0,0);
+    sf::Text title;
+    title.setString("Choose map");
+    mapThumbnail coolMapPic;
+    mapThumbnail islandPic;
+    coolMapPic.setThumbnail(sf::Vector2i(120,150),"tilemaps/coolmap.tmx", "resources/images/coolmapthumbnail.png");
+    islandPic.setThumbnail(sf::Vector2i(480,150),"tilemaps/island.tmx", "resources/images/islandthumbnail.png");
+
+
+    while (window.isOpen())
+    {
+        Event event;
+        while(window.pollEvent(event))
+        {
+            if (event.type == Event::Closed)
+                window.close();
+
+        }
+        if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && sf::Mouse::getPosition(window).x > coolMapPic.coordinates.x && sf::Mouse::getPosition(window).x < coolMapPic.coordinates.x+200 && sf::Mouse::getPosition(window).y >coolMapPic.coordinates.y && sf::Mouse::getPosition(window).y < coolMapPic.coordinates.y + 200)
+        {
+            return coolMapPic.fileLocation;
+        }
+        else if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && sf::Mouse::getPosition(window).x > islandPic.coordinates.x && sf::Mouse::getPosition(window).x < islandPic.coordinates.x+200 && sf::Mouse::getPosition(window).y >islandPic.coordinates.y && sf::Mouse::getPosition(window).y < islandPic.coordinates.y + 200)
+        {
+            return islandPic.fileLocation;
+        }
+
+        window.clear();
+        window.draw(menuBack);
+        window.draw(faded);
+        window.draw(coolMapPic.sprite);
+        window.draw(islandPic.sprite);
+
+        window.display();
+    }
+}
 

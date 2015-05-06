@@ -78,7 +78,7 @@ void loading(sf::RenderWindow& window)
     //buttonTemplate menuCancel;
     bool actionMenu = false;
 
-void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
+void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string mapChoice)
 {
 //    sf::Music music;
 //    if (!music.openFromFile("mynameisnathaniel.ogg"))
@@ -110,7 +110,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
     window.setFramerateLimit(60);
     tilemap testmap;
     testmap.mapSize = 400;
-    tileBeingUsed=testmap.generateTileCollection();
+    tileBeingUsed=testmap.generateTileCollection(mapChoice);
     sf::Texture bckgrnd;
     if (!bckgrnd.loadFromFile("resources/images/blackbutt-10x10.png"))
     {
