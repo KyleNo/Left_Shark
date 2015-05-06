@@ -290,17 +290,11 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
             moveHero.setPosition(((user.Position.x)*32) + 50, user.Position.y*32);
             actHero.setPosition(((user.Position.x)*32) - 125, user.Position.y*32);
             cancelHero.setPosition(((user.Position.x)*32) - 35 , user.Position.y*32 - 35);
-<<<<<<< HEAD
 
         //if (event.type == Event::MouseButtonPressed){
             //heroes[selectedHero].rangecheck(testmap.passableTile, window);
-    if (event.mouseButton.button == Mouse::Left||mousePressed)
-        {
-=======
-            testButt.setPosition(400,400);
     if ((event.mouseButton.button == Mouse::Left)||mousePressed){mousePressed = true;
             if(!event.mouseButton.button&&mousePressed){
->>>>>>> origin/WiP
                 if(moveHero.hovercheck(tiles[8].position*32)==true)
                 {
                     for (int i=-5;i<=5;i++)
@@ -331,11 +325,11 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                 }
                 else if(cancelHero.hovercheck(tiles[8].position*32)==true)
                 {
-                    cout << "pls no\n";
                     actionMenu=false;
                     }
                 }
-            } else mousePressed = false;
+            }
+            else mousePressed = false;
         }
         if (!actionMenu)
         {
