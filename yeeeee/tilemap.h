@@ -12,16 +12,16 @@ class tilemap
         vector<tile>tileCollection;
         int mapSize;
         void drawTilemap(int tileBeingUsed, sf::RenderWindow& window);
-        int generateTileCollection();
+        int generateTileCollection(string mapChoice);
 };
 
 //drawToGrid() is used in drawTileMap()
-int tilemap::generateTileCollection(){ //finds tile collection using tmx
+int tilemap::generateTileCollection(string mapChoice){ //finds tile collection using tmx
     int goodtiles=0,badtiles=0;
     sf::Vector2i gridcounter;
     tmxparser::TmxMap yee; //declares tmx map
     tmxparser::TmxReturn error; //error test
-    error = tmxparser::parseFromFile("tilemaps/coolmap.tmx", &yee, "tilesets/"); //parses file
+    error = tmxparser::parseFromFile(mapChoice, &yee, "tilesets/"); //parses file
     int mapSize = yee.height*yee.width; //finds map size
     int tilemapGrid[mapSize]; //array for tile map numeric values
     numberOfCharactersPossible=0;
@@ -86,9 +86,9 @@ int tilemap::generateTileCollection(){ //finds tile collection using tmx
 }
 void tilemap::drawTilemap(int tileBeingUsed, sf::RenderWindow& window){
     int counter = 0;
-    for(int aa = 0; aa < height; aa++){
-        for(int ab = 0; ab < width; ab++){
-            tilemap::tileCollection[counter].drawToGrid(ab,aa,window.getView(), window);
+    for(int i = 0; i < height; i++){
+        for(int j = 0; j < width; j++){
+            tilemap::tileCollection[counter].drawToGrid(j,i,window.getView(), window);
             counter++;
         }
     }

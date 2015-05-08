@@ -2507,7 +2507,7 @@
    <tile gid="3"/>
   </data>
  </layer>
- <layer name="Character Placement layer" width="50" height="50">
+ <layer name="Character Placement layer" width="50" height="50" visible="0">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
