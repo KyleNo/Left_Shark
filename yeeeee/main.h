@@ -80,66 +80,56 @@ void loading(sf::RenderWindow& window)
 
 void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
 {
-//    sf::Music music;
-//    if (!music.openFromFile("mynameisnathaniel.ogg"))
-//    {
-        //reerer
-//    }
-    vector<tile> validtiles;
-    tile tiles[9];
-    bool mouseHovering=false;
-    int selectedHero;
-    window.setSize(sf::Vector2u(800,640));
-    loading(window);
-    int tileBeingUsed;
-    sf::Font font;
-    font.loadFromFile("neoteric.ttf");
-    sf::Text screenText;
-    screenText.setString("null");
-    screenText.setFont(font);
-    screenText.setCharacterSize(12);
-    screenText.setColor(sf::Color::Red);
+    //declareTiles absolutely HAS to be here
     declareTiles();
-    abilityDeclare();
+    loading(window);
+
+    //declare variables:
+    vector<tile> validtiles;
+    bool mouseHovering=false;
+    bool buttonPressed = false;
+    bool checkingValidity = false;
+    bool mousePressed = false;
+
+    int tileBeingUsed;
     int viewCounterX = -64;
     int viewCounterY = -0;
     int framerateCounter = 0;
+    int selectedHero;
+
+    sf::Vector2i mousePos, screenPos;
+    sf::Font arial;
     sf::View view1(sf::Vector2f(0, 0), sf::Vector2f(800, 640));
-    view1.setCenter(0,0);
-    window.setView(view1);
-    window.setFramerateLimit(60);
+
+    tile tiles[9];
+
+    //set up the map
     tilemap testmap;
     testmap.mapSize = 400;
     tileBeingUsed=testmap.generateTileCollection();
-    sf::Texture bckgrnd;
-    if (!bckgrnd.loadFromFile("resources/images/blackbutt-10x10.png"))
-    {
-        //error...
-    }
-    sf::Font arial;
+
+    //apply a font
     if(!arial.loadFromFile("resources/Fonts/arial.ttf"))
     {
         //error...
     }
-    sf::Text testt;
-    testt.setCharacterSize(16);
-    testt.setString("Hello");
-    testt.setColor(sf::Color::White);
-    testt.setFont(arial);
-    testt.setPosition(400,400);
-    //declare new buttons
 
+    //set up the window
+    view1.setCenter(0,0);
+    window.setView(view1);
+    window.setFramerateLimit(60);
+    window.setSize(sf::Vector2u(800,640));
+    abilityDeclare();
+
+    //declare new buttons
     button moveHero;
     button actHero;
     button cancelHero;
-
-
-
     moveHero.declareButton(sf::Vector2i(70,25), "Move", arial);
     actHero.declareButton(sf::Vector2i(70,25), "Attack", arial);
     cancelHero.declareButton(sf::Vector2i(70,25), "Cancel", arial);
 
-    //this is where we designate the heroes.
+    //designate characters
     hero heroes[testmap.numberOfCharactersPossible];
     for (int i=0;i<testmap.numberOfCharactersPossible;i++)
     {
@@ -147,18 +137,20 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         heroes[i].currentHealth = 50;
         heroes[i].heroId = i;
     }
-    bool buttonPressed = false;
-    bool checkingValidity = false;
-    bool mousePressed = false;
-    sf::Vector2i mousePos;
-    view1.move(400,320); //sets view to top left corner
     for (int i=0;i<testmap.numberOfCharactersPossible;i++)
     {
         heroes[i].placehero(window, testmap.characterPositionsX[i]*32,testmap.characterPositionsY[i]*32, true, sf::Vector2f(0,0));
     }
+
+    //sets view to top left corner
+    view1.move(400,320);
+
+    //The game loop
     while (window.isOpen())
     {
         sf::Event event;
+
+        //is the window open?
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
@@ -172,18 +164,8 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                 window.setView(sf::View(visibleArea));
             }
         }
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::V))
-        {//tile validity
 
-            screenText.setString("Tile Validity Shown");
-            checkingValidity = true;
-        }
-        else
-        {
-            checkingValidity = false;
-        }
         //screen movement
-        screenText.setString("View movement enabled, use the arrow keys");
         if(sf::Mouse::getPosition(window).x > 672 and view1.getCenter().x < testmap.width*32-400)
         {//right
             framerateCounter++;
@@ -224,6 +206,8 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                 window.setView(view1);
             }
         }
+
+        //checks to see if the camera is displaying only the map
         if((sf::Mouse::getPosition(window).y > 472 and view1.getCenter().y < testmap.height*32-320) or (sf::Mouse::getPosition(window).y < 128 and view1.getCenter().y > 320) or (sf::Mouse::getPosition(window).x < 128 and view1.getCenter().x>400 ) or (sf::Mouse::getPosition(window).x > 672 and view1.getCenter().x < testmap.width*32-400))
         {
             buttonPressed = true;
@@ -232,19 +216,19 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         {
             buttonPressed = false;
         }
-        sf::Vector2i screenPos;
+
+        //set the selector position
         mousePos = sf::Mouse::getPosition(window);
-        screenPos.x = window.mapPixelToCoords(mousePos).x;
-        screenPos.y = window.mapPixelToCoords(mousePos).y;
+        screenPos = sf::Vector2i(window.mapPixelToCoords(mousePos).x,window.mapPixelToCoords(mousePos).y);
         tiles[8].position.x = screenPos.x/32+.5;
         tiles[8].position.y = screenPos.y/32+.5;
-        int mousePositionx=(mousePos.x/32)*32, mousePositiony=(mousePos.y/32)*32;
+
+        //Are you clicking on a valid hero?
         if (((event.type == sf::Event::MouseButtonPressed) || mousePressed) and actionMenu == false)
         {mousePressed = true;
             sf::Vector2i playerPosition;
             if (event.mouseButton.button == sf::Mouse::Left)
             {
-                screenText.setString("Mouse pressed");
                 mousePressed = true;
                 for (int i=0;i<testmap.numberOfCharactersPossible;i++)
                 {
@@ -266,93 +250,95 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
                 }
             }
 
-        } else mousePressed = false;
-
-    //Mouse tile stuff
-        testmap.drawTilemap(tileBeingUsed, window);
-        if(checkingValidity)
-        {
-            for(int aa = 0; aa < testmap.tileCollection.size(); aa++)
-            {
-                testmap.tileCollection[aa].isValidMovement(window);
-            }
         }
+        else
+        {
+            mousePressed = false;
+        }
+
+        //if the action menu is open
         if(actionMenu)
         {
-//            music.play();
             hero user;
             user = heroes[selectedHero];
             hero target = heroes[user.heroId+1];
             View windowView = window.getView();
             Vector2i screenPosition = window.mapCoordsToPixel(windowView.getCenter());
-            //new buttons
 
+            //new buttons
             moveHero.setPosition(((user.Position.x)*32) + 50, user.Position.y*32);
             actHero.setPosition(((user.Position.x)*32) - 125, user.Position.y*32);
             cancelHero.setPosition(((user.Position.x)*32) - 35 , user.Position.y*32 - 35);
 
-        //if (event.type == Event::MouseButtonPressed){
-            //heroes[selectedHero].rangecheck(testmap.passableTile, window);
-    if ((event.mouseButton.button == Mouse::Left)||mousePressed){mousePressed = true;
-            if(!event.mouseButton.button&&mousePressed){
-                if(moveHero.hovercheck(tiles[8].position*32)==true)
+            //if you clicked on a character...
+            if ((event.mouseButton.button == Mouse::Left)||mousePressed)
+            {
+                mousePressed = true;
+                if(!event.mouseButton.button&&mousePressed)
                 {
-                    for (int i=-5;i<=5;i++)
+                    //... and then clicked move
+                    if(moveHero.hovercheck(tiles[8].position*32)==true)
                     {
-                        for (int j=-(5-abs(i));j<=5-abs(i);j++)
+                        for (int i=-5;i<=5;i++)
                         {
-                            validtiles.push_back(heroes[selectedHero].rangecheck(testmap.passableTile, window,j,i));
-                            int counter=validtiles.size();
+                            for (int j=-(5-abs(i));j<=5-abs(i);j++)
+                            {
+                                validtiles.push_back(heroes[selectedHero].rangecheck(testmap.passableTile, window,j,i));
+                                int counter=validtiles.size();
+                            }
                         }
+                        actionMenu=false;
                     }
-                    actionMenu=false;
-                }
-                else if(actHero.hovercheck(tiles[8].position*32)==true)
-                {//IM SETTING IT UP DONT WORRY
-                    cout << user.heroId << endl;
 
-                    ability testAbility;
-                    testAbility.isAttack = true;
-                    testAbility.isBuff = false;
-                    testAbility.abilityPotency = 500;
-                    testAbility.range = 1000;
-                    testAbility.abilityModifier = 1;
-                    target.team = 1;
-                    user.team = 0;
-                    user.useAbility(testAbility, target, user);
-                    cout << target.heroId << endl;
-                    cout << target.currentHealth << endl;
-                }
-                else if(cancelHero.hovercheck(tiles[8].position*32)==true)
-                {
-                    actionMenu=false;
+                    //... and then clicked action
+                    else if(actHero.hovercheck(tiles[8].position*32)==true)
+                    {//IM SETTING IT UP DONT WORRY
+                        cout << user.heroId << endl;
+
+                        ability testAbility;
+                        testAbility.isAttack = true;
+                        testAbility.isBuff = false;
+                        testAbility.abilityPotency = 500;
+                        testAbility.range = 1000;
+                        testAbility.abilityModifier = 1;
+                        target.team = 1;
+                        user.team = 0;
+                        user.useAbility(testAbility, target, user);
+                        cout << target.heroId << endl;
+                        cout << target.currentHealth << endl;
                     }
+
+                    //... and then clicked cancel
+                    else if(cancelHero.hovercheck(tiles[8].position*32)==true)
+                    {
+                        actionMenu=false;
+                    }
+
                 }
             }
-            else mousePressed = false;
+            else
+            {
+                mousePressed = false;
+            }
         }
         if (!actionMenu)
         {
             selectTile(screenPos, window);
         }
-        screenText.setOrigin(-viewCounterX + 310, -viewCounterY + 310);
+        testmap.drawTilemap(tileBeingUsed, window);
         tiles[8].drawToGrid(tiles[8].position.x, tiles[8].position.y,window.getView(), window);
-        window.draw(screenText);
         if (!actionMenu)
         {
-            //cout << 5 << endl;
             for (int i=0;i<validtiles.size();i++)
             {
                 window.draw(validtiles[i].tileSprite);
             }
-            //cout << 6 << endl;
             if (event.mouseButton.button == Mouse::Right and actionMenu== false)
             {
                 for (int i=0;i<validtiles.size();i++)
                 {
                     if (tiles[8].tileSprite.getPosition().x==validtiles[i].tileSprite.getPosition().x and tiles[8].tileSprite.getPosition().y==validtiles[i].tileSprite.getPosition().y)
                     {
-
                         heroes[selectedHero].placehero(window,heroes[selectedHero].sprite.getPosition().x,heroes[selectedHero].sprite.getPosition().y, false, validtiles[i].tileSprite.getPosition());
                     }
                 }
