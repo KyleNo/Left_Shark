@@ -26,12 +26,10 @@ tile hero::rangecheck(vector< vector <bool> > passableTile,sf::RenderWindow& win
     sf::Vector2i traversableTile;
     validtile=(tiles[7]);
     validtile=tiles[7];
-    if (Position.x-x>=0 and Position.y-y>=0)
+    if(passableTile[Position.x-x][Position.y+y]==false)
     {
-        if(passableTile[Position.x-x][Position.y+y]==false)
-        {
-            validtile.tileSprite.setPosition((Position.x-x)*32,(Position.y+y)*32);
-        }
+        //traversableTile=(sf::Vector2i(Position.x-x,Position.y+y));
+        validtile.tileSprite.setPosition((Position.x-x)*32,(Position.y+y)*32);
     }
     return validtile;
 }
@@ -48,7 +46,7 @@ void hero::placehero(sf::RenderWindow& window, int characterx, int charactery, b
 {
     if (initialPlacement==false)
     {
-        sprite.setPosition(tileTo.x, tileTo.y);
+        sprite.move(characterx, charactery);
     }
     else
     {
@@ -56,7 +54,6 @@ void hero::placehero(sf::RenderWindow& window, int characterx, int charactery, b
     }
     Position.x=(sprite.getPosition().x)/32;
     Position.y=(sprite.getPosition().y)/32;
-    cout << sprite.getPosition().x << endl;
 }
 void hero::useAbility(ability abilityUsed, hero target, hero user){
         if(abilityUsed.isAttack)  abilityUsed.abilityAttack(user, target);
