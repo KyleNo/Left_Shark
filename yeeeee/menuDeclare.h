@@ -3,8 +3,8 @@
 #include "menu.h"
 #include "main.h"
 #include <SFML/Audio.hpp>
-void tileDraw(sf::RenderWindow& window, int numberofcharectorspossible);
-void startMenu(RenderWindow& window)
+void tileDraw(sf::RenderWindow& window, int numberofcharectorspossible,string mapChoice);
+void startMenu(sf::RenderWindow& window)
 {
     //sf::Music music;
    // if (!music.openFromFile("mynameisnathaniel.ogg"))
@@ -44,7 +44,7 @@ void startMenu(RenderWindow& window)
                     if(Button1.hover==true)
                     {
                         window.setFramerateLimit(60);
-                        tileDraw(window,NULL);
+                        tileDraw(window,NULL,chewsMap(menu, window));
                         //cout << "Button 1 pressed.\n";
                         //Button1.addon=1.2;
                     }
