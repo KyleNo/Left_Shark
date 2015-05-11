@@ -106,7 +106,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
     //set up the map
     tilemap testmap;
     testmap.mapSize = 400;
-    tileBeingUsed=testmap.generateTileCollection();
+    tileBeingUsed=testmap.generateTileCollection("tilemaps/coolmap.tmx");
 
     //apply a font
     if(!arial.loadFromFile("resources/Fonts/arial.ttf"))
@@ -350,8 +350,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible)
         }
         if(actionMenu)
         {
-
-            //IT STEPS THROUGH ALL OF THIS SO DONT WORRY
             validtiles.clear();
 
             actHero.drawButton(window);
