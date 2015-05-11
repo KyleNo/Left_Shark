@@ -110,9 +110,13 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
     window.setFramerateLimit(60);
     tilemap testmap;
     testmap.mapSize = 400;
+<<<<<<< HEAD
     tileBeingUsed=testmap.generateTileCollection(mapChoice);
 
     //apply a font
+=======
+    tileBeingUsed=testmap.generateTileCollection("tilemaps/coolmap.tmx");
+>>>>>>> origin/WiP
     sf::Texture bckgrnd;
     if (!bckgrnd.loadFromFile("resources/images/blackbutt-10x10.png"))
     {
