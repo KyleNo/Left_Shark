@@ -3,17 +3,19 @@
 #include "abilities.h"
 class hero{
 public:
+    bool moved;
+    int team;
     int range;
+    int heroId;
+    int currentHealth;
+    vector<int>stats;
+    vector<ability>heroAbilities;
     sf::Texture texture;
     sf::Sprite sprite;
-    heroClass job;
-    int heroId;
-    vector<int>stats;
-    int currentHealth;
-    vector<ability>heroAbilities;
-    void useAbility(ability abilityUsed, hero target, hero user);
-    int team;
     sf::Vector2i Position;
+    heroClass job;
+
+    void useAbility(ability abilityUsed, hero target, hero user);
     void placehero(sf::RenderWindow& window, int characterx, int charactery, bool initialPlacement, sf::Vector2f tileTo);
     void assignhero();
     tile rangecheck(vector< vector <bool> > passableTile,sf::RenderWindow& window, int x, int y);
@@ -46,7 +48,8 @@ void hero::placehero(sf::RenderWindow& window, int characterx, int charactery, b
 {
     if (initialPlacement==false)
     {
-        sprite.move(characterx, charactery);
+        sprite.setPosition(tileTo.x, tileTo.y);
+        moved=true;
     }
     else
     {
