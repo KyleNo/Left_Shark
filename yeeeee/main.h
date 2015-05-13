@@ -244,6 +244,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
         } else mousePressed = false;
 
         //Mouse tile stuff
+
         testmap.drawTilemap(tileBeingUsed, window);
         if(actionMenu)
         {
@@ -305,6 +306,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
             {
                 selectTile(screenPos, window);
             }
+
             tiles[8].drawToGrid(tiles[8].position.x, tiles[8].position.y,window.getView(), window);
             if (selectedHero>=0)
             {
@@ -327,29 +329,25 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                     }
                 }
             }
-
-            for (int i=0;i<testmap.numberOfCharactersPossible;i++)
+        }
+        for (int i=0;i<testmap.numberOfCharactersPossible;i++)
+        {
+            window.draw(heroes[i].sprite);
+        }
+        if(actionMenu)
+        {
+            validtiles.clear();
+            actHero.drawButton(window);
+            if (selectedHero>=0 and !heroes[selectedHero].moved)
             {
-                window.draw(heroes[i].sprite);
+                moveHero.drawButton(window);
             }
-            if(actionMenu)
-            {
-                validtiles.clear();
-
-                actHero.drawButton(window);
-                if (selectedHero>=0 and !heroes[selectedHero].moved)
-                {
-                    moveHero.drawButton(window);
-                }
-                cancelHero.drawButton(window);
-            }
-            window.display();
-            window.clear();
-            cout << "tits\n";
+            cancelHero.drawButton(window);
+        }
+        window.display();
+        window.clear();
         }
     }
-}
-
 
 
 
