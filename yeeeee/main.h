@@ -9,6 +9,7 @@
 #include <iostream>
 #include <math.h>
 #include "resources/TMXParser.h"
+#include "resources/tinyxml2.h"
 #include "herofunctions.h"
 #include "menuDeclare.h"
 #include "tilemap.h"
@@ -307,11 +308,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                 selectTile(screenPos, window);
             }
         }
-        if (event.mouseButton.button != Mouse::Left)
-        {
-            cout << "Ni";
-            mousePressed=false;
-        }
+
         if (selectedHero>=0)
             {
                 if (!actionMenu and !heroes[selectedHero].moved)
@@ -320,7 +317,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                     {
                         window.draw(validtiles[i].tileSprite);
                     }
-                    if (event.mouseButton.button == Mouse::Left and !actionMenu and !mousePressed)
+                    if (event.mouseButton.button == Mouse::Right)
                     {
                         cout << "ce\n";
                         for (int i=0;i<validtiles.size();i++)
