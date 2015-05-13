@@ -105,6 +105,7 @@ void mapThumbnail::setThumbnail(sf::Vector2i location, string filename, string i
 
 string chewsMap(sf::Sprite& menuBack, sf::RenderWindow& window)
 {
+    bool mousePressed=true;
     sf::RectangleShape faded;
     faded.setFillColor(sf::Color(0,0,0,180));
     faded.setSize(sf::Vector2f(800,600));
@@ -122,13 +123,15 @@ string chewsMap(sf::Sprite& menuBack, sf::RenderWindow& window)
         {
             if (event.type == Event::Closed)
                 window.close();
+            if (event.type == sf::Event::EventType::MouseButtonReleased)
+                mousePressed=false;
 
         }
-        if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && sf::Mouse::getPosition(window).x > coolMapPic.coordinates.x && sf::Mouse::getPosition(window).x < coolMapPic.coordinates.x+200 && sf::Mouse::getPosition(window).y >coolMapPic.coordinates.y && sf::Mouse::getPosition(window).y < coolMapPic.coordinates.y + 200)
+        if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && sf::Mouse::getPosition(window).x > coolMapPic.coordinates.x && sf::Mouse::getPosition(window).x < coolMapPic.coordinates.x+200 && sf::Mouse::getPosition(window).y >coolMapPic.coordinates.y && sf::Mouse::getPosition(window).y < coolMapPic.coordinates.y + 200 && mousePressed==false)
         {
             return coolMapPic.fileLocation;
         }
-        else if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && sf::Mouse::getPosition(window).x > islandPic.coordinates.x && sf::Mouse::getPosition(window).x < islandPic.coordinates.x+200 && sf::Mouse::getPosition(window).y >islandPic.coordinates.y && sf::Mouse::getPosition(window).y < islandPic.coordinates.y + 200)
+        else if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && sf::Mouse::getPosition(window).x > islandPic.coordinates.x && sf::Mouse::getPosition(window).x < islandPic.coordinates.x+200 && sf::Mouse::getPosition(window).y >islandPic.coordinates.y && sf::Mouse::getPosition(window).y < islandPic.coordinates.y + 200 && mousePressed==false)
         {
             return islandPic.fileLocation;
         }
