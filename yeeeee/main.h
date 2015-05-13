@@ -269,6 +269,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                             {
                                 validtiles.push_back(heroes[selectedHero].rangecheck(testmap.passableTile, window,j,i));
                                 int counter=validtiles.size();
+                                mousePressed=true;
                             }
                         }
                         actionMenu=false;
@@ -298,13 +299,18 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
             else
             {
                 mousePressed = false;
+
+                tiles[8].drawToGrid(tiles[8].position.x, tiles[8].position.y,window.getView(), window);
             }
             if (!actionMenu)
             {
                 selectTile(screenPos, window);
             }
         }
-
+        if (event.mouseButton.button != Mouse::Left)
+        {
+            mousePressed=false;
+        }
         if (selectedHero>=0)
             {
                 if (!actionMenu and !heroes[selectedHero].moved)
@@ -313,7 +319,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                     {
                         window.draw(validtiles[i].tileSprite);
                     }
-                    if (event.mouseButton.button == Mouse::Right and actionMenu== false)
+                    if (event.mouseButton.button == Mouse::Left and !actionMenu and !mousePressed)
                     {
                         for (int i=0;i<validtiles.size();i++)
                         {
@@ -329,6 +335,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
         for (int i=0;i<testmap.numberOfCharactersPossible;i++)
         {
             window.draw(heroes[i].sprite);
+            tiles[8].drawToGrid(tiles[8].position.x, tiles[8].position.y,window.getView(), window);
         }
         if(actionMenu)
         {
@@ -340,7 +347,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
             }
             cancelHero.drawButton(window);
         }
-        tiles[8].drawToGrid(tiles[8].position.x, tiles[8].position.y,window.getView(), window);
         window.display();
         window.clear();
         }
