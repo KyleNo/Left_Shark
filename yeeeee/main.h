@@ -77,7 +77,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
     declareTiles();
     loading(window);
     abilityDeclare();
-
     //declare variables
     int selectedHero;
     int tileBeingUsed;
