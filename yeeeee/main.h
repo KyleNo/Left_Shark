@@ -309,6 +309,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
         }
         if (event.mouseButton.button != Mouse::Left)
         {
+            cout << "Ni";
             mousePressed=false;
         }
         if (selectedHero>=0)
@@ -321,6 +322,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                     }
                     if (event.mouseButton.button == Mouse::Left and !actionMenu and !mousePressed)
                     {
+                        cout << "ce\n";
                         for (int i=0;i<validtiles.size();i++)
                         {
                             if (tiles[8].tileSprite.getPosition().x==validtiles[i].tileSprite.getPosition().x and tiles[8].tileSprite.getPosition().y==validtiles[i].tileSprite.getPosition().y)
