@@ -345,7 +345,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                 {
                     for (int i=0;i<validtiles.size();i++)
                     {
-                        cout << "Here\n";
                         if (tiles[8].tileSprite.getPosition().x==stepOnMe[i].tileSprite.getPosition().x and tiles[8].tileSprite.getPosition().y==stepOnMe[i].tileSprite.getPosition().y)
                         {
                             heroes[selectedHero].placehero(window,heroes[selectedHero].sprite.getPosition().x,heroes[selectedHero].sprite.getPosition().y, false, stepOnMe[i].tileSprite.getPosition());

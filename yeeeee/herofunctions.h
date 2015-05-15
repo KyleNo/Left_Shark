@@ -25,125 +25,87 @@ public:
     vector<sf::Vector2i> rangecheck(vector< vector <bool> > passableTile,sf::RenderWindow& window);
 };
 
-vector<sf::Vector2i> tilesyougottacheck(sf::Vector2i tile)
-{
-    vector<sf::Vector2i> tiles;
-    tiles.push_back(sf::Vector2i(tile.x+1,tile.y));
-    tiles.push_back(sf::Vector2i(tile.x-1,tile.y));
-    tiles.push_back(sf::Vector2i(tile.x,tile.y+1));
-    tiles.push_back(sf::Vector2i(tile.x,tile.y-1));
-    return tiles;
-}
-
 sf::Vector2i adjacencyCheck(int orientation,sf::Vector2i tileChecking, vector< vector <bool> > passableTiles, vector<sf::Vector2i> tilesChecked)
 {
-    switch (orientation)
+    cout << tileChecking.x << "," << tileChecking.y << endl;
+    if (orientation==0 and !passableTiles[tileChecking.x][tileChecking.y-1])
     {
-    case 0://check up
-        if (passableTiles[tileChecking.x][tileChecking.y-1]==0)
+        for (int i=0;i<tilesChecked.size();i++)
         {
-            for (int i=0;i<tilesChecked.size();i++)
+            if (tilesChecked[i]!=sf::Vector2i(tileChecking.x,tileChecking.y-1))
             {
-                if (tilesChecked[i]!=sf::Vector2i(tileChecking.x,tileChecking.y-1))
-                {
-                    cout << "adjacency check\n";
-                    return sf::Vector2i(tileChecking.x,tileChecking.y-1);
-                }
+                return sf::Vector2i(tileChecking.x,tileChecking.y-1);
             }
-        }
-        else
-        {
-            return sf::Vector2i(-1,-1);
-        }
-    case 1://check right
-        if (passableTiles[tileChecking.x+1][tileChecking.y]==0)
-        {
-            for (int i=0;i<tilesChecked.size();i++)
-            {
-                if (tilesChecked[i]!=sf::Vector2i(tileChecking.x+1,tileChecking.y))
-                {
-                    cout << "adjacency check\n";
-                    return sf::Vector2i(tileChecking.x+1,tileChecking.y);
-                }
-            }
-        }
-        else
-        {
-            return sf::Vector2i(-1,-1);
-        }
-    case 2://check down
-        if (passableTiles[tileChecking.x][tileChecking.y+1]==0)
-        {
-            for (int i=0;i<tilesChecked.size();i++)
-            {
-                if (tilesChecked[i]!=sf::Vector2i(tileChecking.x,tileChecking.y+1))
-                {
-                    cout << "adjacency check\n";
-                    return sf::Vector2i(tileChecking.x,tileChecking.y+1);
-                }
-            }
-        }
-        else
-        {
-            return sf::Vector2i(-1,-1);
-        }
-    case 3://check left
-        if (passableTiles[tileChecking.x-32][tileChecking.y]==0)
-        {
-            for (int i=0;i<tilesChecked.size();i++)
-            {
-                if (tilesChecked[i]!=sf::Vector2i(tileChecking.x-32,tileChecking.y))
-                {
-                    cout << "adjacency check\n";
-                    return sf::Vector2i(tileChecking.x-32,tileChecking.y);
-                }
-            }
-        }
-        else
-        {
-            return sf::Vector2i(-1,-1);
         }
     }
+    else if (orientation == 1 and !passableTiles[tileChecking.x+1][tileChecking.y])
+    {
+        for (int i=0;i<tilesChecked.size();i++)
+        {
+            if (tilesChecked[i]!=sf::Vector2i(tileChecking.x+1,tileChecking.y))
+            {
+                return sf::Vector2i(tileChecking.x+1,tileChecking.y);
+            }
+        }
+    }
+    else if (orientation == 2 and !passableTiles[tileChecking.x][tileChecking.y+1])
+    {
+        for (int i=0;i<tilesChecked.size();i++)
+        {
+            if (tilesChecked[i]!=sf::Vector2i(tileChecking.x,tileChecking.y+1))
+            {
+                return sf::Vector2i(tileChecking.x,tileChecking.y+1);
+            }
+        }
+    }
+    else if (orientation== 3 and !passableTiles[tileChecking.x-1][tileChecking.y])
+    {
+        for (int i=0;i<tilesChecked.size();i++)
+        {
+            if (tilesChecked[i]!=sf::Vector2i(tileChecking.x-1,tileChecking.y))
+            {
+                return sf::Vector2i(tileChecking.x-1,tileChecking.y);
+            }
+        }
+    }
+    else
+    {
+        return sf::Vector2i(-1,-1);
+    }
 }
+
 
 vector<sf::Vector2i> hero::rangecheck(vector< vector <bool> > passableTile,sf::RenderWindow& window)
 {
     range=5;
+    vector<sf::Vector2i> tilesToCheck,tilesChecked,tilesLastChecked;
     sf::Vector2i tileChecking;
-    vector<sf::Vector2i> tilesToCheck, tilesCheckedLast,tilesChecked;
-    vector<sf::Vector2i> goodTiles;
+    Position.x=sprite.getPosition().x/32;
+    Position.y=sprite.getPosition().y/32;
     tilesToCheck.push_back(Position);
-    for (int z=0;z<range;z++)
+    for (int i=0;i<range;i++)
     {
-        cout << "Zloop\n";
-        for (int i=0;i<tilesToCheck.size();i++)
+        for (int j=0;j<tilesToCheck.size();j++)
         {
-            cout << "Iloop\n";
-            tilesCheckedLast=tilesToCheck;
-            tilesToCheck.resize(tilesCheckedLast.size());
-            tilesToCheck=tilesyougottacheck(tilesCheckedLast[i]);
-            for (int j=0;j<4;j++)
+            for (int k=0;k<4;k++)
             {
-                cout << "Jloop\n";
-                if (adjacencyCheck(j,tilesToCheck[i],passableTile,tilesChecked).x!=-1);
+                tileChecking=adjacencyCheck(k,tilesToCheck[j],passableTile,tilesChecked);
+                if (tileChecking.x!=-1)
                 {
-                    cout << "tile To Check: ";
-                    cout << tilesToCheck[i].x << "," << tilesToCheck[i].y << endl;
-                    tileChecking=adjacencyCheck(j,tilesToCheck[i],passableTile,tilesChecked);
-                    goodTiles.push_back(tileChecking);
+                    tilesLastChecked.push_back(tileChecking);
                 }
             }
-            for (int j=0;j<tilesCheckedLast.size();j++)
-            {
-                tilesChecked.push_back(tilesCheckedLast[i]);
-                cout << "Tileschecking loop\n";
-            }
-            cout << "endofIloop\n";
         }
-        cout << "endofZloop\n";
+        tilesToCheck.clear();
+        for (int j=0;j<tilesLastChecked.size();j++)
+        {
+            tilesToCheck.push_back(tilesLastChecked[j]);
+            tilesChecked.push_back(tilesLastChecked[j]);
+        }
+        tilesLastChecked.clear();
     }
-    tilesToCheck.clear();
-    return goodTiles;
+
+    return tilesChecked;
 }
 
 void hero::assignhero(){
