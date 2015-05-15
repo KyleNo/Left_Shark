@@ -45,13 +45,10 @@ void startMenu(sf::RenderWindow& window)
                     {
                         window.setFramerateLimit(60);
                         tileDraw(window,NULL,chewsMap(menu, window));
-                        //cout << "Button 1 pressed.\n";
-                        //Button1.addon=1.2;
                     }
                     else
                     {
-                        //cout << "Button 2 pressed.\n";
-                        //Button2.addon=1.2;
+
                     }
                 }
             }

@@ -79,7 +79,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
     loading(window);
     abilityDeclare();
     //declare variables
-    int selectedHero;
+    int selectedHero=-1;
     int tileBeingUsed;
     int viewCounterX = -64;
     int viewCounterY = -0;
@@ -244,7 +244,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
             mousePressed = false;
         }
         //Mouse tile stuff
-
         testmap.drawTilemap(tileBeingUsed, window);
         if(actionMenu)
         {
@@ -308,25 +307,26 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
             stepOnMe[i].tileSprite.setPosition(validtiles[i].x,validtiles[i].y);
         }
         if (selectedHero>=0)
+        {
+            if (!actionMenu and !heroes[selectedHero].moved)
             {
-                if (!actionMenu and !heroes[selectedHero].moved)
+                for (int i=0;i<validtiles.size();i++)
+                {
+                    window.draw(stepOnMe[i].tileSprite);
+                }
+                if (event.mouseButton.button == Mouse::Right)
                 {
                     for (int i=0;i<validtiles.size();i++)
                     {
-                        window.draw(stepOnMe[i].tileSprite);
-                    }
-                    if (event.mouseButton.button == Mouse::Right)
-                    {
-                        for (int i=0;i<validtiles.size();i++)
+                        cout << "Here\n";
+                        if (tiles[8].tileSprite.getPosition().x==stepOnMe[i].tileSprite.getPosition().x and tiles[8].tileSprite.getPosition().y==stepOnMe[i].tileSprite.getPosition().y)
                         {
-                            if (tiles[8].tileSprite.getPosition().x==stepOnMe[i].tileSprite.getPosition().x and tiles[8].tileSprite.getPosition().y==stepOnMe[i].tileSprite.getPosition().y)
-                            {
-                                heroes[selectedHero].placehero(window,heroes[selectedHero].sprite.getPosition().x,heroes[selectedHero].sprite.getPosition().y, false, stepOnMe[i].tileSprite.getPosition());
-                            }
+                            heroes[selectedHero].placehero(window,heroes[selectedHero].sprite.getPosition().x,heroes[selectedHero].sprite.getPosition().y, false, stepOnMe[i].tileSprite.getPosition());
                         }
                     }
                 }
             }
+        }
 
         for (int i=0;i<testmap.numberOfCharactersPossible;i++)
         {
