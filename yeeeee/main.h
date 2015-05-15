@@ -88,8 +88,8 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
     bool mouseHovering=false;
     bool actionMenu = false;
 
-    vector<tile> validtiles;
-
+    vector<sf::Vector2i> validtiles;
+    vector<tile> stepOnMe;
     tile tiles[9];
 
     //set up the window
@@ -213,7 +213,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
         screenPos.y = window.mapPixelToCoords(mousePos).y;
         tiles[8].position.x = screenPos.x/32+.5;
         tiles[8].position.y = screenPos.y/32+.5;
-        cout << tiles[8].tileSprite.getPosition().x << "," << tiles[8].tileSprite.getPosition().y << endl;
         int mousePositionx=(mousePos.x/32)*32, mousePositiony=(mousePos.y/32)*32;
         if (((event.type == sf::Event::MouseButtonPressed) || mousePressed) and actionMenu == false)
         {
@@ -264,15 +263,10 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
             {
                     if(moveHero.hovercheck(tiles[8].position*32)==true)
                     {
-                        for (int i=-5;i<=5;i++)
-                        {
-                            for (int j=-(5-abs(i));j<=5-abs(i);j++)
-                            {
-                                validtiles.push_back(heroes[selectedHero].rangecheck(testmap.passableTile, window,j,i));
-                                int counter=validtiles.size();
-                                mousePressed=true;
-                            }
-                        }
+                        validtiles=heroes[selectedHero].rangecheck(testmap.passableTile, window);
+                        stepOnMe.resize(validtiles.size());
+                        int counter=validtiles.size();
+                        mousePressed=true;
                         actionMenu=false;
                     }
                     else if(actHero.hovercheck(tiles[8].position*32)==true)
@@ -308,23 +302,26 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                 selectTile(screenPos, window);
             }
         }
-
+        for (int i=0;i<stepOnMe.size();i++)
+        {
+            stepOnMe[i]=tiles[6];
+            stepOnMe[i].tileSprite.setPosition(validtiles[i].x,validtiles[i].y);
+        }
         if (selectedHero>=0)
             {
                 if (!actionMenu and !heroes[selectedHero].moved)
                 {
                     for (int i=0;i<validtiles.size();i++)
                     {
-                        window.draw(validtiles[i].tileSprite);
+                        window.draw(stepOnMe[i].tileSprite);
                     }
                     if (event.mouseButton.button == Mouse::Right)
                     {
-                        cout << "ce\n";
                         for (int i=0;i<validtiles.size();i++)
                         {
-                            if (tiles[8].tileSprite.getPosition().x==validtiles[i].tileSprite.getPosition().x and tiles[8].tileSprite.getPosition().y==validtiles[i].tileSprite.getPosition().y)
+                            if (tiles[8].tileSprite.getPosition().x==stepOnMe[i].tileSprite.getPosition().x and tiles[8].tileSprite.getPosition().y==stepOnMe[i].tileSprite.getPosition().y)
                             {
-                                heroes[selectedHero].placehero(window,heroes[selectedHero].sprite.getPosition().x,heroes[selectedHero].sprite.getPosition().y, false, validtiles[i].tileSprite.getPosition());
+                                heroes[selectedHero].placehero(window,heroes[selectedHero].sprite.getPosition().x,heroes[selectedHero].sprite.getPosition().y, false, stepOnMe[i].tileSprite.getPosition());
                             }
                         }
                     }
