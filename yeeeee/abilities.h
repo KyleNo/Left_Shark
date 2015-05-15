@@ -14,19 +14,16 @@ public:
      int radius;
      int forTurns;
      int statAffected;
-     void useAbility(hero user, hero target);
-     void abilityHeal(hero user, hero target);
-     void abilityAttack(hero user, hero target);
-     void abilityBuff(hero user, hero target);
 };
 class heroClass{
 public:
-    vector<ability> jobAbilities;
+    ability jobAbility;
 };
 class weapon{
 public:
-    vector<int>stats;
-    ability weaponAbility;
+    int attackPower;
+    int magicPower;
+    int rangeBonus;
 };
 void abilityDeclare(){
     ability testAbility;

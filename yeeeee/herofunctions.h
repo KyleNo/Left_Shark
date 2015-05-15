@@ -4,6 +4,7 @@
 class hero{
 public:
     bool moved;
+    bool action;
     int team;
     int range;
     int heroId;
@@ -13,9 +14,12 @@ public:
     sf::Texture texture;
     sf::Sprite sprite;
     sf::Vector2i Position;
+    weapon equippedWeapon;
     heroClass job;
+ //   ability jobAbility = job.jobAbility;
+//    ability basicAttack = equippedWeapon.weaponAttack;
 
-    void useAbility(ability abilityUsed, hero target, hero user);
+    hero useAbility(ability abilityUsed, hero target);
     void placehero(sf::RenderWindow& window, int characterx, int charactery, bool initialPlacement, sf::Vector2f tileTo);
     void assignhero();
     vector<sf::Vector2i> rangecheck(vector< vector <bool> > passableTile,sf::RenderWindow& window);
@@ -162,19 +166,18 @@ void hero::placehero(sf::RenderWindow& window, int characterx, int charactery, b
     Position.x=(sprite.getPosition().x)/32;
     Position.y=(sprite.getPosition().y)/32;
 }
-void hero::useAbility(ability abilityUsed, hero target, hero user){
-        if(abilityUsed.isAttack)  abilityUsed.abilityAttack(user, target);
-        else if(abilityUsed.isHeal) abilityUsed.abilityHeal(user, target);
-        else if(abilityUsed.isBuff) abilityUsed.abilityBuff(user, target);
-}
-void ability::abilityAttack(hero user, hero target){
-    target.currentHealth -= ability::abilityPotency * ability::abilityModifier;
-}
-void ability::abilityHeal(hero user, hero target){
-    if(user.team == target.team) target.currentHealth += ability::abilityPotency * ability::abilityModifier;
-}
-void ability::abilityBuff(hero user, hero target){
-    target.stats[ability::statAffected]+= ability::abilityPotency * ability::abilityModifier;
+hero hero::useAbility(ability abilityUsed, hero target){
+    action = true;
+        if(abilityUsed.isAttack){
+            target.currentHealth=target.currentHealth - abilityUsed.abilityPotency * abilityUsed.abilityModifier;
+        }
+        else if(abilityUsed.isHeal){
+            if(team == target.team) target.currentHealth += abilityUsed.abilityPotency * abilityUsed.abilityModifier;
+        }
+        else if(abilityUsed.isBuff){
+            target.stats[abilityUsed.statAffected]+= abilityUsed.abilityPotency * abilityUsed.abilityModifier;
+        }
+        return target;
 }
 
 #endif // HEROFUNCTIONS_H_INCLUDED

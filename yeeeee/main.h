@@ -122,8 +122,15 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
     button actHero;
     button cancelHero;
     moveHero.declareButton(sf::Vector2i(70,25), "Move", arial);
-    actHero.declareButton(sf::Vector2i(70,25), "Attack", arial);
+    actHero.declareButton(sf::Vector2i(70,25), "Action", arial);
     cancelHero.declareButton(sf::Vector2i(70,25), "Cancel", arial);
+
+    button wepAtk;
+    button jobAtk;
+    button cancelAtk;
+    wepAtk.declareButton(sf::Vector2i(70,25), "Attack", arial);
+    jobAtk.declareButton(sf::Vector2i(70,25), "Job Ability", arial);
+    cancelAtk.declareButton(sf::Vector2i(70,25), "Cancel", arial);
 
     //designate characters
     hero heroes[testmap.numberOfCharactersPossible];
@@ -136,6 +143,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
     bool buttonPressed = false;
     bool checkingValidity = false;
     bool mousePressed = false;
+    bool attackMenu = false;
     sf::Vector2i mousePos;
     view1.move(400,320); //sets view to top left corner
     for (int i=0;i<testmap.numberOfCharactersPossible;i++)
@@ -244,10 +252,11 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
             mousePressed = false;
         }
         //Mouse tile stuff
+        hero user;
         testmap.drawTilemap(tileBeingUsed, window);
         if(actionMenu)
         {
-            hero user;
+
             user = heroes[selectedHero];
             hero target = heroes[user.heroId+1];
             View windowView = window.getView();
@@ -268,21 +277,10 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                         mousePressed=true;
                         actionMenu=false;
                     }
-                    else if(actHero.hovercheck(tiles[8].position*32)==true)
+                    else if(actHero.hovercheck(tiles[8].position*32)==true && !user.action)
                     {
-                        cout << user.heroId << endl;
-
-                        ability testAbility;
-                        testAbility.isAttack = true;
-                        testAbility.isBuff = false;
-                        testAbility.abilityPotency = 500;
-                        testAbility.range = 1000;
-                        testAbility.abilityModifier = 1;
-                        target.team = 1;
-                        user.team = 0;
-                        user.useAbility(testAbility, target, user);
-                        cout << target.heroId << endl;
-                        cout << target.currentHealth << endl;
+                        attackMenu = true;
+                        actionMenu = false;
                     }
                     else if(cancelHero.hovercheck(tiles[8].position*32)==true)
                     {
@@ -299,6 +297,35 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
             if (!actionMenu)
             {
                 selectTile(screenPos, window);
+            }
+        }
+        if(attackMenu);
+        {
+            View windowView = window.getView();
+            Vector2i screenPosition = window.mapCoordsToPixel(windowView.getCenter());
+            //Move buttons to encompass character
+            wepAtk.setPosition(((user.Position.x)*32) + 50, user.Position.y*32);
+            jobAtk.setPosition(((user.Position.x)*32) - 125, user.Position.y*32);
+            cancelAtk.setPosition(((user.Position.x)*32) - 35 , user.Position.y*32 - 35);
+
+            if ((event.mouseButton.button == Mouse::Left)||mousePressed)
+            {
+                    if(wepAtk.hovercheck(tiles[8].position*32)==true && !user.action)
+                    {
+                        ability testAbility;
+                        testAbility.isAttack = true;
+                        testAbility.isBuff = false;
+                        testAbility.isHeal = false;
+                        testAbility.abilityPotency = 5;
+                        testAbility.range = 1000;
+                        testAbility.abilityModifier = 1;
+                        //target.team = 1;
+                        user.team = 0;
+                        //target = user.useAbility(testAbility, target);
+                        //heroes[selectedHero+1] = target;
+                        heroes[selectedHero] = user;
+                       // cout << target.currentHealth << endl;
+                    }
             }
         }
         for (int i=0;i<stepOnMe.size();i++)
@@ -336,12 +363,19 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
         if(actionMenu)
         {
             validtiles.clear();
-            actHero.drawButton(window);
+            if(selectedHero >=0 and !heroes[selectedHero].action){
+                actHero.drawButton(window);
+            }
             if (selectedHero>=0 and !heroes[selectedHero].moved)
             {
                 moveHero.drawButton(window);
             }
             cancelHero.drawButton(window);
+        }
+        if(attackMenu){
+            wepAtk.drawButton(window);
+            jobAtk.drawButton(window);
+            cancelAtk.drawButton(window);
         }
         window.display();
         window.clear();
