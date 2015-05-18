@@ -27,51 +27,31 @@ public:
 
 sf::Vector2i adjacencyCheck(int orientation,sf::Vector2i tileChecking, vector< vector <bool> > passableTiles, vector<sf::Vector2i> tilesChecked)
 {
-    cout << tileChecking.x << "," << tileChecking.y << endl;
-    if (orientation==0 and !passableTiles[tileChecking.x][tileChecking.y-1])
+    sf::Vector2i tileToCheck;
+    if (orientation==0 and passableTiles[tileChecking.x][tileChecking.y-1]==false)
     {
-        for (int i=0;i<tilesChecked.size();i++)
+        tileToCheck=sf::Vector2i(tileChecking.x,tileChecking.y-1);
+    }
+    else if (orientation == 1 and passableTiles[tileChecking.x+1][tileChecking.y]==false)
+    {
+        tileToCheck=sf::Vector2i(tileChecking.x+1,tileChecking.y);
+    }
+    else if (orientation == 2 and passableTiles[tileChecking.x][tileChecking.y+1]==false)
+    {
+        tileToCheck=sf::Vector2i(tileChecking.x,tileChecking.y+1);
+    }
+    else if (orientation== 3 and passableTiles[tileChecking.x-1][tileChecking.y]==false)
+    {
+        tileToCheck=sf::Vector2i(tileChecking.x-1,tileChecking.y);
+    }
+    for (int i=0;i<tilesChecked.size();i++)
+    {
+        if (passableTiles[tileToCheck.x][tileToCheck.y] or tilesChecked[i]==tileToCheck)
         {
-            if (tilesChecked[i]!=sf::Vector2i(tileChecking.x,tileChecking.y-1))
-            {
-                return sf::Vector2i(tileChecking.x,tileChecking.y-1);
-            }
+            return sf::Vector2i(-1,-1);
         }
     }
-    else if (orientation == 1 and !passableTiles[tileChecking.x+1][tileChecking.y])
-    {
-        for (int i=0;i<tilesChecked.size();i++)
-        {
-            if (tilesChecked[i]!=sf::Vector2i(tileChecking.x+1,tileChecking.y))
-            {
-                return sf::Vector2i(tileChecking.x+1,tileChecking.y);
-            }
-        }
-    }
-    else if (orientation == 2 and !passableTiles[tileChecking.x][tileChecking.y+1])
-    {
-        for (int i=0;i<tilesChecked.size();i++)
-        {
-            if (tilesChecked[i]!=sf::Vector2i(tileChecking.x,tileChecking.y+1))
-            {
-                return sf::Vector2i(tileChecking.x,tileChecking.y+1);
-            }
-        }
-    }
-    else if (orientation== 3 and !passableTiles[tileChecking.x-1][tileChecking.y])
-    {
-        for (int i=0;i<tilesChecked.size();i++)
-        {
-            if (tilesChecked[i]!=sf::Vector2i(tileChecking.x-1,tileChecking.y))
-            {
-                return sf::Vector2i(tileChecking.x-1,tileChecking.y);
-            }
-        }
-    }
-    else
-    {
-        return sf::Vector2i(-1,-1);
-    }
+    return tileToCheck;
 }
 
 
@@ -104,7 +84,10 @@ vector<sf::Vector2i> hero::rangecheck(vector< vector <bool> > passableTile,sf::R
         }
         tilesLastChecked.clear();
     }
-
+    for (int i=0;i<tilesChecked.size();i++)
+    {
+        cout << tilesChecked[i].x << "," << tilesChecked[i].y << endl;
+    }
     return tilesChecked;
 }
 

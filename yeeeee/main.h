@@ -74,6 +74,7 @@ void loading(sf::RenderWindow& window)
 
 void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string mapChoice)
 {
+    int nice=0;
     //setup functions
     declareTiles();
     loading(window);
@@ -274,6 +275,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                         validtiles=heroes[selectedHero].rangecheck(testmap.passableTile, window);
                         stepOnMe.resize(validtiles.size());
                         int counter=validtiles.size();
+                        cout << counter << endl;
                         mousePressed=true;
                         actionMenu=false;
                     }
@@ -331,13 +333,13 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
         for (int i=0;i<stepOnMe.size();i++)
         {
             stepOnMe[i]=tiles[6];
-            stepOnMe[i].tileSprite.setPosition(validtiles[i].x,validtiles[i].y);
+            stepOnMe[i].tileSprite.setPosition(validtiles[i].x*32,validtiles[i].y*32);
         }
         if (selectedHero>=0)
         {
             if (!actionMenu and !heroes[selectedHero].moved)
             {
-                for (int i=0;i<validtiles.size();i++)
+                for (int i=0;i<stepOnMe.size();i++)
                 {
                     window.draw(stepOnMe[i].tileSprite);
                 }
@@ -375,6 +377,14 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
             wepAtk.drawButton(window);
             jobAtk.drawButton(window);
             cancelAtk.drawButton(window);
+        }
+        if (stepOnMe.size()!=0)
+        {
+            for (int i=0;i<stepOnMe.size();i++)
+            {
+                window.draw(stepOnMe[i].tileSprite);
+                cout << "LIFE IS GOOM\n";
+            }
         }
         window.display();
         window.clear();

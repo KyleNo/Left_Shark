@@ -20,10 +20,7 @@ class tile
         short rangeBonus;
         void drawToGrid(int orderX, int orderY,sf::View view, sf::RenderWindow& window);
         void isValidMovement(sf::RenderWindow& window);
-    protected:
-    private:
 };
-tile tiles[9];
 
 void tile::isValidMovement(sf::RenderWindow& window){
     if(tile::isOccupied == false && tile::passable == true){
