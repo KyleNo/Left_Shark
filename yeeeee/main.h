@@ -248,9 +248,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                 }
             }
 
-        } else
-        {
-            mousePressed = false;
         }
         //Mouse tile stuff
         hero user;
@@ -289,32 +286,43 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                         actionMenu=false;
                     }
                 }
-
+            }
             else
             {
                 mousePressed = false;
 
                 tiles[8].drawToGrid(tiles[8].position.x, tiles[8].position.y,window.getView(), window);
             }
-            if (!actionMenu)
-            {
-                selectTile(screenPos, window);
-            }
-        }
+            wepAtk.setPosition(((user.Position.x)*32) + 50, user.Position.y*32);
+            jobAtk.setPosition(((user.Position.x)*32) - 125, user.Position.y*32);
+            cancelAtk.setPosition(((user.Position.x)*32) - 35 , user.Position.y*32 - 35);
         if(attackMenu);
         {
             View windowView = window.getView();
             Vector2i screenPosition = window.mapCoordsToPixel(windowView.getCenter());
             //Move buttons to encompass character
-            wepAtk.setPosition(((user.Position.x)*32) + 50, user.Position.y*32);
-            jobAtk.setPosition(((user.Position.x)*32) - 125, user.Position.y*32);
-            cancelAtk.setPosition(((user.Position.x)*32) - 35 , user.Position.y*32 - 35);
+
 
             if ((event.mouseButton.button == Mouse::Left)||mousePressed)
             {
                     if(wepAtk.hovercheck(tiles[8].position*32)==true && !user.action)
                     {
                         ability testAbility;
+                        testAbility.isAttack = true;
+                        testAbility.isBuff = false;
+                        testAbility.isHeal = false;
+                        testAbility.abilityPotency = 5;
+                        testAbility.range = 1000;
+                        testAbility.abilityModifier = 1;
+                        //target.team = 1;
+                        user.team = 0;
+                        //target = user.useAbility(testAbility, target);
+                        //heroes[selectedHero+1] = target;
+                        heroes[selectedHero] = user;
+                       // cout << target.currentHealth << endl;
+                    }
+                    if(jobAtk.hovercheck(tiles[8].position*32) == true && !user.action){
+                                                ability testAbility;
                         testAbility.isAttack = true;
                         testAbility.isBuff = false;
                         testAbility.isHeal = false;
@@ -378,6 +386,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
             jobAtk.drawButton(window);
             cancelAtk.drawButton(window);
         }
+<<<<<<< HEAD
         if (stepOnMe.size()!=0)
         {
             for (int i=0;i<stepOnMe.size();i++)
@@ -386,6 +395,9 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                 cout << "LIFE IS GOOM\n";
             }
         }
+=======
+        cout << attackMenu << actionMenu << endl;
+>>>>>>> origin/WiP
         window.display();
         window.clear();
         }
