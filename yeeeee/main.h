@@ -245,7 +245,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                     else
                     {
                         mouseHovering=false;
-                        selectedHero = -1;
+                        //selectedHero = -1;
                     }
                 }
                 if(selectedHero > -1)
@@ -258,11 +258,11 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
         //Mouse tile stuff
         hero user;
         testmap.drawTilemap(tileBeingUsed, window);
+
         if(actionMenu)
         {
-
             user = heroes[selectedHero];
-            hero target = heroes[user.heroId+1];
+
             View windowView = window.getView();
             Vector2i screenPosition = window.mapCoordsToPixel(windowView.getCenter());
 
@@ -291,12 +291,11 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                     {
                         actionMenu=false;
                     }
-                }
+                }heroes[selectedHero] = user;
             }
             else
             {
                 mousePressed = false;
-
                 tiles[8].drawToGrid(tiles[8].position.x, tiles[8].position.y,window.getView(), window);
             }
             wepAtk.setPosition(((user.Position.x)*32) + 50, user.Position.y*32);
@@ -328,7 +327,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                        // cout << target.currentHealth << endl;
                     }
                     if(jobAtk.hovercheck(tiles[8].position*32) == true && !user.action){
-                                                ability testAbility;
+                        ability testAbility;
                         testAbility.isAttack = true;
                         testAbility.isBuff = false;
                         testAbility.isHeal = false;
@@ -399,7 +398,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                 window.draw(stepOnMe[i].tileSprite);
             }
         }
-        cout << attackMenu << actionMenu << endl;
+        cout << attackMenu << actionMenu << selectedHero << endl;
         window.display();
         window.clear();
         }
