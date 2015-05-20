@@ -145,6 +145,12 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
     bool checkingValidity = false;
     bool mousePressed = false;
     bool attackMenu = false;
+    //here we go again figuring out this tinyxml bs
+    tinyxml2::XMLDocument doc;
+    doc.LoadFile("resources/test.xml");
+    cout << doc.FirstChildElement("element");
+
+
     sf::Vector2i mousePos;
     view1.move(400,320); //sets view to top left corner
     for (int i=0;i<testmap.numberOfCharactersPossible;i++)
