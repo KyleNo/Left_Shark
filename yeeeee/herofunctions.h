@@ -16,8 +16,8 @@ public:
     sf::Vector2i Position;
     weapon equippedWeapon;
     heroClass job;
- //   ability jobAbility = job.jobAbility;
-//    ability basicAttack = equippedWeapon.weaponAttack;
+    //ability jobAbility = job.jobAbility;
+    //ability basicAttack = equippedWeapon.weaponAttack;
 
     hero useAbility(ability abilityUsed, hero target);
     void placehero(sf::RenderWindow& window, int characterx, int charactery, bool initialPlacement, sf::Vector2f tileTo);
@@ -73,6 +73,7 @@ vector<sf::Vector2i> hero::rangecheck(vector< vector <bool> > passableTile,sf::R
                 if (tileChecking.x!=-1)
                 {
                     tilesLastChecked.push_back(tileChecking);
+                    tilesChecked.push_back(tileChecking);
                 }
             }
         }
@@ -80,14 +81,10 @@ vector<sf::Vector2i> hero::rangecheck(vector< vector <bool> > passableTile,sf::R
         for (int j=0;j<tilesLastChecked.size();j++)
         {
             tilesToCheck.push_back(tilesLastChecked[j]);
-            tilesChecked.push_back(tilesLastChecked[j]);
         }
         tilesLastChecked.clear();
     }
-    for (int i=0;i<tilesChecked.size();i++)
-    {
-        cout << tilesChecked[i].x << "," << tilesChecked[i].y << endl;
-    }
+    cout << tilesChecked.size() << endl;
     return tilesChecked;
 }
 
