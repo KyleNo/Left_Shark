@@ -12,11 +12,11 @@ class tilemap
         vector<tile>tileCollection;
         int mapSize;
         void drawTilemap(int tileBeingUsed, sf::RenderWindow& window);
-        int generateTileCollection(string mapChoice);
+        int generateTileCollection(string mapChoice,tile tiles[9]);
 };
 
 //drawToGrid() is used in drawTileMap()
-int tilemap::generateTileCollection(string mapChoice){ //finds tile collection using tmx
+int tilemap::generateTileCollection(string mapChoice,tile tiles[9]){ //finds tile collection using tmx
     int goodtiles=0,badtiles=0;
     sf::Vector2i gridcounter;
     tmxparser::TmxMap yee; //declares tmx map

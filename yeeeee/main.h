@@ -20,6 +20,7 @@
 
 using namespace std;
 
+    tile tiles[9];
 class structure{
 public:
     bool passable;
@@ -91,7 +92,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
 
     vector<sf::Vector2i> validtiles;
     vector<tile> stepOnMe;
-    tile tiles[9];
 
     //set up the window
     window.setSize(sf::Vector2u(800,640));
@@ -103,7 +103,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
     testmap.mapSize = 400;
 
 
-    tileBeingUsed=testmap.generateTileCollection(mapChoice);
+    tileBeingUsed=testmap.generateTileCollection(mapChoice,tiles);
 
     sf::Texture bckgrnd;
     if (!bckgrnd.loadFromFile("resources/images/blackbutt-10x10.png"))
@@ -346,7 +346,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
         }
         for (int i=0;i<stepOnMe.size();i++)
         {
-            stepOnMe[i]=tiles[6];
+            stepOnMe[i]=tiles[7];
             stepOnMe[i].tileSprite.setPosition(validtiles[i].x*32,validtiles[i].y*32);
         }
         if (selectedHero>=0)
@@ -392,18 +392,14 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
             jobAtk.drawButton(window);
             cancelAtk.drawButton(window);
         }
-<<<<<<< HEAD
         if (stepOnMe.size()!=0)
         {
             for (int i=0;i<stepOnMe.size();i++)
             {
                 window.draw(stepOnMe[i].tileSprite);
-                cout << "LIFE IS GOOM\n";
             }
         }
-=======
         cout << attackMenu << actionMenu << endl;
->>>>>>> origin/WiP
         window.display();
         window.clear();
         }

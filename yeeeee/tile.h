@@ -4,32 +4,22 @@
 #include <iostream>
 using namespace std;
 using namespace sf;
+
 class tile
 {
-    public:
-
-        int tileID;
-        string tileFileLocation;
-        sf::Texture tileTexture;
-        sf::Sprite tileSprite;
-        sf::Vector2i position;
-        bool passable;
-        bool isOccupied;
-        short damagePerTurn;
-        short speedBonus;
-        short rangeBonus;
-        void drawToGrid(int orderX, int orderY,sf::View view, sf::RenderWindow& window);
-        void isValidMovement(sf::RenderWindow& window);
+public:
+    int tileID;
+    string tileFileLocation;
+    sf::Texture tileTexture;
+    sf::Sprite tileSprite;
+    sf::Vector2i position;
+    bool passable;
+    bool isOccupied;
+    short damagePerTurn;
+    short speedBonus;
+    short rangeBonus;
+    void drawToGrid(int orderX, int orderY,sf::View view, sf::RenderWindow& window);
 };
-
-void tile::isValidMovement(sf::RenderWindow& window){
-    if(tile::isOccupied == false && tile::passable == true){
-        tiles[7].drawToGrid(tile::position.x, tile::position.y,window.getView(), window);
-    }
-    else{
-        tiles[6].drawToGrid(tile::position.x, tile::position.y,window.getView(), window);
-    }
-}
 
 void tile::drawToGrid(int orderX, int orderY,sf::View view, sf::RenderWindow& window){  //orderX is for the x coordinate; orderY for y co. each tile is 1 value.
     view=window.getView();
