@@ -244,7 +244,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
             {
                 for (int i=0;i<testmap.numberOfCharactersPossible;i++)
                 {
-                    if (tiles[8].tileSprite.getPosition().x==(heroes[i].sprite.getPosition().x/32)*32 && tiles[8].tileSprite.getPosition().y==(heroes[i].sprite.getPosition().y/32)*32)
+                    if (tiles[8].tileSprite.getPosition().x==(heroes[i].sprite.getPosition().x/32)*32 && tiles[8].tileSprite.getPosition().y==(heroes[i].sprite.getPosition().y/32)*32 and !actionMenu)
                     {
                         selectedHero=i;
                         mouseHovering=true;
@@ -267,7 +267,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
         testmap.drawTilemap(tileBeingUsed, window);
         if(actionMenu)
         {
-
             user = heroes[selectedHero];
             hero target = heroes[user.heroId+1];
             View windowView = window.getView();
@@ -297,6 +296,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                     {
                         mousePressed=true;
                         actionMenu=false;
+                        selectedHero=-1;
                     }
                 }
             }
@@ -368,7 +368,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                 {
                     for (int i=0;i<validtiles.size();i++)
                     {
-                        if (tiles[8].tileSprite.getPosition().x==stepOnMe[i].tileSprite.getPosition().x and tiles[8].tileSprite.getPosition().y==stepOnMe[i].tileSprite.getPosition().y)
+                        if (tiles[8].tileSprite.getPosition().x==stepOnMe[i].tileSprite.getPosition().x and tiles[8].tileSprite.getPosition().y==stepOnMe[i].tileSprite.getPosition().y and !mousePressed)
                         {
                             heroes[selectedHero].placehero(window,heroes[selectedHero].sprite.getPosition().x,heroes[selectedHero].sprite.getPosition().y, false, stepOnMe[i].tileSprite.getPosition());
                             drawingTiles=false;
@@ -383,7 +383,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
             selectedHero=-1;
             stepOnMe.clear();
         }
-        if (!Mouse::isButtonPressed(sf::Mouse::Left) and mousePressed)
+        if (Mouse::isButtonPressed(sf::Mouse::Left)==false and mousePressed)
         {
             mousePressed=false;
         }
