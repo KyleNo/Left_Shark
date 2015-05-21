@@ -57,6 +57,7 @@ sf::Vector2i adjacencyCheck(int orientation,sf::Vector2i tileChecking, vector< v
 
 vector<sf::Vector2i> hero::rangecheck(vector< vector <bool> > passableTile,sf::RenderWindow& window)
 {
+    range=5;
     vector<sf::Vector2i> tilesToCheck,tilesChecked,tilesLastChecked;
     sf::Vector2i tileChecking;
     Position.x=sprite.getPosition().x/32;
