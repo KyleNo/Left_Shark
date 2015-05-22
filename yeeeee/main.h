@@ -150,7 +150,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
     //here we go again figuring out this tinyxml bs
     tinyxml2::XMLDocument doc;
     doc.LoadFile("resources/test.xml");
-<<<<<<< HEAD
      static const char* xml =
         "<?xml version=\"1.0\"?>"
         "<!DOCTYPE PLAY SYSTEM \"play.dtd\">"
@@ -161,10 +160,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
     tinyxml2::XMLElement* titleElement = doc.FirstChildElement( "PLAY" )->FirstChildElement( "TITLE" );
     const char* title = titleElement->GetText();
     cout << title;
-=======
-
-
->>>>>>> origin/WiP
     sf::Vector2i mousePos;
     view1.move(400,320); //sets view to top left corner
     for (int i=0;i<testmap.numberOfCharactersPossible;i++)
