@@ -1,1 +1,66 @@
-<element> mlg </element>
+<?xml version="1.0"?>
+<!DOCTYPE PLAY SYSTEM "play.dtd">
+
+<PLAY>
+<TITLE>A Midsummer Night's Dream</TITLE>
+
+<FM>
+<P>Text placed in the public domain by Moby Lexical Tools, 1992.</P>
+<P>SGML markup by Jon Bosak, 1992-1994.</P>
+<P>XML version by Jon Bosak, 1996-1998.</P>
+<P>This work may be freely copied and distributed worldwide.</P>
+</FM>
+
+
+<PERSONAE>
+<TITLE>Dramatis Personae</TITLE>
+
+<PERSONA>THESEUS, Duke of Athens.</PERSONA>
+<PERSONA>EGEUS, father to Hermia.</PERSONA>
+
+<PGROUP>
+<PERSONA>LYSANDER</PERSONA>
+<PERSONA>DEMETRIUS</PERSONA>
+<GRPDESCR>in love with Hermia.</GRPDESCR>
+</PGROUP>
+
+<PERSONA>PHILOSTRATE, master of the revels to Theseus.</PERSONA>
+<PERSONA>QUINCE, a carpenter.</PERSONA>
+<PERSONA>SNUG, a joiner.</PERSONA>
+<PERSONA>BOTTOM, a weaver.</PERSONA>
+<PERSONA>FLUTE, a bellows-mender.</PERSONA>
+<PERSONA>SNOUT, a tinker.</PERSONA>
+<PERSONA>STARVELING, a tailor.</PERSONA>
+<PERSONA>HIPPOLYTA, queen of the Amazons, betrothed to Theseus.</PERSONA>
+<PERSONA>HERMIA, daughter to Egeus, in love with Lysander.</PERSONA>
+<PERSONA>HELENA, in love with Demetrius.</PERSONA>
+<PERSONA>OBERON, king of the fairies.</PERSONA>
+<PERSONA>TITANIA, queen of the fairies.</PERSONA>
+<PERSONA>PUCK, or Robin Goodfellow.</PERSONA>
+
+<PGROUP>
+<PERSONA>PEASEBLOSSOM</PERSONA>
+<PERSONA>COBWEB</PERSONA>
+<PERSONA>MOTH</PERSONA>
+<PERSONA>MUSTARDSEED</PERSONA>
+<GRPDESCR>fairies.</GRPDESCR>
+</PGROUP>
+
+<PERSONA>Other fairies attending their King and Queen.</PERSONA>
+<PERSONA>Attendants on Theseus and Hippolyta.</PERSONA>
+</PERSONAE>
+
+<SCNDESCR>SCENE  Athens, and a wood near it.</SCNDESCR>
+
+<PLAYSUBT>A MIDSUMMER NIGHT'S DREAM</PLAYSUBT>
+
+<ACT><TITLE>ACT I</TITLE>
+
+<SCENE><TITLE>SCENE I.  Athens. The palace of THESEUS.</TITLE>
+<STAGEDIR>Enter THESEUS, HIPPOLYTA, PHILOSTRATE, and
+Attendants</STAGEDIR>
+
+</SPEECH>
+</SCENE>
+</ACT>
+</PLAY>

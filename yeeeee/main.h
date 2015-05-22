@@ -148,9 +148,16 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
     //here we go again figuring out this tinyxml bs
     tinyxml2::XMLDocument doc;
     doc.LoadFile("resources/test.xml");
-    cout << doc.FirstChildElement("element");
-
-
+     static const char* xml =
+        "<?xml version=\"1.0\"?>"
+        "<!DOCTYPE PLAY SYSTEM \"play.dtd\">"
+        "<PLAY>"
+        "<TITLE>A Midsummer Night's Dream</TITLE>"
+        "</PLAY>";
+    doc.Parse(xml);
+    tinyxml2::XMLElement* titleElement = doc.FirstChildElement( "PLAY" )->FirstChildElement( "TITLE" );
+    const char* title = titleElement->GetText();
+    cout << title;
     sf::Vector2i mousePos;
     view1.move(400,320); //sets view to top left corner
     for (int i=0;i<testmap.numberOfCharactersPossible;i++)
