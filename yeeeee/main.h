@@ -137,10 +137,10 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
 
     //designate characters
     hero heroes[testmap.numberOfCharactersPossible];
+    const char* heroNames[4]={"David","Kyle","Doesntdoshit","Nathaniel"};
     for (int i=0;i<testmap.numberOfCharactersPossible;i++)
     {
-        heroes[i].assignhero();
-        heroes[i].currentHealth = 50;
+        heroes[i].assignhero(heroNames[i]);
         heroes[i].heroId = i;
     }
     bool buttonPressed = false;
@@ -148,20 +148,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
     bool mousePressed = false;
     bool attackMenu = false;
     //here we go again figuring out this tinyxml bs
-    tinyxml2::XMLDocument doc;
-    doc.LoadFile("resources/Characters.xml");
-    tinyxml2::XMLNode* herose = doc.FirstChildElement("heroes");
-    tinyxml2::XMLElement* nameElement = herose->FirstChildElement( "David" )->FirstChildElement("Name");
-    const char* name = nameElement->GetText();
-    cout << name << endl;
-    tinyxml2::XMLElement* healthElement = nameElement->NextSiblingElement("health");
-    const char* health = healthElement->GetText();
-    cout << health << endl;
-
-    //next character
-    tinyxml2::XMLElement* nameElement1 = herose->FirstChildElement("David")->NextSiblingElement("Kyle")->FirstChildElement("Name");
-    const char* name1 = nameElement1->GetText();
-    cout << name1;
 
 
     sf::Vector2i mousePos;
@@ -256,7 +242,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
             {
                 for (int i=0;i<testmap.numberOfCharactersPossible;i++)
                 {
-                    if (tiles[8].tileSprite.getPosition().x==(heroes[i].sprite.getPosition().x/32)*32 && tiles[8].tileSprite.getPosition().y==(heroes[i].sprite.getPosition().y/32)*32 and !actionMenu)
+                    if (tiles[8].tileSprite.getPosition().x==(heroes[i].sprite.getPosition().x/32)*32 && tiles[8].tileSprite.getPosition().y==(heroes[i].sprite.getPosition().y/32)*32 and !actionMenu and !drawingTiles)
                     {
                         selectedHero=i;
                         mouseHovering=true;
@@ -265,10 +251,9 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                     else
                     {
                         mouseHovering=false;
-                        //selectedHero = -1;
                     }
                 }
-                if(selectedHero > -1)
+                if(selectedHero > -1 and !drawingTiles)
                 {
                     actionMenu = true;
                 }
@@ -312,7 +297,8 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                         actionMenu=false;
                         selectedHero=-1;
                     }
-                }heroes[selectedHero] = user;
+                }
+                //heroes[selectedHero] = user;
             }
             else
             {
@@ -379,14 +365,19 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                     window.draw(stepOnMe[i].tileSprite);
                     drawingTiles=true;
                 }
-                if (event.mouseButton.button == Mouse::Right and !mousePressed)
+                if (event.mouseButton.button == Mouse::Left)
                 {
-                    for (int i=0;i<validtiles.size();i++)
+                    if (!mousePressed)
                     {
-                        if (tiles[8].tileSprite.getPosition().x==stepOnMe[i].tileSprite.getPosition().x and tiles[8].tileSprite.getPosition().y==stepOnMe[i].tileSprite.getPosition().y and !mousePressed)
+                        cout << "a\n";
+                        for (int i=0;i<validtiles.size();i++)
                         {
-                            heroes[selectedHero].placehero(window,heroes[selectedHero].sprite.getPosition().x,heroes[selectedHero].sprite.getPosition().y, false, stepOnMe[i].tileSprite.getPosition());
-                            drawingTiles=false;
+                            if (tiles[8].tileSprite.getPosition().x==stepOnMe[i].tileSprite.getPosition().x and tiles[8].tileSprite.getPosition().y==stepOnMe[i].tileSprite.getPosition().y)
+                            {
+                                heroes[selectedHero].placehero(window,heroes[selectedHero].sprite.getPosition().x,heroes[selectedHero].sprite.getPosition().y, false, stepOnMe[i].tileSprite.getPosition());
+                                drawingTiles=false;
+                                mousePressed=true;
+                            }
                         }
                     }
                 }
@@ -394,22 +385,22 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
         }
         if (drawingTiles==false and actionMenu==false and attackMenu==false)
         {
-            //cout << "alright\n";
             selectedHero=-1;
             stepOnMe.clear();
         }
-        if (Mouse::isButtonPressed(sf::Mouse::Left)==false and mousePressed)
+        if (Mouse::isButtonPressed(sf::Mouse::Left) and mousePressed)
         {
             mousePressed=false;
+            cout << "if there's an a here, its broke:";
         }
         for (int i=0;i<testmap.numberOfCharactersPossible;i++)
         {
             window.draw(heroes[i].sprite);
             tiles[8].drawToGrid(tiles[8].position.x, tiles[8].position.y,window.getView(), window);
         }
-        //cout << selectedHero << endl;
         if(actionMenu)
         {
+            drawingTiles=false;
             validtiles.clear();
             if(selectedHero >=0 and !heroes[selectedHero].action){
                 actHero.drawButton(window);
@@ -432,7 +423,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                 window.draw(stepOnMe[i].tileSprite);
             }
         }
-        //cout << attackMenu << actionMenu << selectedHero << endl;
         window.display();
         window.clear();
         }

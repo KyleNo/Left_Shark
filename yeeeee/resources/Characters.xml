@@ -1,30 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <heroes>
   <David>
-    <Name>David</Name>
+    <name>David</name>
     <health>10</health>
     <experience>0</experience>
     <attack>2</attack>
     <agility>4</agility>
     <range>5</range>
     <texturelocation>resources/images/TestChar.png</texturelocation>
+	<job>Soldier</job>
+	<description>Motivates</description>
   </David>
   <Kyle>
-    <Name>Kyle</Name>
+    <name>Kyle</name>
     <health>6</health>
     <experience>0</experience>
     <attack>1</attack>
     <agility>7</agility>
     <range>8</range>
     <texturelocation>resources/images/TestChar.png</texturelocation>
+	<job>xml genius</job>
+	<description>Gets assigned hard stuff; doesn't follow through.</description>
   </Kyle>
   <Doesntdoshit>
-    <Name>Jordan</Name>
+    <name>Jordan</name>
     <health>15</health>
     <experience>0</experience>
     <attack>5</attack>
     <agility>2</agility>
     <range>4</range>
     <texturelocation>resources/images/TestChar.png</texturelocation>
+	<job>Literally Nothing</job>
+	<description>unhelpful</description>
   </Doesntdoshit>
+  <Nathaniel>
+	<name>Nathaniel</name>
+    <health>69</health>
+    <experience>0</experience>
+    <attack>1</attack>
+    <agility>9</agility>
+    <range>12</range>
+    <texturelocation>resources/images/TestChar.png</texturelocation>
+	<job>Pro Dancer</job>
+	<description>He likes to dance</description>
+  </Nathaniel>
 </heroes>
