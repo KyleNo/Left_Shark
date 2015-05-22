@@ -1,34 +1,30 @@
-Data Source: Untitled spreadsheet (2) (2).xlsx Well-Formed XML 
 <?xml version="1.0" encoding="UTF-8"?>
-<book>
-       <sheet id="1" name=Characters>
-              <row id="1_1">
-                     <col1>David</col1>
-                     <col2>10.0</col2>
-                     <col3>0.0</col3>
-                     <col4>2.0</col4>
-                     <col5>4.0</col5>
-                     <col6>5.0</col6>
-                     <col7>"resources/images/TestChar.png"</col7>
-                     <col8></col8>
-                 </row>
-              <row id="1_2">
-                     <col1>Kyle</col1>
-                     <col2>6.0</col2>
-                     <col3>0.0</col3>
-                     <col4>1.0</col4>
-                     <col5>7.0</col5>
-                     <col6>8.0</col6>
-                     <col7>"resources/images/TestChar.png"</col7>
-                 </row>
-              <row id="1_3">
-                     <col1>Jordan</col1>
-                     <col2>15.0</col2>
-                     <col3>0.0</col3>
-                     <col4>5.0</col4>
-                     <col5>2.0</col5>
-                     <col6>4.0</col6>
-                     <col7>"resources/images/TestChar.png"</col7>
-                 </row>
-          </sheet>
-   </book>
+<rows>
+  <row>
+    <Name>David</Name>
+    <health>10</health>
+    <experience>0</experience>
+    <attack>2</attack>
+    <agility>4</agility>
+    <range>5</range>
+    <texture location>resources/images/TestChar.png</texture location>
+  </row>
+  <row>
+    <Name>Kyle</Name>
+    <health>6</health>
+    <experience>0</experience>
+    <attack>1</attack>
+    <agility>7</agility>
+    <range>8</range>
+    <texture location>resources/images/TestChar.png</texture location>
+  </row>
+  <row>
+    <Name>Jordan</Name>
+    <health>15</health>
+    <experience>0</experience>
+    <attack>5</attack>
+    <agility>2</agility>
+    <range>4</range>
+    <texture location>resources/images/TestChar.png</texture location>
+  </row>
+</rows>

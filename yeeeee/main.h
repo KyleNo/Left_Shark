@@ -266,10 +266,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                     else
                     {
                         mouseHovering=false;
-<<<<<<< HEAD
                         //selectedHero = -1;
-=======
->>>>>>> origin/WiP
                     }
                 }
                 if(selectedHero > -1)
@@ -320,10 +317,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
             }
             else
             {
-<<<<<<< HEAD
                 mousePressed = false;
-=======
->>>>>>> origin/WiP
                 tiles[8].drawToGrid(tiles[8].position.x, tiles[8].position.y,window.getView(), window);
             }
             wepAtk.setPosition(((user.Position.x)*32) + 50, user.Position.y*32);
@@ -432,7 +426,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
             jobAtk.drawButton(window);
             cancelAtk.drawButton(window);
         }
-<<<<<<< HEAD
         if (stepOnMe.size()!=0)
         {
             for (int i=0;i<stepOnMe.size();i++)
@@ -441,8 +434,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
             }
         }
         cout << attackMenu << actionMenu << selectedHero << endl;
-=======
->>>>>>> origin/WiP
         window.display();
         window.clear();
         }
