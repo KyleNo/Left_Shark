@@ -7,7 +7,7 @@
     <attack>2</attack>
     <agility>4</agility>
     <range>5</range>
-    <texture location>resources/images/TestChar.png</texture location>
+    <texturelocation>resources/images/TestChar.png</texturelocation>
   </row>
   <row>
     <Name>Kyle</Name>
@@ -16,7 +16,7 @@
     <attack>1</attack>
     <agility>7</agility>
     <range>8</range>
-    <texture location>resources/images/TestChar.png</texture location>
+    <texturelocation>resources/images/TestChar.png</texturelocation>
   </row>
   <row>
     <Name>Jordan</Name>
@@ -25,6 +25,6 @@
     <attack>5</attack>
     <agility>2</agility>
     <range>4</range>
-    <texture location>resources/images/TestChar.png</texture location>
+    <texturelocation>resources/images/TestChar.png</texturelocation>
   </row>
 </rows>

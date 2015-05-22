@@ -149,17 +149,28 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
     bool attackMenu = false;
     //here we go again figuring out this tinyxml bs
     tinyxml2::XMLDocument doc;
-    doc.LoadFile("resources/test.xml");
-     static const char* xml =
-        "<?xml version=\"1.0\"?>"
-        "<!DOCTYPE PLAY SYSTEM \"play.dtd\">"
-        "<PLAY>"
-        "<TITLE>A Midsummer Night's Dream</TITLE>"
-        "</PLAY>";
-    doc.Parse(xml);
-    tinyxml2::XMLElement* titleElement = doc.FirstChildElement( "PLAY" )->FirstChildElement( "TITLE" );
-    const char* title = titleElement->GetText();
-    cout << title;
+    doc.LoadFile("resources/Characters.xml");
+//    const char* xml =
+//        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+//        "<rows>"
+//        "<row>"
+//        "<Name>David</Name>"
+//        "<health>10</health>"
+//        "<experience>0</experience>"
+//        "<attack>2</attack>"
+//        "<agility>4</agility>"
+//        "<range>5</range>"
+//        "<texturelocation>resources/images/TestChar.png</texturelocation>"
+//        "</row>";
+//    doc.Parse(xml);
+    //cout << "ayy:";
+    tinyxml2::XMLElement* nameElement = doc.FirstChildElement( "rows" )->FirstChildElement( "row" )->FirstChildElement("Name");
+    //cout << "lmao";
+    const char* name = nameElement->GetText();
+    cout << name << endl;
+    tinyxml2::XMLElement* healthElement = nameElement->NextSiblingElement("health");
+    const char* health = healthElement->GetText();
+    cout << health << endl;
     sf::Vector2i mousePos;
     view1.move(400,320); //sets view to top left corner
     for (int i=0;i<testmap.numberOfCharactersPossible;i++)
@@ -390,7 +401,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
         }
         if (drawingTiles==false and actionMenu==false and attackMenu==false)
         {
-            cout << "alright\n";
+            //cout << "alright\n";
             selectedHero=-1;
             stepOnMe.clear();
         }
@@ -403,7 +414,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
             window.draw(heroes[i].sprite);
             tiles[8].drawToGrid(tiles[8].position.x, tiles[8].position.y,window.getView(), window);
         }
-        cout << selectedHero << endl;
+        //cout << selectedHero << endl;
         if(actionMenu)
         {
             validtiles.clear();
@@ -428,7 +439,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                 window.draw(stepOnMe[i].tileSprite);
             }
         }
-        cout << attackMenu << actionMenu << selectedHero << endl;
+        //cout << attackMenu << actionMenu << selectedHero << endl;
         window.display();
         window.clear();
         }
