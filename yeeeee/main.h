@@ -150,27 +150,20 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
     //here we go again figuring out this tinyxml bs
     tinyxml2::XMLDocument doc;
     doc.LoadFile("resources/Characters.xml");
-//    const char* xml =
-//        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-//        "<rows>"
-//        "<row>"
-//        "<Name>David</Name>"
-//        "<health>10</health>"
-//        "<experience>0</experience>"
-//        "<attack>2</attack>"
-//        "<agility>4</agility>"
-//        "<range>5</range>"
-//        "<texturelocation>resources/images/TestChar.png</texturelocation>"
-//        "</row>";
-//    doc.Parse(xml);
-    //cout << "ayy:";
-    tinyxml2::XMLElement* nameElement = doc.FirstChildElement( "rows" )->FirstChildElement( "row" )->FirstChildElement("Name");
-    //cout << "lmao";
+    tinyxml2::XMLNode* herose = doc.FirstChildElement("heroes");
+    tinyxml2::XMLElement* nameElement = herose->FirstChildElement( "David" )->FirstChildElement("Name");
     const char* name = nameElement->GetText();
     cout << name << endl;
     tinyxml2::XMLElement* healthElement = nameElement->NextSiblingElement("health");
     const char* health = healthElement->GetText();
     cout << health << endl;
+
+    //next character
+    tinyxml2::XMLElement* nameElement1 = herose->FirstChildElement("David")->NextSiblingElement("Kyle")->FirstChildElement("Name");
+    const char* name1 = nameElement1->GetText();
+    cout << name1;
+
+
     sf::Vector2i mousePos;
     view1.move(400,320); //sets view to top left corner
     for (int i=0;i<testmap.numberOfCharactersPossible;i++)

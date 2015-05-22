@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rows>
-  <row>
+<heroes>
+  <David>
     <Name>David</Name>
     <health>10</health>
     <experience>0</experience>
@@ -8,8 +8,8 @@
     <agility>4</agility>
     <range>5</range>
     <texturelocation>resources/images/TestChar.png</texturelocation>
-  </row>
-  <row>
+  </David>
+  <Kyle>
     <Name>Kyle</Name>
     <health>6</health>
     <experience>0</experience>
@@ -17,8 +17,8 @@
     <agility>7</agility>
     <range>8</range>
     <texturelocation>resources/images/TestChar.png</texturelocation>
-  </row>
-  <row>
+  </Kyle>
+  <Doesntdoshit>
     <Name>Jordan</Name>
     <health>15</health>
     <experience>0</experience>
@@ -26,5 +26,5 @@
     <agility>2</agility>
     <range>4</range>
     <texturelocation>resources/images/TestChar.png</texturelocation>
-  </row>
-</rows>
+  </Doesntdoshit>
+</heroes>
