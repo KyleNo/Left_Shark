@@ -6,7 +6,7 @@
     <experience>0</experience>
     <attack>2</attack>
     <agility>4</agility>
-    <range>5</range>
+    <range>15</range>
     <texturelocation>resources/images/TestChar.png</texturelocation>
 	<job>Soldier</job>
 	<description>Motivates</description>
@@ -17,7 +17,7 @@
     <experience>0</experience>
     <attack>1</attack>
     <agility>7</agility>
-    <range>8</range>
+    <range>18</range>
     <texturelocation>resources/images/TestChar.png</texturelocation>
 	<job>xml genius</job>
 	<description>Gets assigned hard stuff; doesn't follow through.</description>
@@ -28,7 +28,7 @@
     <experience>0</experience>
     <attack>5</attack>
     <agility>2</agility>
-    <range>4</range>
+    <range>14</range>
     <texturelocation>resources/images/TestChar.png</texturelocation>
 	<job>Literally Nothing</job>
 	<description>unhelpful</description>
