@@ -6,76 +6,91 @@ class hero{
 public:
     bool moved;
     bool action;
+
     int team;
+    int attackRange;
     int range;
     int heroId;
+    int maxhealth;
     int currentHealth;
     int experience;
     int agility;
     int attack;
+
+
     string jobname;
-
-
     string name;
     vector<ability>heroAbilities;
+
     sf::Texture texture;
     sf::Sprite sprite;
     sf::Vector2i Position;
     weapon equippedWeapon;
     heroClass job;
-    //ability jobAbility = job.jobAbility;
-    //ability basicAttack = equippedWeapon.weaponAttack;
 
     hero useAbility(ability abilityUsed, hero target);
     void placehero(sf::RenderWindow& window, int characterx, int charactery, bool initialPlacement, sf::Vector2f tileTo);
     void assignhero(const char* names);
-    vector<sf::Vector2i> rangecheck(vector< vector <bool> > passableTile,sf::RenderWindow& window);
+    vector<sf::Vector2i> rangecheck(vector< vector <bool> > passableTile,sf::RenderWindow& window, bool attacking);
 };
 
-sf::Vector2i adjacencyCheck(int orientation,sf::Vector2i tileChecking, vector< vector <bool> > passableTiles, vector<sf::Vector2i> tilesChecked)
+sf::Vector2i adjacencyCheck(int orientation,sf::Vector2i tileChecking, vector< vector <bool> > passableTiles, vector<sf::Vector2i> tilesChecked, bool attacking)
 {
     sf::Vector2i tileToCheck;
-    if (orientation==0 and passableTiles[tileChecking.x][tileChecking.y-1]==false)
+    if (orientation==0 and passableTiles[tileChecking.x][tileChecking.y-1]==false or orientation==0 and attacking)
     {
         tileToCheck=sf::Vector2i(tileChecking.x,tileChecking.y-1);
     }
-    else if (orientation == 1 and passableTiles[tileChecking.x+1][tileChecking.y]==false)
+    else if (orientation == 1 and passableTiles[tileChecking.x+1][tileChecking.y]==false or orientation==1 and attacking)
     {
         tileToCheck=sf::Vector2i(tileChecking.x+1,tileChecking.y);
     }
-    else if (orientation == 2 and passableTiles[tileChecking.x][tileChecking.y+1]==false)
+    else if (orientation == 2 and passableTiles[tileChecking.x][tileChecking.y+1]==false or orientation==2 and attacking)
     {
         tileToCheck=sf::Vector2i(tileChecking.x,tileChecking.y+1);
     }
-    else if (orientation== 3 and passableTiles[tileChecking.x-1][tileChecking.y]==false)
+    else if (orientation== 3 and passableTiles[tileChecking.x-1][tileChecking.y]==false or orientation==3 and attacking)
     {
         tileToCheck=sf::Vector2i(tileChecking.x-1,tileChecking.y);
     }
-    for (int i=0;i<tilesChecked.size();i++)
+    if (attacking==false)
     {
-        if (passableTiles[tileToCheck.x][tileToCheck.y] or tilesChecked[i]==tileToCheck)
+        for (int i=0;i<tilesChecked.size();i++)
         {
-            return sf::Vector2i(-1,-1);
+            if (passableTiles[tileToCheck.x][tileToCheck.y] or tilesChecked[i]==tileToCheck )
+            {
+                return sf::Vector2i(-1,-1);
+            }
         }
     }
     return tileToCheck;
 }
 
 
-vector<sf::Vector2i> hero::rangecheck(vector< vector <bool> > passableTile,sf::RenderWindow& window)
+vector<sf::Vector2i> hero::rangecheck(vector< vector <bool> > passableTile,sf::RenderWindow& window, bool attacking)
 {
+    attackRange=2;
+    int checkRange;
+    if (attacking)
+    {
+        checkRange=attackRange;
+    }
+    else
+    {
+        checkRange=range;
+    }
     vector<sf::Vector2i> tilesToCheck,tilesChecked,tilesLastChecked;
     sf::Vector2i tileChecking;
     Position.x=sprite.getPosition().x/32;
     Position.y=sprite.getPosition().y/32;
     tilesToCheck.push_back(Position);
-    for (int i=0;i<range;i++)
+    for (int i=0;i<checkRange;i++)
     {
         for (int j=0;j<tilesToCheck.size();j++)
         {
             for (int k=0;k<4;k++)
             {
-                tileChecking=adjacencyCheck(k,tilesToCheck[j],passableTile,tilesChecked);
+                tileChecking=adjacencyCheck(k,tilesToCheck[j],passableTile,tilesChecked, attacking);
                 if (tileChecking.x!=-1)
                 {
                     tilesLastChecked.push_back(tileChecking);
@@ -90,6 +105,7 @@ vector<sf::Vector2i> hero::rangecheck(vector< vector <bool> > passableTile,sf::R
         }
         tilesLastChecked.clear();
     }
+    cout << tilesChecked.size() << endl;
     return tilesChecked;
 }
 

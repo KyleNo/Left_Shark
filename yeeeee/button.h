@@ -17,7 +17,7 @@ public:
     void setPosition(int x, int y);
     void moveButton(int x, int y);
     void drawButton(sf::RenderWindow& window);
-    bool hovercheck(sf::Vector2i mousePos);
+    bool hovercheck(sf::Vector2i mousePos, bool mouseclicked);
     bool hover= false;
 
     void test();
@@ -54,23 +54,22 @@ void button::moveButton(int x, int y)
 {
     setPosition(position.x + x, position.y + y);
 }
-bool button::hovercheck(sf::Vector2i mousePos)
+bool button::hovercheck(sf::Vector2i mousePos, bool mouseclicked)
 {
-//    cout << "______________________________________________________________\n";
-    //cout << mousePos.x << "," << mousePos.y << endl;
-//    cout << coordinates.x << "\t" << coordinates.y << endl;
-//    cout << "______________________________________________________________\n";
-    if((mousePos.x >= position.x  and mousePos.x <=position.x + buttonSize.x  and mousePos.y >= position.y  and mousePos.y <= position.y + buttonSize.y ) /*and sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)*/)
-
+    if (!mouseclicked)
     {
-        hover=true;
-        return true;
+        if(mousePos.x >= position.x  and mousePos.x <=position.x + buttonSize.x  and mousePos.y >= position.y  and mousePos.y <= position.y + buttonSize.y)
+        {
+            hover=true;
+            return true;
+        }
+        else
+        {
+            hover=false;
+            return false;
+        }
     }
-    else
-    {
-        hover=false;
-        return false;
-    }
+    return false;
 }
 
 void button::drawButton(sf::RenderWindow& window)
