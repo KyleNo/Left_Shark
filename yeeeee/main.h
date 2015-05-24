@@ -365,11 +365,8 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                     window.draw(stepOnMe[i].tileSprite);
                     drawingTiles=true;
                 }
-                if (event.mouseButton.button == Mouse::Left)
-                {
-                    if (!mousePressed)
+                    if (!mousePressed and Mouse::isButtonPressed(Mouse::Left))
                     {
-                        cout << "a\n";
                         for (int i=0;i<validtiles.size();i++)
                         {
                             if (tiles[8].tileSprite.getPosition().x==stepOnMe[i].tileSprite.getPosition().x and tiles[8].tileSprite.getPosition().y==stepOnMe[i].tileSprite.getPosition().y)
@@ -382,7 +379,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                     }
                 }
             }
-        }
         if (drawingTiles==false and actionMenu==false and attackMenu==false)
         {
             selectedHero=-1;
@@ -391,7 +387,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
         if (Mouse::isButtonPressed(sf::Mouse::Left) and mousePressed)
         {
             mousePressed=false;
-            cout << "if there's an a here, its broke:";
         }
         for (int i=0;i<testmap.numberOfCharactersPossible;i++)
         {
