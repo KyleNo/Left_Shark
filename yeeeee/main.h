@@ -368,7 +368,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
             }
             for (int i=0;i<attackrange.size();i++)
             {
-                attackMe[i]=tiles[8];
+                attackMe[i]=tiles[6];
                 attackMe[i].tileSprite.setPosition(attackrange[i].x*32,attackrange[i].y*32);
             }
         }
