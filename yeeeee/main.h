@@ -86,7 +86,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
     int viewCounterY = -0;
     int framerateCounter = 0;
     int nice=0;
-
+    int mouseCounter = 0;
     bool leftPressed=false;
     bool mouseHovering=false;
     bool actionMenu = false;
@@ -282,7 +282,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
         if (((event.type == sf::Event::MouseButtonPressed) || mousePressed) and actionMenu == false)
         {
             sf::Vector2i playerPosition;
-            if (event.mouseButton.button == sf::Mouse::Left)
+            if (event.mouseButton.button == sf::Mouse::Left && !drawingTiles)
             {
                 for (int i=0;i<testmap.numberOfCharactersPossible;i++)
                 {
@@ -354,14 +354,14 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
         cancelAtk.setPosition(((user.Position.x)*32) - 35 , user.Position.y*32 - 35);
         if(attackMenu==true)
         {
-            cout << "uh?\n";
+            hero target;
+            target = heroes[selectedHero+1];
             View windowView = window.getView();
             Vector2i screenPosition = window.mapCoordsToPixel(windowView.getCenter());
 
 
-            if ((event.mouseButton.button == Mouse::Left) and !mousePressed and attackMenu)
+            if ((event.type == sf::Event::MouseButtonPressed) and !mousePressed)
             {
-                cout << "why?\n";
                 if(wepAtk.hovercheck(tiles[8].position*32, mousePressed) && !user.action)
                 {
                     ability testAbility;
@@ -371,13 +371,12 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                     testAbility.abilityPotency = 5;
                     testAbility.range = 1000;
                     testAbility.abilityModifier = 1;
-                    //target.team = 1;
+                    target.team = 1;
                     user.team = 0;
-                    //target = user.useAbility(testAbility, target);
-                    //heroes[selectedHero+1] = target;
+                    target = user.useAbility(testAbility, target);
+                    heroes[selectedHero+1] = target;
                     heroes[selectedHero] = user;
                     attackrange=heroes[selectedHero].rangecheck(testmap.passableTile, window, true);
-                    cout << "because\n";
                 }
                 if(jobAtk.hovercheck(tiles[8].position*32, mousePressed) && !user.action)
                 {
@@ -388,19 +387,16 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                     testAbility.abilityPotency = 5;
                     testAbility.range = 1000;
                     testAbility.abilityModifier = 1;
-                    //target.team = 1;
+                    target.team = 1;
                     user.team = 0;
-                    //target = user.useAbility(testAbility, target);
-                    //heroes[selectedHero+1] = target;
+                    target = user.useAbility(testAbility, target);
+                    heroes[selectedHero+1] = target;
                     heroes[selectedHero] = user;
-                    cout << "Ugh\n";
                     attackrange=heroes[selectedHero].rangecheck(testmap.passableTile, window, true);
-                    cout << "why not?\n";
                 }
                 attackMe.resize(attackrange.size());
                 attackMenu=false;
                 actionMenu=false;
-                cout << "alright";
                 }
         }
         if (!drawingTiles)
@@ -466,10 +462,15 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
             selectedHero=-1;
             attackMe.clear();
         }
-        if (Mouse::isButtonPressed(sf::Mouse::Left) and mousePressed)
+        if (!Mouse::isButtonPressed(sf::Mouse::Left) && mousePressed)
         {
-            mousePressed=false;
+            mouseCounter++;
+            if(mouseCounter>=20){
+                mousePressed=false;
+                mouseCounter = 0;
+            }
         }
+
         for (int i=0;i<testmap.numberOfCharactersPossible;i++)
         {
             window.draw(heroes[i].sprite);
