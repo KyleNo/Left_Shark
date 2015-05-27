@@ -37,6 +37,10 @@ public:
 sf::Vector2i adjacencyCheck(int orientation,sf::Vector2i tileChecking, vector< vector <bool> > passableTiles, vector<sf::Vector2i> tilesChecked, bool attacking)
 {
     sf::Vector2i tileToCheck;
+    if (tileChecking.x<0 or tileChecking.y<0)
+    {
+        return sf::Vector2i(-1,-1);
+    }
     if (orientation==0 and passableTiles[tileChecking.x][tileChecking.y-1]==false or orientation==0 and attacking)
     {
         tileToCheck=sf::Vector2i(tileChecking.x,tileChecking.y-1);
