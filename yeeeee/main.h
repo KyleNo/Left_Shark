@@ -107,11 +107,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
 
     tileBeingUsed=testmap.generateTileCollection(mapChoice,tiles);
 
-    sf::Texture bckgrnd;
-    if (!bckgrnd.loadFromFile("resources/images/blackbutt-10x10.png"))
-    {
-        //error...
-    }
+
 
     //apply a font
     sf::Font arial;
