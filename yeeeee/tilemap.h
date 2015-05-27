@@ -65,9 +65,9 @@ int tilemap::generateTileCollection(string mapChoice,tile tiles[9]){ //finds til
         {
             for (int j=0;j<50;j++)
             {
-                cout << passableTile[j][i];
+                //cout << passableTile[j][i];
             }
-            cout << endl;
+            //cout << endl;
         }
     tilemap::tileCollection.resize(mapSize);
     int counter = 0;

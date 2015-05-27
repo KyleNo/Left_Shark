@@ -75,6 +75,7 @@ void loading(sf::RenderWindow& window)
 
 void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string mapChoice)
 {
+    bool startPress =false;
     //setup functions
     declareTiles();
     loading(window);
@@ -91,6 +92,8 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
     bool mouseHovering=false;
     bool actionMenu = false;
     bool drawingTiles=false;
+
+    sf::Vector2i startLocation;
 
     vector<sf::Vector2i> validtiles, attackrange;
     vector<tile> stepOnMe, attackMe;
@@ -128,7 +131,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
     button jobAtk;
     button cancelAtk;
     wepAtk.declareButton(sf::Vector2i(70,25), "Attack", arial);
-    jobAtk.declareButton(sf::Vector2i(70,25), "Job Ability", arial);
+    jobAtk.declareButton(sf::Vector2i(100,25), "Job Ability", arial);
     cancelAtk.declareButton(sf::Vector2i(70,25), "Cancel", arial);
 
     //designate characters
@@ -145,7 +148,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
     bool attackMenu = false;
     //here we go again figuring out this tinyxml bs
 
-
+    bool releasedMouse=false;
     sf::Vector2i mousePos;
     view1.move(400,320); //sets view to top left corner
     for (int i=0;i<testmap.numberOfCharactersPossible;i++)
@@ -166,6 +169,14 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                 // update the view to the new size of the window
                 sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
                 window.setView(sf::View(visibleArea));
+            }
+            if (event.type == sf::Event::EventType::MouseButtonReleased)
+            {
+                releasedMouse=true;
+            }
+            else
+            {
+                releasedMouse=false;
             }
         }
         //screen movement
@@ -268,6 +279,40 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
         {
             buttonPressed = false;
         }
+        //alternative movement system                                                       you have to check whether every single button is being hovered over... idk what else to do; I put these in parenthesis
+        if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) and !mouseHovering and ((!moveHero.hover and !actHero.hover and !cancelHero.hover and !wepAtk.hover and !jobAtk.hover and !cancelAtk.hover) or !actionMenu) and !startPress)
+        {
+            startPress=true;
+            startLocation=sf::Mouse::getPosition();
+        }
+        if (startPress==true)
+        {
+
+            sf::Vector2f difference=sf::Vector2f(0,0);
+            difference.x=sf::Mouse::getPosition().x - startLocation.x;
+            difference.y=sf::Mouse::getPosition().y - startLocation.y;
+            startLocation=sf::Mouse::getPosition();
+            cout << difference.x << "," << difference.y << endl;
+
+            view1.move(-difference.x,-difference.y);
+            viewCounterX+=difference.x;
+            viewCounterY-=difference.y;
+            window.setView(view1);
+
+        }
+        if(releasedMouse)
+        {
+            startPress=false;
+        }
+
+
+
+
+
+
+
+
+
 
         sf::Vector2i screenPos;
         mousePos = sf::Mouse::getPosition(window);
