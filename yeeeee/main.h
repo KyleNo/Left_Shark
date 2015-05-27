@@ -173,6 +173,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
             }
         }
         //screen movement
+        /*
         if(sf::Mouse::getPosition(window).x > 672 and view1.getCenter().x < testmap.width*32-400)
         {//right
             framerateCounter++;
@@ -221,9 +222,56 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
         {
             buttonPressed = false;
         }
+        */
 
-
-
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) and view1.getCenter().x < testmap.width*32-400)
+        {//right
+            framerateCounter++;
+            if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 5))
+            {
+                view1.move(32,0);
+                viewCounterX+=32;
+                window.setView(view1);
+            }
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left) and view1.getCenter().x>400 )
+        {//left
+            framerateCounter++;
+            if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 5))
+            {
+                view1.move(-32,0);
+                viewCounterX-=32;
+                window.setView(view1);
+            }
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) and view1.getCenter().y > 320)
+        {//up
+            framerateCounter++;
+            if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 5))
+            {
+                view1.move(0,-32);
+                viewCounterY-=32;
+                window.setView(view1);
+            }
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) and view1.getCenter().y < testmap.height*32-320)
+        {//down
+            framerateCounter++;
+            if(((buttonPressed == true) && (framerateCounter == 1)) || (framerateCounter >= 5))
+            {
+                view1.move(0,32);
+                viewCounterY+=32;
+                window.setView(view1);
+            }
+        }
+        if((sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) and view1.getCenter().x < testmap.width*32-400) or (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left) and view1.getCenter().x>400 ) or (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) and view1.getCenter().y > 320) or (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) and view1.getCenter().y < testmap.height*32-320))
+        {
+            buttonPressed = true;
+        }
+        else
+        {
+            buttonPressed = false;
+        }
 
         sf::Vector2i screenPos;
         mousePos = sf::Mouse::getPosition(window);
