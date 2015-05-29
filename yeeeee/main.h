@@ -106,7 +106,8 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
     window.setFramerateLimit(60);
     tilemap testmap;
     testmap.mapSize = 400;
-
+    vector<bool> heroesReady;
+    int teamActive = -1;
 
     tileBeingUsed=testmap.generateTileCollection(mapChoice,tiles);
 
@@ -142,6 +143,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
         heroes[i].assignhero(heroNames[i]);
         heroes[i].heroId = i;
     }
+    bool teamFinished = false;
     bool buttonPressed = false;
     bool checkingValidity = false;
     bool mousePressed = false;
@@ -292,8 +294,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
             difference.x=sf::Mouse::getPosition().x - startLocation.x;
             difference.y=sf::Mouse::getPosition().y - startLocation.y;
             startLocation=sf::Mouse::getPosition();
-            cout << difference.x << "," << difference.y << endl;
-
             view1.move(-difference.x,-difference.y);
             viewCounterX+=difference.x;
             viewCounterY-=difference.y;
@@ -331,7 +331,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
             {
                 for (int i=0;i<testmap.numberOfCharactersPossible;i++)
                 {
-                    if (tiles[8].tileSprite.getPosition().x==(heroes[i].sprite.getPosition().x/32)*32 && tiles[8].tileSprite.getPosition().y==(heroes[i].sprite.getPosition().y/32)*32 and !actionMenu and !drawingTiles)
+                    if (tiles[8].tileSprite.getPosition().x==(heroes[i].sprite.getPosition().x/32)*32 && tiles[8].tileSprite.getPosition().y==(heroes[i].sprite.getPosition().y/32)*32 and !actionMenu and !drawingTiles and heroes[i].team == teamActive)
                     {
                         selectedHero=i;
                         mouseHovering=true;
@@ -356,7 +356,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
         if(actionMenu)
         {
             user = heroes[selectedHero];
-
             View windowView = window.getView();
             Vector2i screenPosition = window.mapCoordsToPixel(windowView.getCenter());
 
@@ -385,6 +384,8 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                     mousePressed=true;
                     actionMenu=false;
                     attackMenu=false;
+                    heroes[selectedHero].moved = true;
+                    heroes[selectedHero].action = true;
                     selectedHero=-1;
                 }
             }
@@ -401,6 +402,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
         {
             hero target;
             target = heroes[selectedHero+1];
+
             View windowView = window.getView();
             Vector2i screenPosition = window.mapCoordsToPixel(windowView.getCenter());
 
@@ -416,10 +418,8 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                     testAbility.abilityPotency = 5;
                     testAbility.range = 1000;
                     testAbility.abilityModifier = 1;
-                    target.team = 1;
-                    user.team = 0;
                     target = user.useAbility(testAbility, target);
-                    heroes[selectedHero+1] = target;
+                    heroes[selectedHero] = target;
                     heroes[selectedHero] = user;
                     attackrange=heroes[selectedHero].rangecheck(testmap.passableTile, window, true);
                 }
@@ -432,8 +432,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                     testAbility.abilityPotency = 5;
                     testAbility.range = 1000;
                     testAbility.abilityModifier = 1;
-                    target.team = 1;
-                    user.team = 0;
                     target = user.useAbility(testAbility, target);
                     heroes[selectedHero+1] = target;
                     heroes[selectedHero] = user;
@@ -515,7 +513,50 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                 mouseCounter = 0;
             }
         }
+        heroesReady.resize(testmap.numberOfCharactersPossible);
+        vector<int>teamRecorder;
+        int teamCounter = 0;
 
+        for(int q = 0; q < testmap.numberOfCharactersPossible; q++){
+            if(heroes[q].action && heroes[q].moved && teamActive == heroes[q].team){//checks all heroes on active team
+                heroesReady[q] = true;
+            }
+        }
+        for(int w = 0; w < testmap.numberOfCharactersPossible; w++){
+            if(heroes[w].team = teamActive){
+                teamCounter++;
+            }
+        }
+        for(int x = 0; x < testmap.numberOfCharactersPossible; x++){
+            if(heroesReady[x]&&teamActive == heroes[x].team){//holds all exerted heroes position in heroes
+                teamRecorder.push_back(x);
+            }
+        }
+        cout << teamActive << endl;
+        for(int z = 0; z < teamRecorder.size(); z++){
+            if(teamRecorder.size() == teamCounter){//resets
+                heroes[teamRecorder[z]].moved = false;
+                heroes[teamRecorder[z]].action = false;
+                teamFinished = true;
+            }
+        }
+        if(teamFinished){
+            if(teamActive == 1 || teamActive == 2){
+                    teamActive++;
+                    teamFinished = false;
+                }else if(teamActive == 3){
+                    teamActive = 1;
+                    teamFinished = false;
+        }
+        }
+        if(teamActive == -1){
+            cout << "Init game" << endl;
+            teamActive = 1;
+            for(int zz = 0; zz > testmap.numberOfCharactersPossible; zz++){
+                heroes[zz].moved = true;
+                heroes[zz].action = true;
+            }
+        }
         for (int i=0;i<testmap.numberOfCharactersPossible;i++)
         {
             window.draw(heroes[i].sprite);
