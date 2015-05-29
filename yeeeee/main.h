@@ -83,8 +83,8 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
     //declare variables
     int selectedHero=-1;
     int tileBeingUsed;
-    int viewCounterX = -64;
-    int viewCounterY = -0;
+    int viewCounterX = 0;
+    int viewCounterY = 0;
     int framerateCounter = 0;
     int nice=0;
     int mouseCounter = 0;
@@ -289,15 +289,49 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
         {
 
             sf::Vector2f difference=sf::Vector2f(0,0);
+            int temp;
             difference.x=sf::Mouse::getPosition().x - startLocation.x;
             difference.y=sf::Mouse::getPosition().y - startLocation.y;
             startLocation=sf::Mouse::getPosition();
-            cout << difference.x << "," << difference.y << endl;
+            //cout << difference.x << "," << difference.y << endl;
 
-            view1.move(-difference.x,-difference.y);
-            viewCounterX+=difference.x;
-            viewCounterY-=difference.y;
+            //view1.move(-difference.x,0);
+
+            //cout << viewCounterX<<", "<< viewCounterY<<endl;
+
+            if((difference.x<0 and viewCounterX<testmap.width*32-800) or (difference.x>0 and viewCounterX>0))
+            {
+                if(viewCounterX-difference.x<0)
+                {
+                    difference.x=viewCounterX;
+                }
+                else if(viewCounterX-difference.x>testmap.width*32-800)
+                {
+                    difference.x=-((testmap.width*32-800)-viewCounterX);
+                }
+                view1.move(-difference.x,0);
+                viewCounterX-=difference.x;
+            }
+            if((difference.y<0 and viewCounterY<testmap.height*32-640) or (difference.y>0 and viewCounterY>0))
+            {
+                if(viewCounterY-difference.y<0)
+                {
+                    difference.y=viewCounterY;
+                }
+                else if(viewCounterY-difference.y>testmap.height*32-640)
+                {
+                    difference.y=-((testmap.height*32-640)-viewCounterY);
+                }
+
+                view1.move(0,-difference.y);
+                viewCounterY-=difference.y;
+            }
             window.setView(view1);
+            //cout << viewCounterY << ", " << testmap.height*32-640 << endl;
+
+
+
+
 
         }
         if(releasedMouse)
