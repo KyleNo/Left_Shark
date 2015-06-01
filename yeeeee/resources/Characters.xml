@@ -22,7 +22,7 @@
 	<job>xml genius</job>
 	<description>Gets assigned hard stuff; doesn't follow through.</description>
   </Kyle>
-  <Doesntdoshit>
+  <Jordan>
     <name>Jordan</name>
     <health>15</health>
     <experience>0</experience>
@@ -32,7 +32,7 @@
     <texturelocation>resources/images/TestChar.png</texturelocation>
 	<job>Literally Nothing</job>
 	<description>unhelpful</description>
-  </Doesntdoshit>
+  </Jordan>
   <Nathaniel>
 	<name>Nathaniel</name>
     <health>69</health>
