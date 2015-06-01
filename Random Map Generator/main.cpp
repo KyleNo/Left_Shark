@@ -24,40 +24,49 @@ void water::waterMovement(double heightmap[50][50], water waterTiles[50][50], in
     sf::Vector2i waters;
     waters.x=waterSprite.getPosition().x/10;
     waters.y=waterSprite.getPosition().y/10;
-
-    if (waters.x-1>=0 and waters.y-1>=0 and waters.x+1<50 and waters.y+1<50)
+    vector<sf::Vector2i> waterPositions;
+    double amountOfWaterToFlow=0;
+    if (amountOfWater<.001)
     {
-        if (waterTiles[waters.x][waters.y-1].amountOfWater+heightmap[waters.x][waters.y-1]<amountOfWater+heightmap[waters.x][waters.y] and amountOfWater-.01>=0 and orientation==0)
-        {
-            cout << 1 << endl;
-            amountOfWater-=.01;
-            waterTiles[waters.x][waters.y-1].amountOfWater+=.01;
-        }
-        if (waterTiles[waters.x+1][waters.y].amountOfWater+heightmap[waters.x+1][waters.y]<amountOfWater+heightmap[waters.x][waters.y] and amountOfWater-.01>=0 and orientation==1)
-        {
-            cout << 2 << endl;
-            amountOfWater-=.01;
-            waterTiles[waters.x+1][waters.y].amountOfWater+=.01;
-        }
-        if (waterTiles[waters.x][waters.y+1].amountOfWater+heightmap[waters.x][waters.y+1]<amountOfWater+heightmap[waters.x][waters.y] and amountOfWater-.01>=0 and orientation==2)
-        {
-            cout << 3 << endl;
-            amountOfWater-=.01;
-            waterTiles[waters.x][waters.y+1].amountOfWater+=.01;
-        }
-        if (waterTiles[waters.x-1][waters.y].amountOfWater+heightmap[waters.x-1][waters.y]<amountOfWater+heightmap[waters.x][waters.y] and amountOfWater-.01>=0 and orientation==3)
-        {
-            cout << 4 << endl;
-            amountOfWater-=.01;
-            waterTiles[waters.x-1][waters.y].amountOfWater+=.01;
-        }
+        amountOfWater=0;
     }
+    if (waters.x-1>=0 and waters.y-1>=0 and waters.x+1<50 and waters.y+1<50 and amountOfWater>0)
+    {
+        if (waterTiles[waters.x][waters.y-1].amountOfWater+heightmap[waters.x][waters.y-1]<amountOfWater+heightmap[waters.x][waters.y] and amountOfWater>=.001)
+        {
+            cout << "one\n";
+            waterPositions.push_back(sf::Vector2i(waters.x,waters.y-1));
+        }
+        if (waterTiles[waters.x+1][waters.y].amountOfWater+heightmap[waters.x+1][waters.y]<amountOfWater+heightmap[waters.x][waters.y] and amountOfWater>=.001)
+        {
+            cout << "two\n";
+            waterPositions.push_back(sf::Vector2i(waters.x+1,waters.y));
+        }
+        if (waterTiles[waters.x][waters.y+1].amountOfWater+heightmap[waters.x][waters.y+1]<amountOfWater+heightmap[waters.x][waters.y] and amountOfWater>=.001)
+        {
+            cout << "three\n";
+            waterPositions.push_back(sf::Vector2i(waters.x,waters.y+1));
+        }
+        if (waterTiles[waters.x-1][waters.y].amountOfWater+heightmap[waters.x-1][waters.y]<amountOfWater+heightmap[waters.x][waters.y] and amountOfWater>=.001)
+        {
+            cout << "four\n";
+            waterPositions.push_back(sf::Vector2i(waters.x-1,waters.y));
+        }
+        amountOfWaterToFlow=amountOfWater/waterPositions.size();
+        cout << "\t" << amountOfWater << "\t" << waterPositions.size() << endl;
+    }
+    for (int i=0;i<waterPositions.size();i++)
+    {
+        waterTiles[waterPositions[i].x][waterPositions[i].y].amountOfWater+=amountOfWaterToFlow;
+    }
+    waterPositions.clear();
+    amountOfWater-=amountOfWaterToFlow;
 }
 
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(800,600), "SFML Sucks!");
-    //window.setFramerateLimit(60);
+    window.setFramerateLimit(60);
     double heightmap[50][50];
     water waterTiles[50][50];
     for (int i=0;i<50;i++)
@@ -71,7 +80,7 @@ int main()
         }
     }
     float islands[3] = {.0015,.0048,.0135};
-    int islandsColors[4][3] = {{191, 196, 26},{204, 204, 0},{51,153,51},{102,153,153}};
+    int islandsColors[4][3] = {{165, 136, 92},{204, 204, 0},{51,153,51},{102,153,153}};
     float plains[3] = {-.01,0,.01};
     int plainsColors[4][3] = {{0, 128, 41},{0, 153, 51},{51, 153, 51},{0, 153, 0}};
     tile tileMap[50][50];
@@ -139,7 +148,7 @@ int main()
                 }
                 else
                 {
-                    waterTiles[i][j].waterSprite.setFillColor(sf::Color(0,0,255,255*waterTiles[i][j].amountOfWater));
+                    waterTiles[i][j].waterSprite.setFillColor(sf::Color(0,0,255,255*waterTiles[i][j].amountOfWater*10));
                 }
             }
         }
@@ -149,15 +158,10 @@ int main()
             for (int j=0;j<50;j++)
             {
                 window.draw(tileMap[i][j].tile);
-            }
-        }
-        for (int i=0;i<50;i++)
-        {
-            for (int j=0;j<50;j++)
-            {
                 window.draw(waterTiles[i][j].waterSprite);
             }
         }
+
         window.display();
     }
 }
