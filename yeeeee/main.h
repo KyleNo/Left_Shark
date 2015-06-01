@@ -386,6 +386,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
         if(actionMenu)
         {
             user = heroes[selectedHero];
+            cout << user.team << endl;
             View windowView = window.getView();
             Vector2i screenPosition = window.mapCoordsToPixel(windowView.getCenter());
 
@@ -543,10 +544,10 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                 mouseCounter = 0;
             }
         }
+
         heroesReady.resize(testmap.numberOfCharactersPossible);
         vector<int>teamRecorder;
         int teamCounter = 0;
-
         for(int q = 0; q < testmap.numberOfCharactersPossible; q++){
             if(heroes[q].action && heroes[q].moved && teamActive == heroes[q].team){//checks all heroes on active team
                 heroesReady[q] = true;
@@ -562,7 +563,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                 teamRecorder.push_back(x);
             }
         }
-        cout << teamActive << endl;
         for(int z = 0; z < teamRecorder.size(); z++){
             if(teamRecorder.size() == teamCounter){//resets
                 heroes[teamRecorder[z]].moved = false;
@@ -570,14 +570,19 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                 teamFinished = true;
             }
         }
+        if(teamCounter <= 0){
+            teamFinished == false;
+        }
+        cout << teamActive << ", " << teamCounter << ", " << teamFinished << endl;
         if(teamFinished){
             if(teamActive == 1 || teamActive == 2){
                     teamActive++;
-                    teamFinished = false;
-                }else if(teamActive == 3){
+                }else{
                     teamActive = 1;
-                    teamFinished = false;
         }
+        teamFinished = false;
+        teamRecorder.clear();
+        teamCounter = 0;
         }
         if(teamActive == -1){
             cout << "Init game" << endl;
@@ -585,6 +590,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
             for(int zz = 0; zz > testmap.numberOfCharactersPossible; zz++){
                 heroes[zz].moved = true;
                 heroes[zz].action = true;
+                heroesReady[zz] = false;
             }
         }
         for (int i=0;i<testmap.numberOfCharactersPossible;i++)
