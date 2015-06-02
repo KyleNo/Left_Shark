@@ -149,7 +149,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
     bool mousePressed = false;
     bool attackMenu = false;
     //here we go again figuring out this tinyxml bs
-
+    sf::Vector2f difference;
     bool releasedMouse=false;
     sf::Vector2i mousePos;
     view1.move(400,320); //sets view to top left corner
@@ -282,7 +282,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
             buttonPressed = false;
         }
         //alternative movement system                                                       you have to check whether every single button is being hovered over... idk what else to do; I put these in parenthesis
-        if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) and !mouseHovering and ((!moveHero.hover and !actHero.hover and !cancelHero.hover and !wepAtk.hover and !jobAtk.hover and !cancelAtk.hover) or !actionMenu) and !startPress)
+        if((sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) and ((!moveHero.hover and !actHero.hover and !cancelHero.hover and !wepAtk.hover and !jobAtk.hover and !cancelAtk.hover) or !actionMenu) and !startPress))
         {
             startPress=true;
             startLocation=sf::Mouse::getPosition();
@@ -290,17 +290,10 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
         if (startPress==true)
         {
 
-            sf::Vector2f difference=sf::Vector2f(0,0);
-            int temp;
+            difference=sf::Vector2f(0,0);
             difference.x=sf::Mouse::getPosition().x - startLocation.x;
             difference.y=sf::Mouse::getPosition().y - startLocation.y;
             startLocation=sf::Mouse::getPosition();
-            //cout << difference.x << "," << difference.y << endl;
-
-            //view1.move(-difference.x,0);
-
-            //cout << viewCounterX<<", "<< viewCounterY<<endl;
-
             if((difference.x<0 and viewCounterX<testmap.width*32-800) or (difference.x>0 and viewCounterX>0))
             {
                 if(viewCounterX-difference.x<0)
@@ -334,14 +327,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
         {
             startPress=false;
         }
-
-
-
-
-
-
-
-
 
 
         sf::Vector2i screenPos;
