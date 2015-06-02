@@ -25,10 +25,19 @@ int main()
     //this loads the actual text info from the xml file
 
     tinyxml2::XMLNode* herose = charAtrib.FirstChildElement("heroes");
-    //this is a node
+    //this is a node, which is a data point on a larger network
+    //This gives us a point to refer to within the xml;
 
     for(int i=0; i<4; i++){
         tinyxml2::XMLElement* nameElement = herose->FirstChildElement(names[i])->FirstChildElement("name");
+        //The node <heroes> contains 4 child elements referred to in line 10
+        //"->" means that we are using the node on the left of the arrow to locate another node/element;
+        //In this case, we use the herose node which points to the <heroes> node
+        //  and check for a child element with the name represented by the const char pointer array
+        //  the first time that it goes through the for loop it searches for a child element "David"
+        //  and the first child element of <David> that is named "name"
+
+
         tinyxml2::XMLElement* agilityElement = nameElement->NextSiblingElement("agility");
         tinyxml2::XMLElement* rangeElement = herose->FirstChildElement(names[i])->FirstChildElement("range");
 
