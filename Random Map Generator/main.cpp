@@ -71,7 +71,7 @@ int main()
         }
     }
     float islands[3] = {.0015,.0048,.0135};
-    int islandsColors[4][3] = {{191, 196, 26},{204, 204, 0},{51,153,51},{102,153,153}};
+    int islandsColors[4][3] = {{0, 0, 250},{204, 204, 0},{51,153,51},{102,153,153}};
     float plains[3] = {-.01,0,.01};
     int plainsColors[4][3] = {{0, 128, 41},{0, 153, 51},{51, 153, 51},{0, 153, 0}};
     tile tileMap[50][50];
@@ -155,7 +155,7 @@ int main()
         {
             for (int j=0;j<50;j++)
             {
-                window.draw(waterTiles[i][j].waterSprite);
+                //window.draw(waterTiles[i][j].waterSprite);
             }
         }
         window.display();

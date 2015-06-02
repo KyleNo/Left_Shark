@@ -31,7 +31,8 @@ public:
     hero useAbility(ability abilityUsed, hero target);
     void placehero(sf::RenderWindow& window, int characterx, int charactery, bool initialPlacement, sf::Vector2f tileTo);
     void assignhero(const char* names);
-    vector<sf::Vector2i> rangecheck(vector< vector <bool> > passableTile,sf::RenderWindow& window, bool attacking);
+    vector<sf::Vector2i> rangecheck(vector< vector <bool> > passableTile,sf::RenderWindow& window);
+    vector<sf::Vector2i> rangecheck(vector< vector <bool> > passableTile,sf::RenderWindow& window, ability abilityUsed);
 };
 
 sf::Vector2i adjacencyCheck(int orientation,sf::Vector2i tileChecking, vector< vector <bool> > passableTiles, vector<sf::Vector2i> tilesChecked, bool attacking)
@@ -71,30 +72,20 @@ sf::Vector2i adjacencyCheck(int orientation,sf::Vector2i tileChecking, vector< v
 }
 
 
-vector<sf::Vector2i> hero::rangecheck(vector< vector <bool> > passableTile,sf::RenderWindow& window, bool attacking)
+vector<sf::Vector2i> hero::rangecheck(vector< vector <bool> > passableTile,sf::RenderWindow& window)
 {
-    attackRange=2;
-    int checkRange;
-    if (attacking)
-    {
-        checkRange=attackRange;
-    }
-    else
-    {
-        checkRange=range;
-    }
     vector<sf::Vector2i> tilesToCheck,tilesChecked,tilesLastChecked;
     sf::Vector2i tileChecking;
     Position.x=sprite.getPosition().x/32;
     Position.y=sprite.getPosition().y/32;
     tilesToCheck.push_back(Position);
-    for (int i=0;i<checkRange;i++)
+    for (int i=0;i<range;i++)
     {
         for (int j=0;j<tilesToCheck.size();j++)
         {
             for (int k=0;k<4;k++)
             {
-                tileChecking=adjacencyCheck(k,tilesToCheck[j],passableTile,tilesChecked, attacking);
+                tileChecking=adjacencyCheck(k,tilesToCheck[j],passableTile,tilesChecked, false);
                 if (tileChecking.x!=-1)
                 {
                     tilesLastChecked.push_back(tileChecking);
@@ -109,7 +100,38 @@ vector<sf::Vector2i> hero::rangecheck(vector< vector <bool> > passableTile,sf::R
         }
         tilesLastChecked.clear();
     }
-    cout << tilesChecked.size() << endl;
+    return tilesChecked;
+}
+
+vector<sf::Vector2i> hero::rangecheck(vector< vector <bool> > passableTile,sf::RenderWindow& window, ability abilityUsed)
+{
+    int attackRange=abilityUsed.range;
+    vector<sf::Vector2i> tilesToCheck,tilesChecked,tilesLastChecked;
+    sf::Vector2i tileChecking;
+    Position.x=sprite.getPosition().x/32;
+    Position.y=sprite.getPosition().y/32;
+    tilesToCheck.push_back(Position);
+    for (int i=0;i<attackRange;i++)
+    {
+        for (int j=0;j<tilesToCheck.size();j++)
+        {
+            for (int k=0;k<4;k++)
+            {
+                tileChecking=adjacencyCheck(k,tilesToCheck[j],passableTile,tilesChecked, true);
+                if (tileChecking.x!=-1)
+                {
+                    tilesLastChecked.push_back(tileChecking);
+                    tilesChecked.push_back(tileChecking);
+                }
+            }
+        }
+        tilesToCheck.clear();
+        for (int j=0;j<tilesLastChecked.size();j++)
+        {
+            tilesToCheck.push_back(tilesLastChecked[j]);
+        }
+        tilesLastChecked.clear();
+    }
     return tilesChecked;
 }
 

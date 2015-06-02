@@ -354,7 +354,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
 
 
 
-        if (((event.type == sf::Event::MouseButtonPressed) || mousePressed) and actionMenu == false)
+        if (((event.type == sf::Event::MouseButtonPressed) || mousePressed) and actionMenu == false || attackMenu == false)
         {
             sf::Vector2i playerPosition;
             if (event.mouseButton.button == sf::Mouse::Left && !drawingTiles)
@@ -386,7 +386,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
         if(actionMenu)
         {
             user = heroes[selectedHero];
-            cout << user.team << endl;
+
             View windowView = window.getView();
             Vector2i screenPosition = window.mapCoordsToPixel(windowView.getCenter());
 
@@ -399,7 +399,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
             {
                 if(moveHero.hovercheck(tiles[8].position*32, mousePressed)==true and !attackMenu)
                 {
-                    validtiles=heroes[selectedHero].rangecheck(testmap.passableTile, window, false);
+                    validtiles=heroes[selectedHero].rangecheck(testmap.passableTile, window);
                     stepOnMe.resize(validtiles.size());
                     mousePressed=true;
                     actionMenu=false;
@@ -429,11 +429,10 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
         wepAtk.setPosition(((user.Position.x)*32) + 50, user.Position.y*32);
         jobAtk.setPosition(((user.Position.x)*32) - 125, user.Position.y*32);
         cancelAtk.setPosition(((user.Position.x)*32) - 35 , user.Position.y*32 - 35);
-        if(attackMenu==true)
+        if(attackMenu)
         {
             hero target;
-            target = heroes[selectedHero+1];
-
+            bool targetSet = false;
             View windowView = window.getView();
             Vector2i screenPosition = window.mapCoordsToPixel(windowView.getCenter());
 
@@ -447,26 +446,29 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                     testAbility.isBuff = false;
                     testAbility.isHeal = false;
                     testAbility.abilityPotency = 5;
-                    testAbility.range = 1000;
+                    testAbility.range = 2;
                     testAbility.abilityModifier = 1;
-                    target = user.useAbility(testAbility, target);
-                    heroes[selectedHero] = target;
-                    heroes[selectedHero] = user;
-                    attackrange=heroes[selectedHero].rangecheck(testmap.passableTile, window, true);
+                    attackrange=user.rangecheck(testmap.passableTile, window, testAbility);
+                    for(int xx = 0; xx < attackrange.size(); xx++){
+                        for(int xy = 0; xy < numberofcharacterspossible; xy++){
+                            if((event.type == sf::Event::MouseButtonPressed && mousePressed)){
+                                if(attackrange[xx] == heroes[xy].Position && tiles[8].position == attackrange[xx]){
+                                    target = heroes[xy];
+                                    targetSet = true;
+                                }else targetSet = false;
+                            }
+                        }
+                    }
+                    if(targetSet){
+                        target = user.useAbility(testAbility, target);
+                        heroes[selectedHero] = target;
+                        heroes[selectedHero] = user;
+                        cout << target.currentHealth << endl;
+                    }
                 }
                 if(jobAtk.hovercheck(tiles[8].position*32, mousePressed) && !user.action)
                 {
-                    ability testAbility;
-                    testAbility.isAttack = true;
-                    testAbility.isBuff = false;
-                    testAbility.isHeal = false;
-                    testAbility.abilityPotency = 5;
-                    testAbility.range = 1000;
-                    testAbility.abilityModifier = 1;
-                    target = user.useAbility(testAbility, target);
-                    heroes[selectedHero+1] = target;
-                    heroes[selectedHero] = user;
-                    attackrange=heroes[selectedHero].rangecheck(testmap.passableTile, window, true);
+                    //TBI
                 }
                 attackMe.resize(attackrange.size());
                 attackMenu=false;
@@ -573,7 +575,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
         if(teamCounter <= 0){
             teamFinished == false;
         }
-        cout << teamActive << ", " << teamCounter << ", " << teamFinished << endl;
         if(teamFinished){
             if(teamActive == 1 || teamActive == 2){
                     teamActive++;
