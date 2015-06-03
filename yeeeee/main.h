@@ -137,7 +137,8 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
 
     //designate characters
     hero heroes[testmap.numberOfCharactersPossible];
-    const char* heroNames[4]={"David","Kyle","Doesntdoshit","Nathaniel"};
+    const char* heroNames[4]={"David","Kyle","Jordan","Nathaniel"};
+
     for (int i=0;i<testmap.numberOfCharactersPossible;i++)
     {
         heroes[i].assignhero(heroNames[i]);
@@ -181,6 +182,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                 releasedMouse=false;
             }
         }
+        cout << " ??? " << endl;
         //screen movement
         /*
         if(sf::Mouse::getPosition(window).x > 672 and view1.getCenter().x < testmap.width*32-400)
@@ -342,7 +344,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
 
 
 
-
+        cout << "?? " << endl;
 
         sf::Vector2i screenPos;
         mousePos = sf::Mouse::getPosition(window);
@@ -427,6 +429,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
         wepAtk.setPosition(((user.Position.x)*32) + 50, user.Position.y*32);
         jobAtk.setPosition(((user.Position.x)*32) - 125, user.Position.y*32);
         cancelAtk.setPosition(((user.Position.x)*32) - 35 , user.Position.y*32 - 35);
+        cout << "?" << endl;
         if(attackMenu)
         {
             hero target;
