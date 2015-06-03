@@ -39,15 +39,20 @@ int main()
 
 
         tinyxml2::XMLElement* agilityElement = nameElement->NextSiblingElement("agility");
+        //From the element we just made, we can find the next sibling with the name "agility"
+
         tinyxml2::XMLElement* rangeElement = herose->FirstChildElement(names[i])->FirstChildElement("range");
+        //Alternatively, we can just go straight from the herose node
 
         name = nameElement->GetText();
+        //The elements are just pointers, we need to access the text part
 
         stringstream convert[2];
         convert[0] << rangeElement->GetText();
         convert[0] >> range;
         convert[1] << agilityElement->GetText();
         convert[1] >> agility;
+        //Just use this to make numbers usable in calculation
 
         cout << name << "\t"<<range << "\t" << agility << "\t" << range * agility << endl;
     }
