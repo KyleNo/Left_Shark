@@ -137,7 +137,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
 
     //designate characters
     hero heroes[testmap.numberOfCharactersPossible];
-    const char* heroNames[4]={"David","Kyle","Jordan","Nathaniel"};
+    const char* heroNames[4]={"hero1","hero2","hero3","hero4"};
 
     for (int i=0;i<testmap.numberOfCharactersPossible;i++)
     {
