@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <heroes>
-  <David>
+  <hero1>
     <name>David</name>
     <health>10</health>
-    <experience>0</experience>
+    <experience>80</experience>
     <attack>2</attack>
     <agility>4</agility>
     <range>15</range>
     <texturelocation>resources/images/TestChar.png</texturelocation>
-	<job>Soldier</job>
-	<description>Shoots stuff</description>
-  </David>
-  <Kyle>
+	<job>Rogue</job>
+	<description>Devious</description>
+  </hero1>
+  <hero2>
     <name>Kyle</name>
     <health>6</health>
     <experience>0</experience>
@@ -19,10 +19,10 @@
     <agility>7</agility>
     <range>18</range>
     <texturelocation>resources/images/TestChar.png</texturelocation>
-	<job>This presentation</job>
+	<job>Warrior</job>
 	<description>cool guy</description>
-  </Kyle>
-  <Jordan>
+  </hero2>
+  <hero3>
     <name>Jordan</name>
     <health>15</health>
     <experience>0</experience>
@@ -30,10 +30,10 @@
     <agility>2</agility>
     <range>14</range>
     <texturelocation>resources/images/TestChar.png</texturelocation>
-	<job>CDs?</job>
+	<job>Mage</job>
 	<description>fool guy</description>
-  </Jordan>
-  <Nathaniel>
+  </hero3>
+  <hero4>
 	<name>Nathan</name>
     <health>69</health>
     <experience>0</experience>
@@ -41,7 +41,8 @@
     <agility>9</agility>
     <range>12</range>
     <texturelocation>resources/images/TestChar.png</texturelocation>
-	<job>Pro Dancer</job>
+	<job>Archer</job>
 	<description>He likes to dance</description>
-  </Nathaniel>
+  </hero4>
+  
 </heroes>
