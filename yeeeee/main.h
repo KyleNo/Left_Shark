@@ -107,6 +107,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
     tilemap testmap;
     testmap.mapSize = 400;
     vector<bool> heroesReady;
+    vector<hero> attackableHeroes;
     int teamActive = -1;
 
     tileBeingUsed=testmap.generateTileCollection(mapChoice,tiles);
@@ -149,6 +150,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
     bool checkingValidity = false;
     bool mousePressed = false;
     bool attackMenu = false;
+    bool selecting = false;
     //here we go again figuring out this tinyxml bs
 
     bool releasedMouse=false;
@@ -182,7 +184,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                 releasedMouse=false;
             }
         }
-        cout << " ??? " << endl;
         //screen movement
         /*
         if(sf::Mouse::getPosition(window).x > 672 and view1.getCenter().x < testmap.width*32-400)
@@ -338,14 +339,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
         }
 
 
-
-
-
-
-
-
-        cout << "?? " << endl;
-
         sf::Vector2i screenPos;
         mousePos = sf::Mouse::getPosition(window);
         screenPos.x = window.mapPixelToCoords(mousePos).x;
@@ -363,7 +356,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
             {
                 for (int i=0;i<testmap.numberOfCharactersPossible;i++)
                 {
-                    if (tiles[8].tileSprite.getPosition().x==(heroes[i].sprite.getPosition().x/32)*32 && tiles[8].tileSprite.getPosition().y==(heroes[i].sprite.getPosition().y/32)*32 and !actionMenu and !drawingTiles and heroes[i].team == teamActive)
+                    if (tiles[8].tileSprite.getPosition().x==(heroes[i].sprite.getPosition().x/32)*32 && tiles[8].tileSprite.getPosition().y==(heroes[i].sprite.getPosition().y/32)*32 and !actionMenu and !drawingTiles && !selecting)
                     {
                         selectedHero=i;
                         mouseHovering=true;
@@ -429,42 +422,68 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
         wepAtk.setPosition(((user.Position.x)*32) + 50, user.Position.y*32);
         jobAtk.setPosition(((user.Position.x)*32) - 125, user.Position.y*32);
         cancelAtk.setPosition(((user.Position.x)*32) - 35 , user.Position.y*32 - 35);
-        cout << "?" << endl;
-        if(attackMenu)
+        if(attackMenu || selecting)
         {
             hero target;
-            bool targetSet = false;
+            int targetSet = -1;
             View windowView = window.getView();
             Vector2i screenPosition = window.mapCoordsToPixel(windowView.getCenter());
 
 
             if ((event.type == sf::Event::MouseButtonPressed) and !mousePressed)
             {
-                if(wepAtk.hovercheck(tiles[8].position*32, mousePressed) && !user.action)
+                if((wepAtk.hovercheck(tiles[8].position*32, mousePressed) && !user.action) || selecting)
                 {
                     ability testAbility;
                     testAbility.isAttack = true;
                     testAbility.isBuff = false;
                     testAbility.isHeal = false;
-                    testAbility.abilityPotency = 5;
+                    testAbility.abilityPotency = 50;
                     testAbility.range = 2;
                     testAbility.abilityModifier = 1;
-                    attackrange=user.rangecheck(testmap.passableTile, window, testAbility);
-                    for(int xx = 0; xx < attackrange.size(); xx++){
-                        for(int xy = 0; xy < numberofcharacterspossible; xy++){
-                            if((event.type == sf::Event::MouseButtonPressed && mousePressed)){
-                                if(attackrange[xx] == heroes[xy].Position && tiles[8].position == attackrange[xx]){
-                                    target = heroes[xy];
-                                    targetSet = true;
-                                }else targetSet = false;
+                    if(selecting == false){
+                        attackrange=user.rangecheck(testmap.passableTile, window, testAbility);
+                        selecting = true;
+                    }
+                    for(int xy = 0; xy < testmap.numberOfCharactersPossible; xy++){
+                        for(int xx = 0; xx < attackrange.size(); xx++){
+                            if(attackrange[xx] == heroes[xy].Position && xy!=selectedHero){
+                                attackableHeroes.push_back(heroes[xy]);
                             }
                         }
                     }
-                    if(targetSet){
+                    cout << tiles[8].position.x << " " << tiles[8].position.y << endl;
+                    if((event.type == sf::Event::MouseButtonPressed)){
+                            cout << "?" << endl;
+                        for(int aa = 0; aa < attackableHeroes.size(); aa++){
+                            if(tiles[8].position == attackableHeroes[aa].Position){
+                                target = attackableHeroes[aa];
+                                targetSet = aa;
+                            }
+                            else{
+                                targetSet = -2;
+                            }
+                        }
+                    }
+                    cout << targetSet << endl;
+                    if(targetSet != -1){
                         target = user.useAbility(testAbility, target);
-                        heroes[selectedHero] = target;
+                        selecting = false;
+                        heroes[targetSet] = target;
                         heroes[selectedHero] = user;
+                        targetSet = -1;
+                        selectedHero = -1;
+                        attackableHeroes.clear();
+                        attackrange.clear();
                         cout << target.currentHealth << endl;
+                        drawingTiles = false;
+                    }else if(targetSet == -2){
+                        selecting = false;
+                        attackableHeroes.clear();
+                        attackrange.clear();
+                        targetSet = -1;
+                        selectedHero = -1;
+                        drawingTiles = false;
                     }
                 }
                 if(jobAtk.hovercheck(tiles[8].position*32, mousePressed) && !user.action)
@@ -523,14 +542,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                             stepOnMe.clear();
                         }
                     }
-                    for (int i=0;i<attackrange.size();i++)
-                    {
-                        if (tiles[8].tileSprite.getPosition().x==attackMe[i].tileSprite.getPosition().x and tiles[8].tileSprite.getPosition().y==attackMe[i].tileSprite.getPosition().y)
-                        {
-                            drawingTiles=false;
-                            mousePressed=true;
-                        }
-                    }
                 }
             }
         }
@@ -548,53 +559,52 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
             }
         }
 
-        heroesReady.resize(testmap.numberOfCharactersPossible);
-        vector<int>teamRecorder;
-        int teamCounter = 0;
-        for(int q = 0; q < testmap.numberOfCharactersPossible; q++){
-            if(heroes[q].action && heroes[q].moved && teamActive == heroes[q].team){//checks all heroes on active team
-                heroesReady[q] = true;
-            }
-        }
-        for(int w = 0; w < testmap.numberOfCharactersPossible; w++){
-            if(heroes[w].team = teamActive){
-                teamCounter++;
-            }
-        }
-        for(int x = 0; x < testmap.numberOfCharactersPossible; x++){
-            if(heroesReady[x]&&teamActive == heroes[x].team){//holds all exerted heroes position in heroes
-                teamRecorder.push_back(x);
-            }
-        }
-        for(int z = 0; z < teamRecorder.size(); z++){
-            if(teamRecorder.size() == teamCounter){//resets
-                heroes[teamRecorder[z]].moved = false;
-                heroes[teamRecorder[z]].action = false;
-                teamFinished = true;
-            }
-        }
-        if(teamCounter <= 0){
-            teamFinished == false;
-        }
-        if(teamFinished){
-            if(teamActive == 1 || teamActive == 2){
-                    teamActive++;
-                }else{
-                    teamActive = 1;
-        }
-        teamFinished = false;
-        teamRecorder.clear();
-        teamCounter = 0;
-        }
-        if(teamActive == -1){
-            cout << "Init game" << endl;
-            teamActive = 1;
-            for(int zz = 0; zz > testmap.numberOfCharactersPossible; zz++){
-                heroes[zz].moved = true;
-                heroes[zz].action = true;
-                heroesReady[zz] = false;
-            }
-        }
+//        heroesReady.resize(testmap.numberOfCharactersPossible);
+//        vector<int>teamRecorder;
+//        int teamCounter = 0;
+//        for(int q = 0; q < testmap.numberOfCharactersPossible; q++){
+//            if(heroes[q].action && heroes[q].moved && teamActive == heroes[q].team){//checks all heroes on active team
+//                heroesReady[q] = true;
+//            }
+//        }
+//        for(int w = 0; w < testmap.numberOfCharactersPossible; w++){
+//            if(heroes[w].team = teamActive){
+//                teamCounter++;
+//            }
+//        }
+//        for(int x = 0; x < testmap.numberOfCharactersPossible; x++){
+//            if(heroesReady[x]&&teamActive == heroes[x].team){//holds all exerted heroes position in heroes
+//                teamRecorder.push_back(x);
+//            }
+//        }
+//        for(int z = 0; z < teamRecorder.size(); z++){
+//            if(teamRecorder.size() == teamCounter){//resets
+//                heroes[teamRecorder[z]].moved = false;
+//                heroes[teamRecorder[z]].action = false;
+//                teamFinished = true;
+//            }
+//        }
+//        if(teamCounter <= 0){
+//            teamFinished == false;
+//        }
+//        if(teamFinished){
+//            if(teamActive == 1 || teamActive == 2){
+//                    teamActive++;
+//                }else{
+//                    teamActive = 1;
+//        }
+//        teamFinished = false;
+//        teamRecorder.clear();
+//        teamCounter = 0;
+//        }
+//        if(teamActive == -1){
+//            teamActive = 1;
+//            for(int zz = 0; zz > testmap.numberOfCharactersPossible; zz++){
+//                heroes[zz].moved = true;
+//                heroes[zz].action = true;
+//                heroesReady[zz] = false;
+//            }
+//        }
         for (int i=0;i<testmap.numberOfCharactersPossible;i++)
         {
             window.draw(heroes[i].sprite);

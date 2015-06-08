@@ -34,26 +34,26 @@ void water::waterMovement(double heightmap[50][50], water waterTiles[50][50], in
     {
         if (waterTiles[waters.x][waters.y-1].amountOfWater+heightmap[waters.x][waters.y-1]<amountOfWater+heightmap[waters.x][waters.y] and amountOfWater>=.001)
         {
-            cout << "one\n";
+            //cout << "one\n";
             waterPositions.push_back(sf::Vector2i(waters.x,waters.y-1));
         }
         if (waterTiles[waters.x+1][waters.y].amountOfWater+heightmap[waters.x+1][waters.y]<amountOfWater+heightmap[waters.x][waters.y] and amountOfWater>=.001)
         {
-            cout << "two\n";
+            //cout << "two\n";
             waterPositions.push_back(sf::Vector2i(waters.x+1,waters.y));
         }
         if (waterTiles[waters.x][waters.y+1].amountOfWater+heightmap[waters.x][waters.y+1]<amountOfWater+heightmap[waters.x][waters.y] and amountOfWater>=.001)
         {
-            cout << "three\n";
+            //cout << "three\n";
             waterPositions.push_back(sf::Vector2i(waters.x,waters.y+1));
         }
         if (waterTiles[waters.x-1][waters.y].amountOfWater+heightmap[waters.x-1][waters.y]<amountOfWater+heightmap[waters.x][waters.y] and amountOfWater>=.001)
         {
-            cout << "four\n";
+            //cout << "four\n";
             waterPositions.push_back(sf::Vector2i(waters.x-1,waters.y));
         }
         amountOfWaterToFlow=amountOfWater/waterPositions.size();
-        cout << "\t" << amountOfWater << "\t" << waterPositions.size() << endl;
+       // cout << "\t" << amountOfWater << "\t" << waterPositions.size() << endl;
     }
     for (int i=0;i<waterPositions.size();i++)
     {
@@ -80,11 +80,7 @@ int main()
         }
     }
     float islands[3] = {.0015,.0048,.0135};
-<<<<<<< HEAD
     int islandsColors[4][3] = {{0, 0, 250},{204, 204, 0},{51,153,51},{102,153,153}};
-=======
-    int islandsColors[4][3] = {{165, 136, 92},{204, 204, 0},{51,153,51},{102,153,153}};
->>>>>>> origin/WiP
     float plains[3] = {-.01,0,.01};
     int plainsColors[4][3] = {{0, 128, 41},{0, 153, 51},{51, 153, 51},{0, 153, 0}};
     tile tileMap[50][50];
@@ -162,19 +158,15 @@ int main()
             for (int j=0;j<50;j++)
             {
                 window.draw(tileMap[i][j].tile);
-<<<<<<< HEAD
             }
         }
-        for (int i=0;i<50;i++)
-        {
-            for (int j=0;j<50;j++)
-            {
-                //window.draw(waterTiles[i][j].waterSprite);
-=======
-                window.draw(waterTiles[i][j].waterSprite);
->>>>>>> origin/WiP
-            }
-        }
+//        for (int i=0;i<50;i++)
+//        {
+//            for (int j=0;j<50;j++)
+//            {
+//                window.draw(waterTiles[i][j].waterSprite);
+//            }
+//        }
 
         window.display();
     }
