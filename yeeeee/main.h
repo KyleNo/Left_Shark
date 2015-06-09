@@ -416,7 +416,6 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
         }
         else
         {
-            mousePressed = false;
             tiles[8].drawToGrid(tiles[8].position.x, tiles[8].position.y,window.getView(), window);
         }
         wepAtk.setPosition(((user.Position.x)*32) + 50, user.Position.y*32);
@@ -441,13 +440,16 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                     testAbility.abilityPotency = 50;
                     testAbility.range = 2;
                     testAbility.abilityModifier = 1;
-                    if(selecting == false){
+                    if(selecting == false)
+                    {
                         attackrange=user.rangecheck(testmap.passableTile, window, testAbility);
                         selecting = true;
                     }
-                    for(int xy = 0; xy < testmap.numberOfCharactersPossible; xy++){
+                    for(int xy = 0; xy < testmap.numberOfCharactersPossible; xy++)
+                    {
                         for(int xx = 0; xx < attackrange.size(); xx++){
-                            if(attackrange[xx] == heroes[xy].Position && xy!=selectedHero){
+                            if(attackrange[xx] == heroes[xy].Position && xy!=selectedHero)
+                            {
                                 attackableHeroes.push_back(heroes[xy]);
                             }
                         }
@@ -466,7 +468,8 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                         }
                     }
                     cout << targetSet << endl;
-                    if(targetSet != -1){
+                    if(targetSet != -1)
+                    {
                         target = user.useAbility(testAbility, target);
                         selecting = false;
                         heroes[targetSet] = target;
@@ -477,7 +480,9 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                         attackrange.clear();
                         cout << target.currentHealth << endl;
                         drawingTiles = false;
-                    }else if(targetSet == -2){
+                    }
+                    else if(targetSet == -2)
+                    {
                         selecting = false;
                         attackableHeroes.clear();
                         attackrange.clear();
@@ -493,7 +498,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                 attackMe.resize(attackrange.size());
                 attackMenu=false;
                 actionMenu=false;
-                }
+            }
         }
         if (!drawingTiles)
         {
@@ -554,11 +559,12 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
         {
             mouseCounter++;
             if(mouseCounter>=20){
+                cout << "why are we here?\n";
                 mousePressed=false;
                 mouseCounter = 0;
             }
         }
-
+            //WHAT THE FUCK IS THIS
 //        heroesReady.resize(testmap.numberOfCharactersPossible);
 //        vector<int>teamRecorder;
 //        int teamCounter = 0;

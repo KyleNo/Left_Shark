@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<heroes>
+  <hero1>
+    <name>David</name>
+    <health>10</health>
+    <experience>80</experience>
+    <attack>2</attack>
+    <agility>4</agility>
+    <range>15</range>
+    <texturelocation>resources/images/TestChar.png</texturelocation>
+	<job>Rogue</job>
+	<description>Devious</description>
+  </hero1>
+  <hero2>
+    <name>Kyle</name>
+    <health>6</health>
+    <experience>0</experience>
+    <attack>1</attack>
+    <agility>7</agility>
+    <range>18</range>
+    <texturelocation>resources/images/TestChar.png</texturelocation>
+	<job>Warrior</job>
+	<description>cool guy</description>
+  </hero2>
+  <hero3>
+    <name>Jordan</name>
+    <health>15</health>
+    <experience>0</experience>
+    <attack>5</attack>
+    <agility>2</agility>
+    <range>14</range>
+    <texturelocation>resources/images/TestChar.png</texturelocation>
+	<job>Mage</job>
+	<description>fool guy</description>
+  </hero3>
+  <hero4>
+	<name>Nathan</name>
+    <health>69</health>
+    <experience>0</experience>
+    <attack>1</attack>
+    <agility>9</agility>
+    <range>12</range>
+    <texturelocation>resources/images/TestChar.png</texturelocation>
+	<job>Archer</job>
+	<description>He likes to dance</description>
+  </hero4>
+  
+</heroes>

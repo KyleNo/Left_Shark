@@ -143,12 +143,9 @@ void hero::assignhero(const char* names)
     tinyxml2::XMLNode* herose = doc.FirstChildElement("heroes");
 
     tinyxml2::XMLElement* nameElement = herose->FirstChildElement( names )->FirstChildElement("name");
-
     tinyxml2::XMLElement* healthElement = nameElement->NextSiblingElement("health");
-
     tinyxml2::XMLElement* experienceElement = healthElement->NextSiblingElement("experience");
     tinyxml2::XMLElement* attackElement = experienceElement->NextSiblingElement("attack");
-
     tinyxml2::XMLElement* agilityElement = attackElement->NextSiblingElement("agility");
     tinyxml2::XMLElement* rangeElement = agilityElement->NextSiblingElement("range");
     tinyxml2::XMLElement* texturelocationElement = rangeElement->NextSiblingElement("texturelocation");
