@@ -182,7 +182,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
                 releasedMouse=false;
             }
         }
-        cout << " ??? " << endl;
+        //cout << " ??? " << endl;
         //screen movement
         /*
         if(sf::Mouse::getPosition(window).x > 672 and view1.getCenter().x < testmap.width*32-400)
@@ -284,7 +284,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
             buttonPressed = false;
         }
         //alternative movement system                                                       you have to check whether every single button is being hovered over... idk what else to do; I put these in parenthesis
-        if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) and !mouseHovering and ((!moveHero.hover and !actHero.hover and !cancelHero.hover and !wepAtk.hover and !jobAtk.hover and !cancelAtk.hover) or !actionMenu) and !startPress)
+        if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) and !mouseHovering and ((!moveHero.hover and !actHero.hover and !cancelHero.hover and !wepAtk.hover and !jobAtk.hover and !cancelAtk.hover) or !actionMenu) and !startPress and (sf::Mouse::getPosition(window).x>0 and sf::Mouse::getPosition(window).x<800 and sf::Mouse::getPosition(window).y>0 and sf::Mouse::getPosition(window).y<600))
         {
             startPress=true;
             startLocation=sf::Mouse::getPosition();
@@ -332,7 +332,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
             }
             window.setView(view1);
         }
-        if(releasedMouse)
+        if(releasedMouse || !sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
         {
             startPress=false;
         }
@@ -344,7 +344,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
 
 
 
-        cout << "?? " << endl;
+        //cout << "?? " << endl;
 
         sf::Vector2i screenPos;
         mousePos = sf::Mouse::getPosition(window);
@@ -429,7 +429,7 @@ void tileDraw(sf::RenderWindow& window, int numberofcharacterspossible, string m
         wepAtk.setPosition(((user.Position.x)*32) + 50, user.Position.y*32);
         jobAtk.setPosition(((user.Position.x)*32) - 125, user.Position.y*32);
         cancelAtk.setPosition(((user.Position.x)*32) - 35 , user.Position.y*32 - 35);
-        cout << "?" << endl;
+        //cout << "?" << endl;
         if(attackMenu)
         {
             hero target;
