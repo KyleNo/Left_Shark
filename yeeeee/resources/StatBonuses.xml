@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <StatBonuses>
 	<Thief>
-		<Health>-10</Health>
-		<Range><
+		<Health></Health>
+		<Range></range>
+		<attack></attack>
+		<agility></agility>
+		<job></job>
+		<texturelocation></texturelocation>
+		<description></description>
 	</Thief>
 </StatBonuses>
